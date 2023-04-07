@@ -1,3 +1,5 @@
+use train_mystery::run;
+
 fn main() {
-    println!("Hello, world!");
+    run();
 }
