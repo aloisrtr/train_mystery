@@ -1,29 +1,23 @@
 use std::collections::HashMap;
-use serde_derive::{Deserialize};
+
+
+use crate::graph::graphparser::gamegraphjson::GameGraphJSON;
 
 use crate::graph::automatonstate::AutomatonState;
 
-pub fn create_automaton(filedest: &str) {
-    println!("Ouverture du fichier {filedest}");
-}
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug)]
 pub struct Automaton {
     state: String,
     statelist: HashMap<String, AutomatonState>,
 }
 
 impl Automaton {
+    pub fn create_automaton(filedest: &String) -> Automaton {
 
-}
-
-
-#[cfg(test)]
-mod automata {
-    use super::*;
-
-    #[test]
-    fn create_automaton_test() {
-        create_automaton("res/automata/character1.json");
+        return Automaton {
+            state: String::new(),
+            statelist: HashMap::new(),
+        };
     }
 }

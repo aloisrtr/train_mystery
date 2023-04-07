@@ -1,10 +1,9 @@
 use std::collections::HashMap;
-use serde_derive::{Deserialize};
 
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug)]
 pub struct AutomatonState {
     pub dialogue: String,
-    pub location: i16,
+    pub location: String,
     pub edges: HashMap<String, AutomatonState>,
 }
