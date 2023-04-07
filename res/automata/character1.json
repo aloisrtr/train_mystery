@@ -1,10 +1,13 @@
 {
     "name": "",
-    "States": {
-        "Statename" : {
-            "dialogue": "",
+    "states": {
+        "statename" : {
+            "dialogue": [
+                "",
+                ""
+            ],
             "location": "",
-            "Edges": {
+            "edges": {
                     "event": "StateEnd"
             }
         }
