@@ -3,17 +3,17 @@ use std::collections::HashMap;
 
 #[derive(Deserialize, Debug)]
 pub struct GameGraphJSON {
-    characters: HashMap<String, String>,
+    pub characters: HashMap<String, String>,
 }
 
 impl GameGraphJSON {
     pub fn create_gamegraph_json(filedest: &str) -> GameGraphJSON {
-        println!("Ouverture du fichier {filedest}");
+        //println!("Ouverture du fichier {filedest}");
         
         let gamegraphjsonfile = std::fs::read_to_string(&filedest).unwrap();
         let gamegraphjson = serde_json::from_str::<GameGraphJSON>(&gamegraphjsonfile).unwrap();
 
-        println!("{:?}", gamegraphjson);
+        //println!("{:?}", gamegraphjson);
         return gamegraphjson;
     }
 }

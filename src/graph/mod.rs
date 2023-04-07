@@ -1,5 +1,10 @@
 pub mod graphparser;
 
-pub mod automaton;
+
 pub mod automatonstate;
+pub mod automaton;
+pub mod character;
 pub mod gamegraph;
+
+
+
