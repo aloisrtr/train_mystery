@@ -1,0 +1,15 @@
+{
+    "name": "",
+    "states": {
+        "statename" : {
+            "dialogue": [
+                "",
+                ""
+            ],
+            "location": "",
+            "edges": {
+                    "event": "StateEnd"
+            }
+        }
+    }
+}

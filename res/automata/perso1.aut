@@ -1,3 +1,0 @@
-state A:
-    "interact perso2" -> state B
-     
