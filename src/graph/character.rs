@@ -44,6 +44,12 @@ impl Character {
         };
     }
 
+    pub fn reset_automata(&mut self) {
+        for automaton in &mut self.automata {
+            automaton.reset();
+        }
+    }
+
     pub fn get_diary(&self) -> Vec<String> {
         return self.diary.clone();
     }

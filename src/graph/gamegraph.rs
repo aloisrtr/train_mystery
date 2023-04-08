@@ -20,6 +20,12 @@ impl GameGraph {
         return GameGraph {characters: characters};
     }    
 
+    pub fn reset_character_automata(&mut self) {
+        for (_name, character) in &mut self.characters {
+            character.reset_automata();
+        }
+    }
+
     pub fn launch_event(&mut self, eventname: &str) {
         for (_name, character) in &mut self.characters {
             character.launch_event(eventname);

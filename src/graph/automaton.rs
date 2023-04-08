@@ -30,6 +30,10 @@ impl Automaton {
         };
     }
 
+    pub fn reset(&mut self) {
+        self.state = self.initstate.clone();
+    }
+
     pub fn get_state(&self) -> &State {
         return &self.statemap[&self.state];
     }
