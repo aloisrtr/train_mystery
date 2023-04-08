@@ -72,7 +72,7 @@ fn setup(
     for file in fs::read_dir("assets/automata").unwrap() {
         let chara = CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap();
         let room = chara.behavior.fetch_location();
-        character_rooms.push((commands.spawn(chara).id(), room));
+        character_rooms.push((commands.spawn((chara, RenderLayers::layer(2))).id(), room));
     }
     for (id, room) in character_rooms {
         rooms[room].add_character(id)
@@ -85,12 +85,14 @@ fn setup(
     };
     commands.spawn(Train { rooms });
 
+    /*
     for file in fs::read_dir("assets/automata").unwrap() {
         commands.spawn((
             CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap(),
             RenderLayers::layer(2)
         ));
     }
+    */
 
     commands.spawn((
         Camera2dBundle {
