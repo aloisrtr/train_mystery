@@ -11,7 +11,7 @@ use bevy::window::WindowResolution;
 use bevy::{
     prelude::*,
     text::{BreakLineOn, Text2dBounds},
-    window::WindowResolution,
+    // window::WindowResolution,
     render::view::visibility::RenderLayers,
     core_pipeline::clear_color::ClearColorConfig,
 };
