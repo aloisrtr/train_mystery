@@ -11,7 +11,7 @@
                       "Quoi?",
                       "Quoicoubeh!"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
 						"vieux1_bonbon":"enfant_bonbon_1"
                     }
