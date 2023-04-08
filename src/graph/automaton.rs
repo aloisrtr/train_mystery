@@ -8,6 +8,7 @@ use crate::graph::state::State;
 
 #[derive(Debug)]
 pub struct Automaton {
+    initstate: String,
     state: String,
     statemap: HashMap<String, State>,
 }
@@ -23,9 +24,14 @@ impl Automaton {
         }
 
         return Automaton {
+            initstate: automatonjson.initstate.clone(),
             state: automatonjson.initstate,
             statemap: statemap,
         };
+    }
+
+    pub fn reset(&mut self) {
+        self.state = self.initstate.clone();
     }
 
     pub fn get_state(&self) -> &State {
