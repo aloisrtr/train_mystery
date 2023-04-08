@@ -13,7 +13,7 @@ impl Room {
         for c in &mut self.characters.0 {
             if c.is_none() {
                 *c = Some(entity);
-                return
+                return;
             }
         }
         panic!("too many entities in single room")
