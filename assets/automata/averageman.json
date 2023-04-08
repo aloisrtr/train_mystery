@@ -30,7 +30,9 @@
                         "Il faudrait peut être aider ces enfants."
                     ],
                     "location": 1,
-                    "edges": {}
+                    "edges": {
+						"average_man_default_3": "average_man_default_3"
+					}
                 }
             }
         }

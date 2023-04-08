@@ -10,7 +10,9 @@
                       "Bonjour... Je peux vous aider?"
                     ],
                     "location": 2,
-                    "edges": {}
+                    "edges": {
+						"TODO_policier_pote": "average_woman_pote_controlleur"
+					}
                 },
 				"average_woman_pote_controlleur": {
 					"dialogue": [
@@ -31,7 +33,17 @@
                     ],
                     "location": 1,
                     "edges": {
-                            "average_woman_pote_controlleur_2": "average_woman_pote_controlleur"
+                            "average_woman_pote_controlleur_2": "average_woman_pote_controlleur_2",
+							"racaille_default_1": "average_woman_racaille"
+                    }
+                },
+				"average_woman_racaille": {
+                    "dialogue": [
+						"Cette saleté de racaille me lance des regards lugubres parfois."
+					],
+                    "location": 1,
+                    "edges": {
+                            "average_woman_racaille": "average_woman_pote_controlleur_2"
                     }
                 }
             }

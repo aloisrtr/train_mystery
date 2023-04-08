@@ -31,7 +31,7 @@
                     "location": 1,
                     "edges": {
                             "allumeuse_default_3": "allumeuse_default_3",
-                            "racaille_parlé_TODO": "allumeuse_adultere"
+                            "racaille_default_1": "allumeuse_adultere"
                     }
                 },
                 "allumeuse_adultere": {
@@ -43,7 +43,8 @@
                     ],
                     "location": 1,
                     "edges": {
-                            "averagewoman_allumeuse_adultere": "allumeuse_aveux_1"
+                            "allumeuse_adultere": "allumeuse_adultere",
+							"barista_allumeuse_adultere": "allumeuse_aveux_1"
                     }       
                 },
                 "allumeuse_aveux_1": {
