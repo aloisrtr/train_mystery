@@ -78,7 +78,7 @@ fn setup(
                     0f32,
                     0f32,
                     (ROOMS_COUNT as f32) * 1920f32,
-                    1080f32,
+                    1714.0,
                 )),
                 ..default()
             },
@@ -102,7 +102,7 @@ fn setup(
                     0f32,
                     0f32,
                     (ROOMS_COUNT as f32) * 1920f32,
-                    1080f32,
+                    1714.0,
                 )),
                 ..default()
             },
@@ -113,6 +113,30 @@ fn setup(
         BackgroundAnimation {
             timer: Timer::from_seconds(0.1, TimerMode::Repeating),
             speed: 10.0,
+            size: 16384.0,
+        },
+    ));
+
+	let grass_texture = asset_server.load("background/grass2.png");
+	commands.spawn((
+        SpriteBundle {
+            texture: grass_texture,
+            sprite: Sprite {
+                rect: Some(Rect::new(
+                    0f32,
+                    0f32,
+                    (ROOMS_COUNT as f32) * 1920f32,
+                    1714.0,
+                )),
+                ..default()
+            },
+            transform: Transform::from_scale(Vec3::new(1.0, 1080.0/1714.0 * 0.5, 1.0))
+				.with_translation(Vec3::new(0.0,-1080.0/4.0,1.2)),
+            ..default()
+        },
+        BackgroundAnimation {
+            timer: Timer::from_seconds(0.05, TimerMode::Repeating),
+            speed: 20.0,
             size: 16384.0,
         },
     ));
@@ -396,7 +420,7 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
             sprite.rect = Some(rect);
             // Si on est trop loin, on wrap
             if rect.max.x > animation.size {
-                sprite.rect = Some(Rect::new(0.0, 0.0, (ROOMS_COUNT as f32) * 1920.0, 1080.0))
+                sprite.rect = Some(Rect::new(0.0, 0.0, (ROOMS_COUNT as f32) * 1920.0, rect.max.y))
             }
         }
     }
