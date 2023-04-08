@@ -370,6 +370,7 @@ fn handle_input(
     mut outcamerapos: Query<&mut CameraPosition, With<OutsideCamera>>,
     mut outcamera: Query<&mut Camera, With<OutsideCamera>>,
     mut incamera: Query<&mut Camera, (With<InsideCamera>, Without<OutsideCamera>)>,
+    mut visibility: Query<&mut Visibility, With<BehaviorAutomaton>>
 ) {
     let train = train.get_single().unwrap();
     if keys.just_pressed(KeyCode::Left) && dialogue.text.is_empty() {
@@ -445,8 +446,11 @@ fn handle_input(
                     gameplay_state: GameplayState::Hub { selected_room },
                     opened_menu: MenuState::None,
                 } => {
+                    let room_id = train.rooms[*selected_room];
+
+
                     game_state.gameplay_state = GameplayState::Room {
-                        room_id: train.rooms[*selected_room],
+                        room_id,
                         selected_character: 0,
                     };
                     outcamera.single_mut().is_active = false;
@@ -495,6 +499,14 @@ fn handle_input(
                 gameplay_state: GameplayState::Room { room_id, .. },
                 opened_menu: MenuState::None,
             } => {
+                // Room entities are made visible
+                let room = rooms.get(*room_id).unwrap();
+                for entity in room.0.iter().filter_map(|x| *x) {
+                    if let Ok(mut vis) = visibility.get_mut(entity) {
+                        *vis = Visibility::Hidden
+                    }
+                }
+
                 let selected_room = train
                     .rooms
                     .iter()
@@ -519,9 +531,17 @@ fn handle_input(
             camera_position.x = 925f32 * *selected_room as f32;
         }
         GameState {
-            gameplay_state: GameplayState::Room { .. },
+            gameplay_state: GameplayState::Room { room_id, .. },
             ..
-        } => {}
+        } => {
+            // Room entities are made visible
+            let room = rooms.get(*room_id).unwrap();
+            for entity in room.0.iter().filter_map(|x| *x) {
+                if let Ok(mut vis) = visibility.get_mut(entity) {
+                    *vis = Visibility::Visible
+                }
+            }
+        }
         _ => (),
     }
 }

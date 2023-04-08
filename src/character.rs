@@ -3,6 +3,7 @@ use std::io;
 use std::path::Path;
 
 use bevy::prelude::*;
+use bevy::ui::Overflow::Visible;
 use serde_derive::Deserialize;
 
 /// GENERAL CHARACTER BUNDLE
@@ -75,6 +76,7 @@ impl CharacterBundle {
             behavior: BehaviorAutomaton::from(character_json.behavior),
             sprite: SpriteBundle {
                 texture: asset_server.load(character_json.sprite),
+                visibility: Visibility::Hidden,
                 transform: Transform::from_scale(Vec3::new(0.3, 0.3, 0.0))
                     .with_translation(translation),
                 ..default()
