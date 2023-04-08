@@ -9,11 +9,11 @@ use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
 use bevy::window::WindowResolution;
 use bevy::{
+    core_pipeline::clear_color::ClearColorConfig,
     prelude::*,
-    text::{BreakLineOn, Text2dBounds},
     // window::WindowResolution,
     render::view::visibility::RenderLayers,
-    core_pipeline::clear_color::ClearColorConfig,
+    text::{BreakLineOn, Text2dBounds},
 };
 use std::cmp::min;
 use std::fs;
@@ -69,11 +69,12 @@ fn setup(
             camera: Camera {
                 order: 1,
                 ..default()
-            }, ..default()
+            },
+            ..default()
         },
         WagonCamera,
         CameraPosition(Camera2dBundle::default().transform.translation),
-        RenderLayers::layer(0)
+        RenderLayers::layer(0),
     ));
     commands.spawn((
         Camera2dBundle {
@@ -84,10 +85,11 @@ fn setup(
             camera: Camera {
                 order: 2,
                 ..default()
-            }, ..default()
+            },
+            ..default()
         },
         FixedCamera,
-        RenderLayers::layer(1)
+        RenderLayers::layer(1),
     ));
 
     // Load up assets
@@ -117,8 +119,8 @@ fn setup(
         },
     ));
 
-	let desert_texture = asset_server.load("background/desert2.png");
-	commands.spawn((
+    let desert_texture = asset_server.load("background/desert2.png");
+    commands.spawn((
         SpriteBundle {
             texture: desert_texture,
             sprite: Sprite {
@@ -131,7 +133,7 @@ fn setup(
                 ..default()
             },
             transform: Transform::from_scale(Vec3::new(1.0, (1080.0 * 1.5) / 1714.0, 1.0))
-				.with_translation(Vec3::new(0.0,-1080.0 / 4.0,0.0)),
+                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.0)),
             ..default()
         },
         BackgroundAnimation {
@@ -141,8 +143,8 @@ fn setup(
         },
     ));
 
-	let grass_texture = asset_server.load("background/grass2.png");
-	commands.spawn((
+    let grass_texture = asset_server.load("background/grass2.png");
+    commands.spawn((
         SpriteBundle {
             texture: grass_texture,
             sprite: Sprite {
@@ -154,8 +156,8 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, 1080.0/1714.0 * 0.5, 1.0))
-				.with_translation(Vec3::new(0.0,-1080.0/4.0,1.2)),
+            transform: Transform::from_scale(Vec3::new(1.0, 1080.0 / 1714.0 * 0.5, 1.0))
+                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 1.2)),
             ..default()
         },
         BackgroundAnimation {
@@ -165,8 +167,8 @@ fn setup(
         },
     ));
 
-	let rails_texture = asset_server.load("background/rails2.png");
-	commands.spawn((
+    let rails_texture = asset_server.load("background/rails2.png");
+    commands.spawn((
         SpriteBundle {
             texture: rails_texture,
             sprite: Sprite {
@@ -178,8 +180,8 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, 1080.0/1714.0 * 0.5, 1.0))
-				.with_translation(Vec3::new(0.0,-1080.0*0.05,0.9)),
+            transform: Transform::from_scale(Vec3::new(1.0, 1080.0 / 1714.0 * 0.5, 1.0))
+                .with_translation(Vec3::new(0.0, -1080.0 * 0.05, 0.9)),
             ..default()
         },
         BackgroundAnimation {
@@ -188,9 +190,6 @@ fn setup(
             size: 16250.0,
         },
     ));
-
-
-
 
     // TRAINS
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
@@ -471,7 +470,12 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
             sprite.rect = Some(rect);
             // Si on est trop loin, on wrap
             if rect.max.x > animation.size {
-                sprite.rect = Some(Rect::new(0.0, 0.0, (ROOMS_COUNT as f32) * 1920.0, rect.max.y))
+                sprite.rect = Some(Rect::new(
+                    0.0,
+                    0.0,
+                    (ROOMS_COUNT as f32) * 1920.0,
+                    rect.max.y,
+                ))
             }
         }
     }
@@ -494,39 +498,36 @@ fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetSer
         color: Color::WHITE,
     };
 
-    let box_size = Vec2::new(window_width*0.9, window_height*0.3);
-    let box_pos = Vec2::new(0.0, (window_height as f32)*-0.3);
-    commands.spawn((
-        SpriteBundle {
-            sprite: Sprite {
-                color: Color::rgba(0.1, 0.1, 0.1, 0.8),
-                custom_size: Some(box_size),
+    let box_size = Vec2::new(window_width * 0.9, window_height * 0.3);
+    let box_pos = Vec2::new(0.0, (window_height as f32) * -0.3);
+    commands
+        .spawn((
+            SpriteBundle {
+                sprite: Sprite {
+                    color: Color::rgba(0.1, 0.1, 0.1, 0.8),
+                    custom_size: Some(box_size),
+                    ..default()
+                },
+                transform: Transform::from_translation(box_pos.extend(0.0)),
                 ..default()
             },
-            transform: Transform::from_translation(box_pos.extend(0.0)),
-            ..default()
-        },
-        RenderLayers::layer(1)
-    )).with_children(|builder| {
-        builder.spawn((
-            Text2dBundle {
-                text: Text {
-                    sections: vec![TextSection::new(
-                        text,
-                        style.clone(),
-                    )],
-                    alignment: TextAlignment::Left,
-                    linebreak_behaviour: BreakLineOn::WordBoundary,
+            RenderLayers::layer(1),
+        ))
+        .with_children(|builder| {
+            builder.spawn((
+                Text2dBundle {
+                    text: Text {
+                        sections: vec![TextSection::new(text, style.clone())],
+                        alignment: TextAlignment::Left,
+                        linebreak_behaviour: BreakLineOn::WordBoundary,
+                    },
+                    text_2d_bounds: Text2dBounds { size: box_size },
+                    transform: Transform::from_translation(Vec3::Z),
+                    ..default()
                 },
-                text_2d_bounds: Text2dBounds {
-                    size: box_size,
-                },
-                transform: Transform::from_translation(Vec3::Z),
-                ..default()
-            },
-            RenderLayers::layer(1)
-        ));
-    });
+                RenderLayers::layer(1),
+            ));
+        });
 }
 
 #[derive(Component)]
