@@ -8,9 +8,9 @@ use crate::game_state::{GameState, GameplayState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
 use bevy::prelude::*;
-use std::fs;
 use bevy::window::WindowResolution;
 use std::cmp::min;
+use std::fs;
 
 #[derive(Component, Deref, DerefMut, Default)]
 pub struct CameraPosition(pub Vec3);
@@ -57,7 +57,11 @@ fn setup(
         commands.spawn(CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap());
     }
 
-    commands.spawn((Camera2dBundle::default(), CameraPosition(Camera2dBundle::default().transform.translation)));
+    commands.spawn((
+        Camera2dBundle::default(),
+        WagonCamera,
+        CameraPosition(Camera2dBundle::default().transform.translation),
+    ));
     // Load up assets
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
     let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
@@ -315,3 +319,6 @@ pub struct Animation {
     pub timer: Timer,
     pub frames: usize,
 }
+
+#[derive(Component)]
+struct WagonCamera;
