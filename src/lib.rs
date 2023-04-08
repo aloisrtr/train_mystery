@@ -29,6 +29,7 @@ fn setup(
     mut game_state: ResMut<GameState>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
     asset_server: Res<AssetServer>,
+	audio: Res<Audio>
 ) {
     // Spawn rooms, characters and train
     let rooms = [(); 6].map(|_| commands.spawn(Room::default()).id());
@@ -75,7 +76,20 @@ fn setup(
         texture: background_image,
         .. default()
     });
-     */
+	*/
+	let audio_train = asset_server.load("audio/train.ogg");
+	audio.play_with_settings(audio_train, PlaybackSettings { repeat: true, volume: 0.25, speed: 1.0 });
+
+	let audio_birds = asset_server.load("audio/birds.ogg");
+	audio.play_with_settings(audio_birds, PlaybackSettings { repeat: true, volume: 1.5, speed: 1.0 });
+
+	let audio_wind = asset_server.load("audio/wind.ogg");
+	audio.play_with_settings(audio_wind, PlaybackSettings { repeat: true, volume: 1.5, speed: 1.0 });
+
+	let audio_wind = asset_server.load("audio/Night-on-the-Docks-Sax.ogg");
+	audio.play_with_settings(audio_wind, PlaybackSettings::LOOP);
+
+
 }
 
 /// Deals with player input

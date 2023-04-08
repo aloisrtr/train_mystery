@@ -115,6 +115,24 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "J'étudie la scène, tu sais en analysant les objets et en interrogeant les passagers. Tu devrais faire de même."/
     "En tout cas, reviens me voir si tu as une soumission à me faire par rapport à l'enquête. Je t'épaulerai comme il faut, mais ne te surmène pas, après tout tu es..."/
     "Enfin, bon courage." -> (loop)
+    (barista disparue) -> "..."/"Comment? La barista a disparu?"
+    /"...Je... Je ne peux rien faire pour ça pour le moment, désolé." -> (loop)
+    (photo adultère) -> "?!"/"Je n'ai jamais trompé ma femme! Cela doit être un montage, c'est ça tu me fais marcher hein?!"/
+    "..."/
+    "Ok... Tu as raison. Mais ne le dis surtout à personne! Sinon je pourrais tout perdre."/
+    "Comment?"/
+    "Tu souhaites passer à l'action? Il faudrait arrêter ceux-là mais on manque de preuves et à nous deux je ne crois pas qu'on fasse l'affaire..." -> (loop)
+    (photo adultère et parlé racaille) -> "Des bras supplémentaires? Haha tu en dis de drôles d'idées!"/
+    "Je reconnais bien là le meilleur inspecteur du pays!"/
+    "...Désolé, c'est vrai que tu en as difficilement souvenir. Oublie ça."/
+    "Il manque de preuves cependant."
+    (photo adultère et parlé racaille et document menaces) -> "..."/
+    "Mon cher."/
+    "Tu sembles m'avoir proposé une bonne solution à ce traquenard."/
+    "..."/
+    "Désolé je suis un peu ému, allons-y maintenant!"
+    -> (win)
+
 
 - Le psy/médecin (conseiller/tuto):
     Caractère :
