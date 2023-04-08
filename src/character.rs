@@ -46,7 +46,6 @@ impl CharacterBundle {
         // vieux1       => 400. 300. 0. 
 
         let mut translation = Vec3::new(0.0, 0.0, 0.0);
-        println!("character name: {}", character_json.name);
         if character_json.name == "Allumeuse" {
             translation = Vec3::new(-400.0, 400.0, 0.0);
         } else if character_json.name == "Average Man" {
