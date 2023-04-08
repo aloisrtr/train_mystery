@@ -11,6 +11,9 @@ use bevy::window::WindowResolution;
 use bevy::{
     prelude::*,
     text::{BreakLineOn, Text2dBounds},
+    window::WindowResolution,
+    render::view::visibility::RenderLayers,
+    core_pipeline::clear_color::ClearColorConfig,
 };
 use std::cmp::min;
 use std::fs;
@@ -62,10 +65,31 @@ fn setup(
     }
 
     commands.spawn((
-        Camera2dBundle::default(),
+        Camera2dBundle {
+            camera: Camera {
+                order: 1,
+                ..default()
+            }, ..default()
+        },
         WagonCamera,
         CameraPosition(Camera2dBundle::default().transform.translation),
+        RenderLayers::layer(0)
     ));
+    commands.spawn((
+        Camera2dBundle {
+            camera_2d: Camera2d {
+                clear_color: ClearColorConfig::None,
+                ..default()
+            },
+            camera: Camera {
+                order: 2,
+                ..default()
+            }, ..default()
+        },
+        FixedCamera,
+        RenderLayers::layer(1)
+    ));
+
     // Load up assets
 
     // BACKGROUNDS
@@ -419,10 +443,10 @@ fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetSer
         color: Color::WHITE,
     };
 
-    let box_size = Vec2::new(window_width * 0.9, window_height * 0.3);
-    let box_pos = Vec2::new(0.0, (window_height as f32) * -0.3);
-    commands
-        .spawn(SpriteBundle {
+    let box_size = Vec2::new(window_width*0.9, window_height*0.3);
+    let box_pos = Vec2::new(0.0, (window_height as f32)*-0.3);
+    commands.spawn((
+        SpriteBundle {
             sprite: Sprite {
                 color: Color::rgba(0.1, 0.1, 0.1, 0.8),
                 custom_size: Some(box_size),
@@ -430,19 +454,28 @@ fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetSer
             },
             transform: Transform::from_translation(box_pos.extend(0.0)),
             ..default()
-        })
-        .with_children(|builder| {
-            builder.spawn(Text2dBundle {
+        },
+        RenderLayers::layer(1)
+    )).with_children(|builder| {
+        builder.spawn((
+            Text2dBundle {
                 text: Text {
-                    sections: vec![TextSection::new(text, style.clone())],
+                    sections: vec![TextSection::new(
+                        text,
+                        style.clone(),
+                    )],
                     alignment: TextAlignment::Left,
                     linebreak_behaviour: BreakLineOn::WordBoundary,
                 },
-                text_2d_bounds: Text2dBounds { size: box_size },
+                text_2d_bounds: Text2dBounds {
+                    size: box_size,
+                },
                 transform: Transform::from_translation(Vec3::Z),
                 ..default()
-            });
-        });
+            },
+            RenderLayers::layer(1)
+        ));
+    });
 }
 
 #[derive(Component)]
@@ -460,6 +493,9 @@ pub struct BackgroundAnimation {
     pub speed: f32,
     pub size: f32, // Longueur de l'image (pour savoir quand wrap)
 }
+
+#[derive(Component)]
+struct FixedCamera;
 
 #[derive(Resource)]
 struct UiFont(Handle<Font>);
