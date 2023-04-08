@@ -5,7 +5,6 @@ mod train;
 
 use crate::character::CharacterBundle;
 use crate::game_state::{GameState, GameplayState, MenuState};
-use crate::game_state::{GameplayState, GameState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
 use bevy::{
@@ -169,6 +168,9 @@ fn handle_input(
     train: Query<&Train>,
     rooms: Query<&RoomCharacterStorage>,
     mut camera: Query<&mut CameraPosition, With<WagonCamera>>,
+    mut commands: Commands,
+    windowq: Query<&Window>,
+    asset_server: Res<AssetServer>,
 ) {
     let train = train.get_single().unwrap();
     if keys.just_pressed(KeyCode::Left) {
@@ -283,6 +285,17 @@ fn handle_input(
                 game_state.gameplay_state = GameplayState::Hub { selected_room }
             }
             _ => (),
+        }
+    }
+    if keys.just_pressed(KeyCode::Space) {
+        match game_state.as_mut() {
+            GameState {
+                gameplay_state: GameplayState::Room {..},
+                opened_menu: MenuState::None
+            } => {
+                show_text(commands, windowq.single(), asset_server, "I'd just like to interject for a moment. What you're refering to as Linux, is in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux is not an operating system unto itself, but rather another free component of a fully functioning GNU system made useful by the GNU corelibs, shell utilities and vital system components comprising a full OS as defined by POSIX.");
+            },
+            _ => ()
         }
     }
 
