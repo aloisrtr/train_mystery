@@ -399,7 +399,7 @@ fn show_text(
     };
 
     let box_size = Vec2::new(window_width*0.9, window_height*0.3);
-    let box_pos = Vec2::new(window_width*0.05, window_height*0.6);
+    let box_pos = Vec2::new(0.0, (window_height as f32)*-0.3);
     commands.spawn(SpriteBundle {
         sprite: Sprite {
             color: Color::rgba(0.1, 0.1, 0.1, 0.8),
