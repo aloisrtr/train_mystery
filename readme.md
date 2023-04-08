@@ -5,7 +5,7 @@
     <p align="center">
     A small game about solving a mystery aboard a train... if there even is one.
     <br/>
-    Jeu d'enquête gagnant du <a href="https://istic.univ-rennes.fr/actualites/participez-au-palmhackathon-commit-limit-des-etudiants-de-listic"><strong>Palm'Hackaton 2023</strong></a>.
+    🎉 Jeu d'enquête gagnant du <a href="https://istic.univ-rennes.fr/actualites/participez-au-palmhackathon-commit-limit-des-etudiants-de-listic"><strong>Palm'Hackaton 2023</strong></a>. 🎉
   </p>
 </div>
 <br/>
