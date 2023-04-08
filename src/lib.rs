@@ -68,13 +68,25 @@ fn setup(
         Camera2dBundle {
             camera: Camera {
                 order: 1,
+                is_active: false,
                 ..default()
             },
             ..default()
         },
-        WagonCamera,
+        OutsideCamera,
         CameraPosition(Camera2dBundle::default().transform.translation),
         RenderLayers::layer(0),
+    ));
+    commands.spawn((
+        Camera2dBundle {
+            camera: Camera {
+                order: 1,
+                is_active: true,
+                ..default()
+            }, ..default()
+        },
+        InsideCamera,
+        RenderLayers::layer(2)
     ));
     commands.spawn((
         Camera2dBundle {
@@ -243,13 +255,15 @@ fn setup(
         },
     ));
 
-    /*
-    let background_image = asset_server.load("background.png");
-    commands.spawn(SpriteBundle {
-        texture: background_image,
-        .. default()
-    });
-    */
+    let wagon_background_image = asset_server.load("wagon/wagon_int.png");
+    commands.spawn((
+        SpriteBundle {
+            texture: wagon_background_image,
+            .. default()
+        },
+        RenderLayers::layer(2)
+    ));
+
     let audio_train = asset_server.load("audio/train.ogg");
     audio.play_with_settings(
         audio_train,
@@ -293,7 +307,9 @@ fn handle_input(
     mut game_state: ResMut<GameState>,
     train: Query<&Train>,
     rooms: Query<&RoomCharacterStorage>,
-    mut camera: Query<&mut CameraPosition, With<WagonCamera>>,
+    mut outcamerapos: Query<&mut CameraPosition, With<OutsideCamera>>,
+    mut outcamera: Query<&mut Camera, With<OutsideCamera>>,
+    mut incamera: Query<&mut Camera, (With<InsideCamera>, Without<OutsideCamera>)>,
     mut commands: Commands,
     windowq: Query<&Window>,
     asset_server: Res<AssetServer>,
@@ -368,7 +384,9 @@ fn handle_input(
                 game_state.gameplay_state = GameplayState::Room {
                     room_id: train.rooms[*selected_room],
                     selected_character: 0,
-                }
+                };
+                outcamera.single_mut().is_active = false;
+                incamera.single_mut().is_active = true;
             }
             GameState {
                 gameplay_state: GameplayState::Room { .. },
@@ -408,12 +426,14 @@ fn handle_input(
                     .enumerate()
                     .find_map(|(i, r)| if r == room_id { Some(i) } else { None })
                     .unwrap();
-                game_state.gameplay_state = GameplayState::Hub { selected_room }
+                game_state.gameplay_state = GameplayState::Hub { selected_room };
+                outcamera.single_mut().is_active = true;
+                incamera.single_mut().is_active = false;
             }
             _ => (),
         }
     }
-    if keys.just_pressed(KeyCode::Space) {
+    if keys.just_pressed(KeyCode::R) {
         match game_state.as_mut() {
             GameState {
                 gameplay_state: GameplayState::Room { .. },
@@ -431,7 +451,7 @@ fn handle_input(
             gameplay_state: GameplayState::Hub { selected_room },
             ..
         } => {
-            let mut camera_transform = camera.get_single_mut().unwrap();
+            let mut camera_transform = outcamerapos.get_single_mut().unwrap();
             camera_transform.x = 925f32 * *selected_room as f32;
         }
         GameState {
@@ -537,7 +557,13 @@ pub struct Animation {
 }
 
 #[derive(Component)]
-struct WagonCamera;
+struct OutsideCamera;
+
+#[derive(Component)]
+struct FixedCamera;
+
+#[derive(Component)]
+struct InsideCamera;
 
 #[derive(Component)]
 pub struct BackgroundAnimation {
@@ -545,9 +571,6 @@ pub struct BackgroundAnimation {
     pub speed: f32,
     pub size: f32, // Longueur de l'image (pour savoir quand wrap)
 }
-
-#[derive(Component)]
-struct FixedCamera;
 
 #[derive(Resource)]
 struct UiFont(Handle<Font>);
