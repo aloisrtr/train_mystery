@@ -370,7 +370,7 @@ fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) 
 }
 fn show_text(
     mut commands : Commands,
-    window : Window,
+    window : &Window,
     asset_server: Res<AssetServer>,
     text : &str
 ) {
