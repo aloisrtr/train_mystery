@@ -8,19 +8,32 @@ use crate::game_state::{GameState, GameplayState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
 use bevy::prelude::*;
-use std::cmp::min;
 use std::fs;
+use bevy::window::WindowResolution;
+use std::cmp::min;
+
+#[derive(Component, Deref, DerefMut, Default)]
+pub struct CameraPosition(pub Vec3);
 
 pub fn run() {
     App::new()
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                resolution: WindowResolution::new(1920., 1080.),
+                resizable: false,
+                title: "Train Schizophrenia".into(),
+                ..default()
+            }),
+            ..default()
+        }))
         .insert_resource(GameState {
             gameplay_state: GameplayState::Uninit,
             opened_menu: MenuState::None,
         })
-        .add_plugins(DefaultPlugins)
         .add_startup_system(setup)
         .add_system(handle_input)
         .add_system(animate_sprites)
+        .add_system(interpolate_transforms)
         .run()
 }
 
@@ -44,7 +57,7 @@ fn setup(
         commands.spawn(CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap());
     }
 
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn((Camera2dBundle::default(), CameraPosition(Camera2dBundle::default().transform.translation)));
     // Load up assets
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
     let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
@@ -55,6 +68,7 @@ fn setup(
         None,
         None,
     ));
+
     for i in 0..(ROOMS_COUNT - 1) {
         commands.spawn((
             SpriteSheetBundle {
@@ -143,7 +157,7 @@ fn handle_input(
     mut game_state: ResMut<GameState>,
     train: Query<&Train>,
     rooms: Query<&RoomCharacterStorage>,
-    mut camera: Query<&mut Transform, With<Camera2d>>,
+    mut camera: Query<&mut CameraPosition, With<Camera2d>>,
 ) {
     let train = train.get_single().unwrap();
     if keys.just_pressed(KeyCode::Left) {
@@ -268,13 +282,19 @@ fn handle_input(
             ..
         } => {
             let mut camera_transform = camera.get_single_mut().unwrap();
-            camera_transform.translation.x = 925f32 * *selected_room as f32
+            camera_transform.x = 925f32 * *selected_room as f32;
         }
         GameState {
             gameplay_state: GameplayState::Room { .. },
             ..
         } => {}
         _ => (),
+    }
+}
+
+fn interpolate_transforms(time: Res<Time>, mut query: Query<(&CameraPosition, &mut Transform)>) {
+    for (position, mut transform) in &mut query {
+        transform.translation = transform.translation * 0.95 + position.0 * 0.05
     }
 }
 
