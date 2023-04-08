@@ -88,6 +88,13 @@ fn setup(
     };
     commands.spawn(Train { rooms });
 
+    for file in fs::read_dir("assets/automata").unwrap() {
+        commands.spawn((
+            CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap(),
+            RenderLayers::layer(2)
+        ));
+    }
+
     commands.spawn((
         Camera2dBundle {
             camera: Camera {
@@ -166,7 +173,7 @@ fn setup(
                 ..default()
             },
             transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / (1714.0 * 1.5), 1.0))
-                .with_translation(Vec3::new(0.0, 1080.0 / 2.5, 0.1)),
+                .with_translation(Vec3::new(0.0, 1080.0 / 4.0, 0.0)),
             ..default()
         },
         BackgroundAnimation {
@@ -190,8 +197,8 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, (1080.0 * 1.5) / 1714.0, 1.0))
-                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.0)),
+            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / 2.0 / 1714.0, 1.0))
+                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.1)),
             ..default()
         },
         BackgroundAnimation {
@@ -552,7 +559,7 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
             translate_rectangle(&mut rect, animation.speed, 0.0);
             sprite.rect = Some(rect);
             // Si on est trop loin, on wrap
-            if rect.max.x > animation.size {
+            if rect.min.x > animation.size / 2.0 {
                 sprite.rect = Some(Rect::new(
                     0.0,
                     0.0,
