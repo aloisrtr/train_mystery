@@ -29,7 +29,6 @@ impl CharacterBundle {
         asset_server: &Res<AssetServer>,
     ) -> io::Result<CharacterBundle> {
         // Deserialize the character file
-        println!("parsing {file:?}");
         let character_json =
             serde_json::from_str::<CharacterJSON>(&std::fs::read_to_string(file)?)?;
 
@@ -68,7 +67,6 @@ impl From<BehaviorJSON> for BehaviorAutomaton {
         }
     }
 }
-
 impl BehaviorAutomaton {
     pub fn current_state_name(&self) -> &str {
         &self.current_state
@@ -76,6 +74,20 @@ impl BehaviorAutomaton {
 
     pub fn current_state(&self) -> &State {
         &self.states[&self.current_state]
+    }
+
+    pub fn change_state(&mut self, event: &str) {
+        if let Some(state) = self.current_state().edges.get(event) {
+            self.current_state = state.to_owned();
+        }
+    }
+
+    pub fn fetch_dialogue(&self) -> Vec<String> {
+        self.current_state().dialogue.clone()
+    }
+
+    pub fn fetch_location(&self) -> usize {
+        self.current_state().location
     }
 }
 

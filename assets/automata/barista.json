@@ -9,7 +9,7 @@
                     "dialogue": [
                       "Bonjour..."
                     ],
-                    "location": 1,
+                    "location": 2,
                     "edges": {
                             "barista_default_1": "barista_default_2",
 							"allumeuse_adultere_1": "barista_allumeuse_adultere"
