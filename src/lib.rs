@@ -141,7 +141,7 @@ fn setup(
                 ..default()
             },
             transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / (1714.0 * 1.5), 1.0))
-                .with_translation(Vec3::new(0.0, 1080.0 / 2.5, 0.1)),
+                .with_translation(Vec3::new(0.0, 1080.0 / 4.0, 0.0)),
             ..default()
         },
         BackgroundAnimation {
@@ -165,8 +165,8 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, (1080.0 * 1.5) / 1714.0, 1.0))
-                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.0)),
+            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / 2.0 / 1714.0, 1.0))
+                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.1)),
             ..default()
         },
         BackgroundAnimation {
