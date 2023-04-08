@@ -12,6 +12,7 @@ use bevy::{
     text::{BreakLineOn, Text2dBounds},
     window::WindowResolution,
     render::view::visibility::RenderLayers,
+    core_pipeline::clear_color::ClearColorConfig,
 };
 use std::cmp::min;
 use std::fs;
@@ -63,15 +64,24 @@ fn setup(
     }
 
     commands.spawn((
-        Camera2dBundle::default(),
+        Camera2dBundle {
+            camera: Camera {
+                order: 1,
+                ..default()
+            }, ..default()
+        },
         WagonCamera,
         CameraPosition(Camera2dBundle::default().transform.translation),
         RenderLayers::layer(0)
     ));
     commands.spawn((
         Camera2dBundle {
+            camera_2d: Camera2d {
+                clear_color: ClearColorConfig::None,
+                ..default()
+            },
             camera: Camera {
-                order: 10,
+                order: 2,
                 ..default()
             }, ..default()
         },
@@ -451,21 +461,24 @@ fn show_text(
         },
         RenderLayers::layer(1)
     )).with_children(|builder| {
-        builder.spawn(Text2dBundle {
-            text: Text {
-                sections: vec![TextSection::new(
-                    text,
-                    style.clone(),
-                )],
-                alignment: TextAlignment::Left,
-                linebreak_behaviour: BreakLineOn::WordBoundary,
+        builder.spawn((
+            Text2dBundle {
+                text: Text {
+                    sections: vec![TextSection::new(
+                        text,
+                        style.clone(),
+                    )],
+                    alignment: TextAlignment::Left,
+                    linebreak_behaviour: BreakLineOn::WordBoundary,
+                },
+                text_2d_bounds: Text2dBounds {
+                    size: box_size,
+                },
+                transform: Transform::from_translation(Vec3::Z),
+                ..default()
             },
-            text_2d_bounds: Text2dBounds {
-                size: box_size,
-            },
-            transform: Transform::from_translation(Vec3::Z),
-            ..default()
-        });
+            RenderLayers::layer(1)
+        ));
     });
 }
 
