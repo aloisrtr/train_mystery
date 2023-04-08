@@ -48,26 +48,26 @@ impl CharacterBundle {
 
         let mut translation = Vec3::new(0.0, 0.0, 0.0);
         println!("character name: {}", character_json.name);
-        if character_json.name == "Allumeuse" {
-            translation = Vec3::new(-400.0, -200.0, 0.0);
+        if character_json.name == "Enfants" {
+            translation = Vec3::new(-400.0, -180.0, 0.0);
         } else if character_json.name == "Average Man" {
-            translation = Vec3::new(-300.0, -200.0, 0.0);
-        } else if character_json.name == "Average Woman" {
-            translation = Vec3::new(-200.0, -200.0, 0.0);
-        } else if character_json.name == "Barista" {
-            translation = Vec3::new(-100.0, -200.0, 0.0);
-        } else if character_json.name == "Conducteur" {
-            translation = Vec3::new(0.0, -200.0, 0.0);
+            translation = Vec3::new(-300.0, -180.0, 0.0);
         } else if character_json.name == "Pote" {
-            translation = Vec3::new(100.0, -200.0, 0.0);
-        } else if character_json.name == "Controlleur" {
-            translation = Vec3::new(200.0, -200.0, 0.0);
-        } else if character_json.name == "Racaille" {
-            translation = Vec3::new(300.0, -200.0, 0.0);
+            translation = Vec3::new(-200.0, -180.0, 0.0);
         } else if character_json.name == "Mr Dawson" {
-            translation = Vec3::new(400.0, -200.0, 0.0);
-        } else if character_json.name == "Enfants" {
-            translation = Vec3::new(500.0, -200.0, 0.0);
+            translation = Vec3::new(-100.0, -180.0, 0.0);
+        } else if character_json.name == "Conducteur" {
+            translation = Vec3::new(0.0, -180.0, 0.0);
+        } else if character_json.name == "Average Woman" {
+            translation = Vec3::new(100.0, -180.0, 0.0);
+        } else if character_json.name == "Controlleur" {
+            translation = Vec3::new(200.0, -180.0, 0.0);
+        } else if character_json.name == "Racaille" {
+            translation = Vec3::new(300.0, -180.0, 0.0);
+        } else if character_json.name == "Barista" {
+            translation = Vec3::new(400.0, -180.0, 0.0);
+        } else if character_json.name == "Allumeuse" {
+            translation = Vec3::new(500.0, -180.0, 0.0);
         } 
         translation += Vec3::new(0.0, 0.0, 10.0);
 
@@ -77,7 +77,7 @@ impl CharacterBundle {
             sprite: SpriteBundle {
                 texture: asset_server.load(character_json.sprite),
                 visibility: Visibility::Hidden,
-                transform: Transform::from_scale(Vec3::new(0.3, 0.3, 0.0))
+                transform: Transform::from_scale(Vec3::new(0.35, 0.35, 0.0))
                     .with_translation(translation),
                 ..default()
             },
