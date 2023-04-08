@@ -1,6 +1,6 @@
 {
     "name": "Enfants",
-    "sprite": "characters/enfants.png",
+    "sprite": "characters/enfant.png",
     "behavior":
         {
             "init_state": "enfant_default_1",

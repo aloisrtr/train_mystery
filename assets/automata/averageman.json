@@ -1,6 +1,6 @@
 {
     "name": "Average Man",
-    "sprite": "characters/average_man.png",
+    "sprite": "characters/averageman.png",
     "behavior": {
             "init_state": "average_man_default_1",
             "states": {

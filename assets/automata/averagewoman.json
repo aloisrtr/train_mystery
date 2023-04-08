@@ -1,6 +1,6 @@
 {
     "name": "Average Woman",
-    "sprite": "characters/average_woman.png",
+    "sprite": "characters/averagewoman.png",
     "behavior":
         {
             "init_state": "average_woman_default_1",
