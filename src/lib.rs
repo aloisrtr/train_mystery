@@ -54,6 +54,7 @@ pub fn run() {
         .add_system(animate_sprites)
         .add_system(animate_background)
         .add_system(interpolate_transforms)
+        .add_system(display_dialogue)
         .run()
 }
 
@@ -63,12 +64,14 @@ fn setup(
     mut game_state: ResMut<GameState>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
     asset_server: Res<AssetServer>,
+    window: Query<&Window>,
     audio: Res<Audio>,
 ) {
+    spawn_text_box(&mut commands, &window.get_single().unwrap(), &asset_server);
     // Spawn rooms, characters and train
     let mut rooms = [(); 7].map(|_| Room::default());
 
-    let mut character_rooms = vec!();
+    let mut character_rooms = vec![];
     for file in fs::read_dir("assets/automata").unwrap() {
         let chara = CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap();
         let room = chara.behavior.fetch_location();
@@ -133,10 +136,11 @@ fn setup(
                 order: 1,
                 is_active: true,
                 ..default()
-            }, ..default()
+            },
+            ..default()
         },
         InsideCamera,
-        RenderLayers::layer(2)
+        RenderLayers::layer(2),
     ));
     commands.spawn((
         Camera2dBundle {
@@ -179,7 +183,7 @@ fn setup(
             speed: 2.0,
             size: 16382.0,
         },
-        RenderLayers::layer(3)
+        RenderLayers::layer(3),
     ));
 
     let desert_texture = asset_server.load("background/desert2.png");
@@ -204,7 +208,7 @@ fn setup(
             speed: 10.0,
             size: 16384.0,
         },
-        RenderLayers::layer(3)
+        RenderLayers::layer(3),
     ));
 
     let grass_texture = asset_server.load("background/grass2.png");
@@ -229,7 +233,7 @@ fn setup(
             speed: 20.0,
             size: 16384.0,
         },
-        RenderLayers::layer(3)
+        RenderLayers::layer(3),
     ));
 
     let rails_texture = asset_server.load("background/rails2.png");
@@ -312,9 +316,9 @@ fn setup(
     commands.spawn((
         SpriteBundle {
             texture: wagon_background_image,
-            .. default()
+            ..default()
         },
-        RenderLayers::layer(2)
+        RenderLayers::layer(2),
     ));
 
     let audio_train = asset_server.load("audio/train.ogg");
@@ -366,9 +370,6 @@ fn handle_input(
     mut outcamerapos: Query<&mut CameraPosition, With<OutsideCamera>>,
     mut outcamera: Query<&mut Camera, With<OutsideCamera>>,
     mut incamera: Query<&mut Camera, (With<InsideCamera>, Without<OutsideCamera>)>,
-    mut commands: Commands,
-    windowq: Query<&Window>,
-    asset_server: Res<AssetServer>,
 ) {
     let train = train.get_single().unwrap();
     if keys.just_pressed(KeyCode::Left) && dialogue.text.is_empty() {
@@ -432,11 +433,10 @@ fn handle_input(
 
     if keys.just_pressed(KeyCode::Space) {
         if !dialogue.text.is_empty() {
+            dialogue.lines_read += 1;
             if dialogue.lines_read == dialogue.text.len() {
-                dialogue.text = vec!();
+                dialogue.text = vec![];
                 dialogue.lines_read = 0;
-            } else {
-                dialogue.lines_read += 1;
             }
         } else {
             // Interacts with the closest intractable entity, advances the dialogue or selects a dialogue option
@@ -453,7 +453,11 @@ fn handle_input(
                     incamera.single_mut().is_active = true;
                 }
                 GameState {
-                    gameplay_state: GameplayState::Room { selected_character, room_id },
+                    gameplay_state:
+                        GameplayState::Room {
+                            selected_character,
+                            room_id,
+                        },
                     opened_menu: MenuState::None,
                 } => {
                     // Interact with the selected character
@@ -500,17 +504,6 @@ fn handle_input(
                 game_state.gameplay_state = GameplayState::Hub { selected_room };
                 outcamera.single_mut().is_active = true;
                 incamera.single_mut().is_active = false;
-            }
-            _ => (),
-        }
-    }
-    if keys.just_pressed(KeyCode::R) {
-        match game_state.as_mut() {
-            GameState {
-                gameplay_state: GameplayState::Room { .. },
-                opened_menu: MenuState::None,
-            } => {
-                show_text(commands, windowq.single(), asset_server, "I'd just like to interject for a moment. What you're refering to as Linux, is in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux is not an operating system unto itself, but rather another free component…");
             }
             _ => (),
         }
@@ -582,20 +575,39 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
 
 fn move_characters() {}
 
+fn display_dialogue(
+    dialogue: Res<Dialogue>,
+    mut text_box_visibility: Query<&mut Visibility, With<TextBoxMarker>>,
+    mut text_box: Query<&mut Text>,
+) {
+    if dialogue.text.is_empty() {
+        *text_box_visibility.get_single_mut().unwrap() = Visibility::Hidden;
+        return;
+    }
+
+    *text_box_visibility.get_single_mut().unwrap() = Visibility::Visible;
+    let mut text_box = text_box.get_single_mut().unwrap();
+    let dialogue = dialogue
+        .text
+        .iter()
+        .take(dialogue.lines_read + 1)
+        .fold(String::new(), |acc, l| acc + l + "\n");
+    text_box.sections[0].value = dialogue;
+}
+
 fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) {
     rect.max.x += translation_x;
     rect.max.y += translation_y;
     rect.min.x += translation_x;
     rect.min.y += translation_y;
 }
-fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetServer>, text: &str) {
+fn spawn_text_box(commands: &mut Commands, window: &Window, asset_server: &Res<AssetServer>) {
     let window_width = window.resolution.width();
     let window_height = window.resolution.height();
 
-    let font_size = 42.;
     let style = TextStyle {
         font: asset_server.load("fonts/DejaVuSerif.ttf"),
-        font_size: font_size,
+        font_size: 42f32,
         color: Color::WHITE,
     };
 
@@ -603,6 +615,7 @@ fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetSer
     let box_pos = Vec2::new(0.0, (window_height as f32) * -0.3);
     commands
         .spawn((
+            TextBoxMarker,
             SpriteBundle {
                 sprite: Sprite {
                     color: Color::rgba(0.1, 0.1, 0.1, 0.8),
@@ -610,6 +623,7 @@ fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetSer
                     ..default()
                 },
                 transform: Transform::from_translation(box_pos.extend(0.0)),
+                visibility: Visibility::Hidden,
                 ..default()
             },
             RenderLayers::layer(1),
@@ -618,12 +632,13 @@ fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetSer
             builder.spawn((
                 Text2dBundle {
                     text: Text {
-                        sections: vec![TextSection::new(text, style.clone())],
+                        sections: vec![TextSection::new("", style.clone())],
                         alignment: TextAlignment::Left,
                         linebreak_behaviour: BreakLineOn::WordBoundary,
                     },
                     text_2d_bounds: Text2dBounds { size: box_size },
                     transform: Transform::from_translation(Vec3::Z),
+                    visibility: Visibility::Inherited,
                     ..default()
                 },
                 RenderLayers::layer(1),
@@ -648,6 +663,9 @@ struct InsideCamera;
 
 #[derive(Component)]
 struct BackgroundCamera;
+
+#[derive(Component)]
+struct TextBoxMarker;
 
 #[derive(Component)]
 pub struct BackgroundAnimation {

@@ -70,9 +70,7 @@
                         "Mon mignon tu sais parler aux femmes."
                     ],
                     "location": 1,
-                    "edges": {
-                            "allumeuse_aveux_2": "allumeuse_aveux_2"
-                    }
+                    "edges": {}
                 }
             }
         }
