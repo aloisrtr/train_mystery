@@ -13,11 +13,13 @@ pub struct Automaton {
 }
 
 impl Automaton {
-    pub fn create_automaton(automatonjson: AutomatonJSON) -> Automaton {
+    pub fn create_automaton(automatonjson: AutomatonJSON, dialogues: &HashMap<String, Vec<String>>) -> Automaton {
+
+        assert!(automatonjson.states.contains_key(&automatonjson.initstate), "L'état {} n'est pas défini !", automatonjson.initstate);
 
         let mut statemap = HashMap::with_capacity(automatonjson.states.len());
-        for (statename, statejson) in automatonjson.states.into_iter() {
-            statemap.insert(statename.to_owned(), AutomatonState::create_state(statejson));
+        for (statename, statejson) in automatonjson.states.clone().into_iter() {
+            statemap.insert(statename.to_owned(), AutomatonState::create_state(statejson, dialogues, &automatonjson.states));
         }
 
         return Automaton {

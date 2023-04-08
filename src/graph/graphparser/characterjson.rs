@@ -1,7 +1,7 @@
 use serde_derive::{Deserialize};
 use std::collections::HashMap;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct StateJSON {
     pub dialogue: String,
     pub location: String,
@@ -9,7 +9,7 @@ pub struct StateJSON {
     pub edges: HashMap<String, String>
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct AutomatonJSON {
     pub initstate: String,
     pub states: HashMap<String, StateJSON>

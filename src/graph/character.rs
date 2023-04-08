@@ -17,7 +17,7 @@ impl Character {
         
         let mut automata = Vec::new();
         for automaton in characterjson.automata.into_iter() {
-            automata.push(Automaton::create_automaton(automaton));
+            automata.push(Automaton::create_automaton(automaton, &characterjson.dialogues));
         }
 
         return Character {
