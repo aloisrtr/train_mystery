@@ -1,4 +1,4 @@
-pub mod character;
+mod character;
 mod game_state;
 pub mod room;
 mod train;
@@ -33,6 +33,7 @@ pub fn run() {
         .add_startup_system(setup)
         .add_system(handle_input)
         .add_system(animate_sprites)
+        .add_system(animate_background)
         .add_system(interpolate_transforms)
         .run()
 }
@@ -63,6 +64,31 @@ fn setup(
         CameraPosition(Camera2dBundle::default().transform.translation),
     ));
     // Load up assets
+
+    // BACKGROUNDS
+    let background_texture = asset_server.load("background/background2.png");
+    commands.spawn((
+        SpriteBundle {
+            texture: background_texture,
+            sprite: Sprite {
+                rect: Some(Rect::new(
+                    0f32,
+                    0f32,
+                    (ROOMS_COUNT as f32) * 1920f32,
+                    1080f32,
+                )),
+                ..default()
+            },
+            ..default()
+        },
+        BackgroundAnimation {
+            timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+            speed: 15.0,
+            size: 16382.0,
+        },
+    ));
+
+    // TRAINS
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
     let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
         wagon_texture,
@@ -105,7 +131,7 @@ fn setup(
         SpriteSheetBundle {
             texture_atlas,
             sprite: TextureAtlasSprite::new(0),
-            transform: Transform::from_translation(Vec3::new(915f32 * 6f32, 0f32, 0f32)),
+            transform: Transform::from_translation(Vec3::new(915f32 * 6f32, 0f32, 1f32)),
             ..default()
         },
         Animation {
@@ -314,6 +340,29 @@ fn animate_sprites(time: Res<Time>, mut query: Query<(&mut Animation, &mut Textu
     }
 }
 
+fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimation, &mut Sprite)>) {
+    for (mut animation, mut sprite) in &mut query {
+        animation.timer.tick(time.delta());
+        if animation.timer.just_finished() {
+            // On translate le rectangle de la vue
+            let mut rect = sprite.rect.unwrap();
+            translate_rectangle(&mut rect, animation.speed, 0.0);
+            sprite.rect = Some(rect);
+            // Si on est trop loin, on wrap
+            if rect.max.x > animation.size {
+                sprite.rect = Some(Rect::new(0.0, 0.0, (ROOMS_COUNT as f32) * 1920.0, 1080.0))
+            }
+        }
+    }
+}
+
+fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) {
+    rect.max.x += translation_x;
+    rect.max.y += translation_y;
+    rect.min.x += translation_x;
+    rect.min.y += translation_y;
+}
+
 #[derive(Component)]
 pub struct Animation {
     pub timer: Timer,
@@ -322,3 +371,10 @@ pub struct Animation {
 
 #[derive(Component)]
 struct WagonCamera;
+
+#[derive(Component)]
+pub struct BackgroundAnimation {
+    pub timer: Timer,
+    pub speed: f32,
+    pub size: f32,
+}
