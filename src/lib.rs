@@ -2,6 +2,7 @@ mod game_state;
 mod train;
 pub mod room;
 pub mod character;
+mod graph;
 
 use std::cmp::{max, min};
 use bevy::prelude::*;

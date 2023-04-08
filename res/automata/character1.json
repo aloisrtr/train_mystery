@@ -1,0 +1,30 @@
+{
+    "name": "Mr Martin",
+    "dialogues": {
+        "init": [
+            "Salut !",
+            "Comment ça vas ?"
+        ],
+        "te_deteste": [
+            "Nique tes morts !"
+        ]
+    },
+    "automata": [
+        {
+            "initstate": "init",
+            "states": {
+                "init": {
+                    "dialogue": "init",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "parle": "init"
+                    }
+                }
+            }
+        }
+    ]
+}

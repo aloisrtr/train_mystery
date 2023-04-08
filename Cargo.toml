@@ -6,6 +6,11 @@ edition = "2021"
 [dependencies]
 bevy = { version = "0.10.0", features = ["dynamic_linking"] }
 
+# JSON IMPORT
+serde = "1.0.117"
+serde_derive = "1.0.117"
+serde_json = "1.0.59"
+
 [profile.dev]
 opt-level = 1
 
