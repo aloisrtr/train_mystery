@@ -11,40 +11,40 @@
                     ],
                     "location": 3,
                     "edges": {
-                      "vieux_default_1": "default_2"
+                      "vieux_default_1": "vieux_default_2"
                     }
                 },
-				"default_2": {
+				"vieux_default_2": {
 					"dialogue": [
                       "Nous passons un très bon voyage, nous allons voir nos petits enfants.",
                       "Passez-vous un bon voyage?"
                     ],
                     "location": 1,
                     "edges": {
-                            "vieux1_default_2": "loop_1"
+                            "vieux1_default_2": "vieux_loop_1"
                     }
 				},
-				"loop_1": {
+				"vieux_loop_1": {
                     "dialogue": [
                       "L'assassinat du président X est vraiment terrible. Si ces satanés complotistes n'avaient pas pris cette vie, nous aurons été tous bien plus heureux!"
                     ],
                     "location": 1,
                     "edges": {
-                            "vieux1_loop_1": "loop_2",
-							"enfant_default_1": "enfant"
+                            "vieux1_loop_1": "vieux_loop_2",
+							"enfant_default_1": "enfant_default1"
                     }
                 },
-				"loop_2": {
+				"vieux_loop_2": {
                     "dialogue": [
                       "Le conducteur a sûrement plein d'histoires à raconter!"
                     ],
                     "location": 1,
                     "edges": {
-                            "vieux1_loop_2": "loop_1",
-							"enfant_default_1": "enfant"
+                            "vieux1_loop_2": "vieux_loop_1",
+							"enfant_default_1": "vieux1_bonbon"
                     }
                 },
-				"enfant": {
+				"vieux1_bonbon": {
                     "dialogue": [
                       "Vous n'avez pas bonne mine jeune homme!",
                       "...",
@@ -53,7 +53,7 @@
                     ],
                     "location": 1,
                     "edges": {
-                            "vieux1_bonbon": "loop_1"
+                            "vieux1_bonbon": "vieux_loop_1"
                     }
                 }
             }

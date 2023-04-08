@@ -1,6 +1,6 @@
 {
     "name": "Enfants",
-    "sprite": "characters/enfants.png",
+    "sprite": "characters/enfant.png",
     "behavior":
         {
             "init_state": "enfant_default_1",
@@ -44,7 +44,7 @@
                         "enfant_bonbon_3": "enfant_bonbon_4"
                     }
                 },
-				"bonbon_4": {
+				"enfant_bonbon_4": {
                     "dialogue": [
                       "On s'amuse bien ici mais les gens partent aussi vite qu'ils arrivent."
                     ],
@@ -53,7 +53,7 @@
                         "enfant_bonbon_4": "enfant_bonbon_5"
                     }
                 },
-				"bonbon_5": {
+				"enfant_bonbon_5": {
                     "dialogue": [
                       "Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
                     ],
@@ -62,15 +62,26 @@
                         "enfant_bonbon_5": "enfant_bonbon_6"
                     }
                 },
-				"bonbon_6": {
+				"enfant_bonbon_6": {
                     "dialogue": [
                       "Merci encore sur les bonbons!!"
                     ],
                     "location": 1,
                     "edges": {
-                        "enfant_bonbon_6": "enfant_1"
+                        "enfant_bonbon_6": "enfant_bonbon_6",
+						"TODO_conducteur": "enfant_conducteur"
                     }
-                }
+                },
+				"enfant_conducteur": {
+					"dialogue": [
+						"M. le conducteur est très gentil avec nous!!",
+						"Il dit des choses un peu bizarres parfois mais il est sympa."
+					  ],
+					  "location": 1,
+					  "edges": {
+						  "enfant_bonbon_6": "enfant_bonbon_6"
+					  }
+				}
             }
         }
 }
