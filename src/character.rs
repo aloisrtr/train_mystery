@@ -72,6 +72,10 @@ impl From<BehaviorJSON> for BehaviorAutomaton {
 }
 
 impl BehaviorAutomaton {
+    pub fn reset_automaton(&mut self) {
+        self.current_state = self.init_state.clone();
+    }
+
     pub fn current_state_name(&self) -> &str {
         &self.current_state
     }
