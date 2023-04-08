@@ -71,7 +71,9 @@
                         "Mon mignon tu sais parler aux femmes."
                     ],
                     "location": 1,
-                    "edges": {}
+                    "edges": {
+                        "allumeuse_aveux_2": "controlleur_allumeuse_1"
+                    }
                 }
             }
         }
