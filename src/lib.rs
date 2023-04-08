@@ -559,7 +559,7 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
             translate_rectangle(&mut rect, animation.speed, 0.0);
             sprite.rect = Some(rect);
             // Si on est trop loin, on wrap
-            if rect.max.x > animation.size {
+            if rect.min.x > animation.size / 2.0 {
                 sprite.rect = Some(Rect::new(
                     0.0,
                     0.0,
