@@ -47,7 +47,7 @@ fn setup(
     };
     commands.spawn(Train { rooms });
 
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn((Camera2dBundle::default(), WagonCamera));
     // Load up assets
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
     let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
@@ -298,3 +298,6 @@ pub struct Animation {
     pub timer: Timer,
     pub frames: usize,
 }
+
+#[derive(Component)]
+struct WagonCamera;
