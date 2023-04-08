@@ -61,7 +61,10 @@ fn setup(
     commands.spawn(Train { rooms });
 
     for file in fs::read_dir("assets/automata").unwrap() {
-        commands.spawn(CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap());
+        commands.spawn((
+            CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap(),
+            RenderLayers::layer(2)
+        ));
     }
 
     commands.spawn((
