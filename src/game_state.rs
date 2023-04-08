@@ -23,5 +23,5 @@ pub enum MenuState {
     #[default]
     None,
     Pause,
-    Journal
+    Journal,
 }

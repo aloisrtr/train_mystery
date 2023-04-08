@@ -1,0 +1,79 @@
+{
+    "name": "Allumeuse",
+    "sprite": "characters/allumeuse.png",
+    "behavior":
+        {
+            "init_state": "allumeuse_default_1",
+            "states": {
+                "allumeuse_default_1": {
+                    "dialogue": [
+                        "Eh beau gosse tu m'invites?"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "allumeuse_default_1": "allumeuse_default_2"
+                    }
+                },
+                "allumeuse_default_2": {
+                    "dialogue": [
+                        "T'as de quoi m'inviter oui ou non?"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "allumeuse_default_2": "allumeuse_default_3"
+                    }
+                },
+                "allumeuse_default_3": {
+                    "dialogue": [
+                        "...",
+                        "Si t'es fauché dis le tocard!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "allumeuse_default_3": "allumeuse_default_3",
+                            "racaille_parlé_TODO": "allumeuse_adultere"
+                    }
+                },
+                "allumeuse_adultere": {
+                    "dialogue": [
+                        "...",
+                        "Adultère de quoi?",
+                        "Et qu'est-ce que t'en sais hein? T'as aucune preuve de ce que t'avances!",
+                        "Déguerpis d'ici tocard!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "averagewoman_allumeuse_adultere": "allumeuse_aveux_1"
+                    }       
+                },
+                "allumeuse_aveux_1": {
+                    "dialogue": [
+                        "...",
+                        "...",
+                        "Elle a lâché l'affaire..?",
+                        "Cette barista m'a enfin lâchée...",
+                        "Laisser ton ami policier tranquille? ...",
+                        "C'est toujours pratique d'avoir un policier à sa botte.",
+                        "... Ne crois pas que je vais le lâcher pour si peu, celui-là n'avait qu'à pas tromper sa compagne!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "allumeuse_aveux_1": "allumeuse_aveux_2"
+                    }
+                },
+                "allumeuse_aveux_2": {
+                    "dialogue": [
+                        "... Ok... Je veux peut-être bien le laisser tranquille si tu m'offres quelque chose d'équivalent.",
+                        "Un verre? Haha tu penses que ce sera assez?",
+                        "Des dizaines de verres?",
+                        "...",
+                        "Mon mignon tu sais parler aux femmes."
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "allumeuse_aveux_2": "allumeuse_aveux_2"
+                    }
+                }
+            }
+        }
+}

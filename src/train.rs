@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-pub const ROOMS_COUNT: usize = 6;
+pub const ROOMS_COUNT: usize = 7;
 
 #[derive(Component)]
 pub struct Train {

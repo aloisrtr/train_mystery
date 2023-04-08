@@ -1,15 +1,104 @@
+use std::collections::HashMap;
+use std::io;
+use std::path::Path;
+
 use bevy::prelude::*;
+use serde_derive::Deserialize;
 
-#[derive(Component)]
-pub struct CharacterMarker;
+/// GENERAL CHARACTER BUNDLE
+#[derive(Component, Deref, DerefMut, Debug)]
+pub struct Name(String);
 
-#[derive(Component)]
-pub struct Behavior;
+#[derive(Deserialize, Debug)]
+pub struct CharacterJSON {
+    pub name: String,
+    pub sprite: String,
+    pub behavior: BehaviorJSON,
+}
 
 #[derive(Bundle)]
-pub struct Character {
-    _marker: CharacterMarker,
+pub struct CharacterBundle {
+    pub name: Name,
+    pub behavior: BehaviorAutomaton,
+    pub sprite: SpriteBundle,
+}
 
-    room_sprite: SpriteBundle,
-    behavior: Behavior,
+impl CharacterBundle {
+    pub fn from_json<P: AsRef<Path> + std::fmt::Debug>(
+        file: P,
+        asset_server: &Res<AssetServer>,
+    ) -> io::Result<CharacterBundle> {
+        // Deserialize the character file
+        println!("parsing {file:?}");
+        let character_json =
+            serde_json::from_str::<CharacterJSON>(&std::fs::read_to_string(file)?)?;
+
+        Ok(CharacterBundle {
+            name: Name(character_json.name.clone()),
+            behavior: BehaviorAutomaton::from(character_json.behavior),
+            sprite: SpriteBundle {
+                texture: asset_server.load(character_json.sprite),
+                ..default()
+            },
+        })
+    }
+}
+
+/// BEHAVIOR AUTOMATON
+#[derive(Deserialize, Debug, Clone)]
+pub struct BehaviorJSON {
+    pub init_state: String,
+    pub states: HashMap<String, StateJSON>,
+}
+
+#[derive(Component, Debug)]
+pub struct BehaviorAutomaton {
+    pub current_state: String,
+    pub states: HashMap<String, State>,
+}
+impl From<BehaviorJSON> for BehaviorAutomaton {
+    fn from(json: BehaviorJSON) -> Self {
+        BehaviorAutomaton {
+            current_state: json.init_state,
+            states: json
+                .states
+                .into_iter()
+                .map(|(k, v)| (k, State::from(v)))
+                .collect(),
+        }
+    }
+}
+
+impl BehaviorAutomaton {
+    pub fn current_state_name(&self) -> &str {
+        &self.current_state
+    }
+
+    pub fn current_state(&self) -> &State {
+        &self.states[&self.current_state]
+    }
+}
+
+/// STATE
+#[derive(Deserialize, Debug, Clone)]
+pub struct StateJSON {
+    pub dialogue: Vec<String>,
+    pub location: usize,
+    pub edges: HashMap<String, String>,
+}
+
+#[derive(Component, Debug)]
+pub struct State {
+    pub dialogue: Vec<String>,
+    pub location: usize,
+    pub edges: HashMap<String, String>,
+}
+impl From<StateJSON> for State {
+    fn from(json: StateJSON) -> Self {
+        State {
+            dialogue: json.dialogue,
+            location: json.location,
+            edges: json.edges,
+        }
+    }
 }

@@ -1,0 +1,37 @@
+{
+    "name": "Average Man",
+    "sprite": "characters/average_man.png",
+    "behavior": {
+            "init_state": "average_man_default_1",
+            "states": {
+                "average_man_default_1": {
+                    "dialogue": [
+                        "Bonjour monsieur."
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "average_man_default_1": "average_man_default_2"
+                    }
+                },
+                "average_man_default_2": {
+                    "dialogue": [
+                        "Avez-vous vu ces enfants? C'est terrible... Ils ont perdu leurs parents.",
+                        "Comment? Apparemment ils ont été pris dans un accident. Cependant...",
+                        "Cependant les enfants ne semblent bizarrement pas si tristes. Leurs parents étaient-ils des monstres?"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "average_man_default_2": "average_man_default_3"
+                    }
+                },
+                "average_man_default_3": {
+                    "dialogue": [
+                        "Je n'ai jamais compris ce genre de parents tyranniques.",
+                        "Il faudrait peut être aider ces enfants."
+                    ],
+                    "location": 1,
+                    "edges": {}
+                }
+            }
+        }
+}

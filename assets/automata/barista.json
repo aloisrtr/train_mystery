@@ -1,0 +1,71 @@
+{
+    "name": "Barista",
+    "sprite": "characters/barista.png",
+    "behavior":
+        {
+            "init_state": "barista_default_1",
+            "states": {
+                "barista_default_1": {
+                    "dialogue": [
+                      "Bonjour..."
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "barista_default_1": "barista_default_2",
+							"allumeuse_adultere_1": "barista_allumeuse_adultere"
+                    }
+                },
+				"barista_default_2": {
+                    "dialogue": [
+                      "Vous êtes bien monsieur Y...?",
+                      "Votre réputation semble vous précéder. J'espère que votre voyage se passe bien...",
+                      "Quelle réputation? Mais... Vous êtes le meilleur inspecteur du pays!",
+                      "Enfin... vous étiez."
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "barista_default_2": "barista_default_3",
+							"allumeuse_adultere_1": "barista_allumeuse_adultere"
+                    }
+                },
+				"barista_default_3": {
+                    "dialogue": [
+                      "Que puis-je vous servir?"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "barista_default_3": "barista_default_1",
+							"allumeuse_adultere_1": "barista_allumeuse_adultere"
+                    }
+                },
+				"barista_allumeuse_adultere": {
+					"dialogue": [
+                      "... On vous a donc mis au courant.",
+                      "C'est cette saleté de racaille..!",
+                      "Je-je...",
+                      "Que je me calme? C'est- je n'ai rien à voir avec cette histoire..!",
+                      "Mais enfin... C'est- c'est moi qui suis victime!",
+                      "Puisque je vous dis que je suis coupabl- ... victime!!!",
+                      "...",
+                      "...",
+                      "...",
+                      "Désolée... Vous- vous devez comprendre que cett- cette histoire me- nous dépasse largement.",
+                      "Je peux tout vous expliquer si vous me promettez de m'aider à me sortir de là.",
+                      "...",
+                      "On m'a simplement dit que votre ami le policier ne devait pas mener d'enquête sur quoi que ce soit dans ce train.",
+                      "On? ...",
+                      "Le controlleur...",
+                      "Chhh! Ne parlez pas si fort!",
+                      "Il regarde tout et entend tout partout.",
+                      "J'ai donc convaincu cett- cette allumeuse qui s'ennuyait qu'elle commette cette adultère avec lui...",
+                      "Il ne lui a fallu que quelques verres.",
+                      "Et maintenant, elle le tient en laisse.",
+                      "Que se passe-t-il ensuite? C'est à vous de me dire! Je- je vous ai dit tout ce que je savais, aidez-moi maintenant!"
+                    ],
+                    "location": 1,
+                    "edges": {}
+				}
+            }
+        }
+
+}

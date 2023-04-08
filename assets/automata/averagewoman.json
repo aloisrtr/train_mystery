@@ -1,0 +1,40 @@
+{
+    "name": "Average Woman",
+    "sprite": "characters/average_woman.png",
+    "behavior":
+        {
+            "init_state": "average_woman_default_1",
+            "states": {
+                "average_woman_default_1": {
+                    "dialogue": [
+                      "Bonjour... Je peux vous aider?"
+                    ],
+                    "location": 1,
+                    "edges": {}
+                },
+				"average_woman_pote_controlleur": {
+					"dialogue": [
+                      "C'est terrible ce qui s'est passé avec l'assassinat du président X...",
+                      "Comment ça ça s'est passé quand? En 1965 enfin!",
+                      "Ces abrutis soupçonnaient un complot avec notre cher président, c'est n'importe quoi!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "average_woman_pote_controlleur": "average_woman_pote_controlleur_2"
+                    }
+				},
+				"average_woman_pote_controlleur_2": {
+                    "dialogue": [
+                      "Le président X était vraiment admirable! Il était bienveillant et aimé de tous.",
+                      "Comment ça qui étaient ses assassins? Vous habitez dans une grotte?",
+                      "On soupçonnait une organisation derrière tout ça... Ils auraient cru à des manigances de notre cher président, c'est totalement absurde!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                            "average_woman_pote_controlleur_2": "average_woman_pote_controlleur"
+                    }
+                }
+            }
+        }
+
+}

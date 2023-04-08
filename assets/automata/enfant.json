@@ -1,0 +1,76 @@
+{
+    "name": "Enfants",
+    "sprite": "characters/enfants.png",
+    "behavior":
+        {
+            "init_state": "enfant_default_1",
+            "states": {
+                "enfant_default_1": {
+                    "dialogue": [
+                      "Tema la taille du rat!",
+                      "Quoi?",
+                      "Quoicoubeh!"
+                    ],
+                    "location": 1,
+                    "edges": {
+						"vieux1_bonbon":"enfant_bonbon_1"
+                    }
+                },
+				"enfant_bonbon_1": {
+                    "dialogue": [
+                      "Oh des bonbons!! Merci monsieur!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "enfant_bonbon_1": "enfant_bonbon_2"
+                    }
+                },
+				"bonbon_2": {
+                    "dialogue": [
+                      "Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "enfant_bonbon_2": "enfant_bonbon_3"
+                    }
+                },
+				"enfant_bonbon_3": {
+                    "dialogue": [
+                      "Nos parents? Ils étaient méchants et se fichaient de nous. M. le controlleur et M. le conducteur s'occupent de nous maintenant et c'est bien mieux!!",
+                      "On voyage maintenant dans le train avec eux."
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "enfant_bonbon_3": "enfant_bonbon_4"
+                    }
+                },
+				"bonbon_4": {
+                    "dialogue": [
+                      "On s'amuse bien ici mais les gens partent aussi vite qu'ils arrivent."
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "enfant_bonbon_4": "enfant_bonbon_5"
+                    }
+                },
+				"bonbon_5": {
+                    "dialogue": [
+                      "Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "enfant_bonbon_5": "enfant_bonbon_6"
+                    }
+                },
+				"bonbon_6": {
+                    "dialogue": [
+                      "Merci encore sur les bonbons!!"
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "enfant_bonbon_6": "enfant_1"
+                    }
+                }
+            }
+        }
+}

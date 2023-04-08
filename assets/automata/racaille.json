@@ -1,0 +1,47 @@
+{
+    "name": "Racaille",
+    "sprite": "characters/racaille.png",
+    "behavior":
+        {
+            "init_state": "racaille_default_1",
+            "states": {
+                "racaille_default_1": {
+                    "dialogue": [
+                      "Qu'est-ce tu veux frère?"
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "racaille_default_1": "default_2"
+                    }
+                },
+				"default_2": {
+                    "dialogue": [
+                      "*Te pète la gueule*"
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "racaille_default_1": "default_1"
+                    }
+                },
+				"TODO_finir_logique": {
+                    "dialogue": [
+                      "Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "racaille_default_1": "default_2"
+                    }
+                },
+				"average_man_woman": {
+                    "dialogue": [
+                      "Ouais c'est pas mal ça! Info adultère."
+                    ],
+                    "location": 1,
+                    "edges": {
+                        "racaille_average_man_woman": "default_1"
+                    }
+                }
+            }
+        }
+
+}
