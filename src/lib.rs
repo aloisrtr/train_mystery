@@ -10,8 +10,9 @@ use crate::train::{Train, ROOMS_COUNT};
 use bevy::{
     prelude::*,
     text::{BreakLineOn, Text2dBounds},
+    window::WindowResolution,
+    render::view::visibility::RenderLayers,
 };
-use bevy::window::WindowResolution;
 use std::cmp::min;
 use std::fs;
 
@@ -65,7 +66,19 @@ fn setup(
         Camera2dBundle::default(),
         WagonCamera,
         CameraPosition(Camera2dBundle::default().transform.translation),
+        RenderLayers::layer(0)
     ));
+    commands.spawn((
+        Camera2dBundle {
+            camera: Camera {
+                order: 10,
+                ..default()
+            }, ..default()
+        },
+        FixedCamera,
+        RenderLayers::layer(1)
+    ));
+
     // Load up assets
 
     // BACKGROUNDS
@@ -426,15 +439,18 @@ fn show_text(
 
     let box_size = Vec2::new(window_width*0.9, window_height*0.3);
     let box_pos = Vec2::new(0.0, (window_height as f32)*-0.3);
-    commands.spawn(SpriteBundle {
-        sprite: Sprite {
-            color: Color::rgba(0.1, 0.1, 0.1, 0.8),
-            custom_size: Some(box_size),
+    commands.spawn((
+        SpriteBundle {
+            sprite: Sprite {
+                color: Color::rgba(0.1, 0.1, 0.1, 0.8),
+                custom_size: Some(box_size),
+                ..default()
+            },
+            transform: Transform::from_translation(box_pos.extend(0.0)),
             ..default()
         },
-        transform: Transform::from_translation(box_pos.extend(0.0)),
-        ..default()
-    }).with_children(|builder| {
+        RenderLayers::layer(1)
+    )).with_children(|builder| {
         builder.spawn(Text2dBundle {
             text: Text {
                 sections: vec![TextSection::new(
@@ -469,6 +485,9 @@ pub struct BackgroundAnimation {
     pub speed: f32,
     pub size: f32, // Longueur de l'image (pour savoir quand wrap)
 }
+
+#[derive(Component)]
+struct FixedCamera;
 
 #[derive(Resource)]
 struct UiFont(Handle<Font>);
