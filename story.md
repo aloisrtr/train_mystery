@@ -37,7 +37,8 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "Des dizaines de verres?"/
     "..."/
     "Mon mignon tu sais parler aux femmes."
-    -> (loop)
+    -> (loop) (event : barista disparaît et le controlleur est au bar)
+
 - Les vieux:
     Caractère :
     - Se font chier et ils sont seuls (ils sont vieux) du coup ils sont trop heureux si tu viens leur parler 
@@ -87,6 +88,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
       (continue) -> "Le président X était vraiment admirable! Il était bienveillant et aimé de tous."/
       "Comment ça qui étaient ses assassins? Vous habitez dans une grotte?"/
       "On soupçonnait une organisation derrière tout ça... Ils auraient cru à des manigances de notre cher président, c'est totalement absurde!" (continue) -> (loop)
+      (parlé racaille) -> "Cette saleté de racaille me lance des regards lugubres parfois."
 
 - L'autre policier (rationnel):
     Caractère :
@@ -96,7 +98,23 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     Routine :
     - Fixe.
     Dialogues :
-    - Haha mdr
+    - (default) -> "..."/"Mon pote."/
+    "Arrête d'avoir cette mine!"/
+    "..."/
+    "Écoute, je sais que ton licenciement t'a grandement bouleversé mais resaisis-toi!"/
+    "Il y a un psy' à bord du train, cherche le et profites-en pour prendre l'air."
+    (parlé psy) -> "Alors comment ça s'est passé?"/
+    "Ré-réhabilitation? Enquête..? Il t'a carrément remis le boulot en tête celui-là!"/
+    "..."/
+    "Bon..."/
+    "J'ai compris! Si tu insistes autant je peux te donner une chance."/
+    "Quelque chose se trame dans ce train, il a été objet de quelques enquêtes, en effet des personnes ont été portées disparues."/
+    "... Ah non c'est rien. Je me dis juste que tu n'avais pas à avoir cette enquête... Je suis désolé."/
+    "Moi? Pourquoi je ne mène pas l'enquête? Mais voyons tu ne vois pas que je suis justement dans le train avec toi!"/
+    "Je- je... Je suis juste en standby! Oui c'est ça! En standby!"/
+    "J'étudie la scène, tu sais en analysant les objets et en interrogeant les passagers. Tu devrais faire de même."/
+    "En tout cas, reviens me voir si tu as une soumission à me faire par rapport à l'enquête. Je t'épaulerai comme il faut, mais ne te surmène pas, après tout tu es..."/
+    "Enfin, bon courage." -> (loop)
 
 - Le psy/médecin (conseiller/tuto):
     Caractère :
@@ -106,7 +124,22 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     Routine :
     - Fixe.
     Dialogues :
-    - Haha mdr
+    - (default) -> "Bonjour monsieur."/
+    "Vous me semblez un peu perdu."/
+    "..."/"Ah! Mais vous êtes ce fameux inspecteur!"/
+    "Ou du moins ce qu'il en reste..."/
+    "Hum. Excusez-moi, je suis psychologue de profession."/
+    "Votre situation actuelle me semble quelque peu emmêlée, laissez-moi vous éclairer."/
+    "Hmm... Votre réhabilitation est en elle-même une enquête..."/
+    "Vous êtes dans un sacré cas!"/
+    "Étant donné votre situation actuelle vous pouvez noter dans votre carnet toute information qui vous semble bon à prendre."/"Prenez toutefois garde, vos phases peuvent vous jouer des tours quant à la véracité de vos notes."/"Pensez donc à consulter régulièrement votre entourage pour vous rappeler d'une certaine cohérence."/
+    "..."/
+    "Cette enquête semble être potentiellement la plus dure de celle de toute votre carrière!"/
+    "Mais bon... Je crois en vous.
+    Vous étiez tout de même le meilleur inspecteur du pays!"/
+    "Bon courage et que le chemin de la réhabilitation vous sourit."
+    -> (loop)
+    (parlé controlleur) -> "Ah monsieur!"/"Vous semblez mal au point, ou me trompe-je?"/"Voici quelques médicaments..." -> (loop)
 
 - Les gosses:
     Caractère :
@@ -120,9 +153,10 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
       (bonbons et parlé à average man) -> "Oh des bonbons!! Merci monsieur!"
       (continue) -> "Nos parents? Ils étaient méchants et se fichaient de nous. M. le controlleur et M. le conducteur s'occupent de nous maintenant et c'est bien mieux!!"/
       "On voyage maintenant dans le train avec eux."
-      (continue) -> "On s'amuse bien ici mais les gens partent aussi vite qu'ils arrivent."
-      (continue) -> "Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
+      -> "On s'amuse bien ici mais les gens partent aussi vite qu'ils arrivent."
+      -> "Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
       (continue) -> "Merci encore sur les bonbons!!" -> (loop)
+    (parlé conducteur) -> "M. le conducteur est très gentil avec nous!!"/"Il dit des choses un peu bizarres parfois mais il est sympa."
 
 - La barista:
     Caractère :
@@ -137,7 +171,13 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "Quelle réputation? Mais... Vous êtes le meilleur inspecteur du pays!"/
     "Enfin... vous étiez."
     (continue) -> "Que puis-je vous servir?" -> (loop)
-    -> (parlé à l'allumeuse de l'adultère) "Bonjour."/"Une adultère..?"/
+    (parlé à average man/average woman) -> "Je-je n'en sais pas plus sur eux que sur vous vous savez."/
+    "Si- si je vous l'assure!"/"..."/"Prendrez-vous un verre?" -> (loop)
+    (parlé à l'autre policier) -> "Votre ami policier semble bien vous apprécier."/
+    "Nou- je l'- l'apprécie tout autant enfin!"/
+    "..."/
+    "Mais si vous voulez mon avis, il ne semble pas très net..." -> (loop)
+    (parlé à l'allumeuse de l'adultère) "Bonjour."/"Une adultère..?"/
     "... On vous a donc mis au courant."/
     "C'est cette saleté de racaille..!"/
     "Je-je..."/
@@ -169,6 +209,24 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     Routine :
     - Fixe.
     Dialogues :
+    - (default) -> "Bien le bonjour et bienvenue à bord monsieur!"/"Notre train est réputé pour toujours arriver à bonne destination. Donc n'ayez crainte pour votre voyage."
+    (parlé l'autre policier) -> "Ce policier... Il m'a semblé un peu crispé par la situation actuelle. Je pense qu'il doit être bloqué par quelque chose."/
+    "En parlant de bloquer, la porte du wagon de cargaisons était bloqué toute la veille!"/
+    -> (loop)
+    (parlé barista) -> "La barista sert de très bons cocktails."/
+    "... Non pas que j'en prenne au volant!"
+    (continue) -> "Pourquoi semble-t-elle un peu stressée vous dites?"/
+    "..."/
+    "Elle doit peut être avoir quelques complications dans sa vie."/
+    "Mais... Je crois qu'elle est sur les rails de la réhabilitation." -> (loop)
+    (parlé controlleur) -> "Les ragots peuvent parfois toujours être source de conflits n'est-ce pas? Ne vous embêtez pas avec de telles sottises." -> (loop)
+    (parlé racaille) -> "Cette racaille... Elle occupe le wagon de cargaison presque tout le temps!" -> (loop)
+    (parlé gosses) -> "Ah ces enfants?"/
+    "Ils ont en effet perdu leurs parents dans un tragique accident."/
+    "Que ce soit pour le meilleur ou le pire ces enfants semblent maintenant libérés!"/
+    "Leur éducation était à revoir, les parents les avaient délaissés. Les pauvres." (continue) -> "Ces enfants sont comme nos enfants maintenant!"/"Nos? Haha! Je veux dire ce sont les enfants du train maintenant!" -> (loop)
+    (parlé average man) -> "Cet homme lambda ne semble pas au plus haut point dans sa vie."/
+    "Peut-être aurait-il besoin d'un peu d'aide." -> (loop)
 
 - Le controlleur:
     Caractère :
@@ -178,6 +236,16 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     Routine :
     - Bouge assez peu, il alterne entre le bar et les derniers wagons.
     Dialogues :
+    - (default) -> "..."/"Bonjour monsieur."
+      (continue) -> "..."/"Vous semblez un peu malheureux."/"Si jamais vous l'êtes vraiment, vous pouvez peut-être tenter d'être heureux en profitant de ceux qui le sont." -> (loop)
+      (parlé vieux) -> "..."/"N'écoutez pas trop ce que peuvent dire les autres, les ragots sont toujours présents de nos jours et croyez-moi qu'ils ne vous rendront pas votre vie toute rose." -> (loop)
+      (parlé allumeuse) -> "Vous..."/"Où allez-vous?"/"..."/
+      "Monsieur. Allez-vous bien? Vous me paraissez un peu pâle."/
+      "Oui tout à fait vous ne semblez pas avoir bonne mine."/
+      "..."/
+      "Monsieur, j'insiste. Je crois que vos problèmes de santé vous reprennent et j'ai peur que cela n'empire immédiatement. Par chance il y a un médecin à bord, je vous y emmène directement."/
+      "Allons-y."
+      -> (TP wagon)
 
 - La racaille:
     Caractère :
@@ -190,7 +258,12 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     - "Qu'est-ce tu veux frère?"
     (default) -> te pète la gueule -> back to init
     (besoin information adultère/pote) -> "Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
-    (parlé à average man/woman) -> "Ouais c'est pas mal ça! Info adultère." (default) -> back to init 
+    (parlé à average man/woman) -> "Ouais c'est pas mal ça! Ces pouilleux n'avaient qu'à bien ranger leurs affaires!" -> "..."/"Ah ouais. Tiens tu sais quoi? J'ai pris en flagrant délit ton pote l'policier avec l'allumeuse du coin, ils faisaient quelque chose de pas très catho' s'tu vois c'que je veux dire haha!"/
+    "Ce que je sais de plus? Hmm... J'crois que l'allumeuse le garde sous le coude mais on dirait qu'elle souhaite pas en dire plus que ça."/
+    "Pfff... C'est une allumeuse non? Elle doit avoir l'habitude de faire ça avec tout le monde donc pourquoi faire la cachottière?" -> (back to init)
+    (parlé à l'autre policier et photo adultère) -> "..."/"Et qu'est-ce que tu veux que j'y fasse dans ton histoire?"/"Hein?! Un trésor? Sérieux?"/
+    "..."/
+    "Ok tout ce dont t'as besoin c'est d'un gros dur comme moi? Je suis avec toi!" -> (loop)
 
 Objectif : 
 Arriver à 100% de découverte du mystère, pourcentage défini par ta progression dans le graphe des connaissances.
@@ -212,4 +285,6 @@ La tâche de la barista est également de retenir le plus possible le main car i
 Le main poursuit une quête de bonheur qui est en fait sa véritable quête d'origine, retrouver son bonheur perdu à cause de son accident traumatique. C'est pour cela qu'il essaie inconsciemment d'élucider le mystère du train qui s'avère être lié à son accident traumatique, son propre mystère, son bonheur, son enquête...
 
 Déroulé:
-
+    Le fil de la véritable histoire consiste en aller parler à tous les passagers pour récolter assez d'informations et débloquer mutuellement les dialogues et compléter le carnet. Le vecteur directeur est la barista qui tient en laisse l'allumeuse qui tient elle-même en laisse l'autre policier. Débloquer cela permet de convaincre partiellement l'ami policier d'aller aider le main,
+    cependant il faut lui donner la photo de l'adultère lâchée dans le bar après que la barista ait disparu.
+    L'autre policier hésitera toujours et il faudra aller parler et faire une fausse promesse à la racaille qui jouera de gros bras supplémentaire et finir par une soumission à l'autre policier pour débusquer la secte.
