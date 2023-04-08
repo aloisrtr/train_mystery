@@ -53,12 +53,14 @@ pub struct BehaviorJSON {
 
 #[derive(Component, Debug)]
 pub struct BehaviorAutomaton {
+    pub init_state: String,
     pub current_state: String,
     pub states: HashMap<String, State>,
 }
 impl From<BehaviorJSON> for BehaviorAutomaton {
     fn from(json: BehaviorJSON) -> Self {
         BehaviorAutomaton {
+            init_state: json.init_state.clone(),
             current_state: json.init_state,
             states: json
                 .states
@@ -70,6 +72,10 @@ impl From<BehaviorJSON> for BehaviorAutomaton {
 }
 
 impl BehaviorAutomaton {
+    pub fn reset_automaton(&mut self) {
+        self.current_state = self.init_state.clone();
+    }
+
     pub fn current_state_name(&self) -> &str {
         &self.current_state
     }
