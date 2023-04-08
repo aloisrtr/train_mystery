@@ -141,6 +141,33 @@ fn setup(
         },
     ));
 
+	let rails_texture = asset_server.load("background/rails2.png");
+	commands.spawn((
+        SpriteBundle {
+            texture: rails_texture,
+            sprite: Sprite {
+                rect: Some(Rect::new(
+                    0f32,
+                    0f32,
+                    (ROOMS_COUNT as f32) * 1920f32,
+                    1714.0,
+                )),
+                ..default()
+            },
+            transform: Transform::from_scale(Vec3::new(1.0, 1080.0/1714.0 * 0.5, 1.0))
+				.with_translation(Vec3::new(0.0,-1080.0*0.05,0.9)),
+            ..default()
+        },
+        BackgroundAnimation {
+            timer: Timer::from_seconds(0.05, TimerMode::Repeating),
+            speed: 15.0,
+            size: 16250.0,
+        },
+    ));
+
+
+
+
     // TRAINS
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
     let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
