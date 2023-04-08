@@ -7,11 +7,11 @@ use crate::character::CharacterBundle;
 use crate::game_state::{GameState, GameplayState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
+use bevy::window::WindowResolution;
 use bevy::{
     prelude::*,
     text::{BreakLineOn, Text2dBounds},
 };
-use bevy::window::WindowResolution;
 use std::cmp::min;
 use std::fs;
 
@@ -316,12 +316,12 @@ fn handle_input(
     if keys.just_pressed(KeyCode::Space) {
         match game_state.as_mut() {
             GameState {
-                gameplay_state: GameplayState::Room {..},
-                opened_menu: MenuState::None
+                gameplay_state: GameplayState::Room { .. },
+                opened_menu: MenuState::None,
             } => {
                 show_text(commands, windowq.single(), asset_server, "I'd just like to interject for a moment. What you're refering to as Linux, is in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux is not an operating system unto itself, but rather another free component…");
-            },
-            _ => ()
+            }
+            _ => (),
         }
     }
 
@@ -382,12 +382,7 @@ fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) 
     rect.min.x += translation_x;
     rect.min.y += translation_y;
 }
-fn show_text(
-    mut commands : Commands,
-    window : &Window,
-    asset_server: Res<AssetServer>,
-    text : &str
-) {
+fn show_text(mut commands: Commands, window: &Window, asset_server: Res<AssetServer>, text: &str) {
     let window_width = window.resolution.width();
     let window_height = window.resolution.height();
 
@@ -398,35 +393,31 @@ fn show_text(
         color: Color::WHITE,
     };
 
-    let box_size = Vec2::new(window_width*0.9, window_height*0.3);
-    let box_pos = Vec2::new(0.0, (window_height as f32)*-0.3);
-    commands.spawn(SpriteBundle {
-        sprite: Sprite {
-            color: Color::rgba(0.1, 0.1, 0.1, 0.8),
-            custom_size: Some(box_size),
-            ..default()
-        },
-        transform: Transform::from_translation(box_pos.extend(0.0)),
-        ..default()
-    }).with_children(|builder| {
-        builder.spawn(Text2dBundle {
-            text: Text {
-                sections: vec![TextSection::new(
-                    text,
-                    style.clone(),
-                )],
-                alignment: TextAlignment::Left,
-                linebreak_behaviour: BreakLineOn::WordBoundary,
+    let box_size = Vec2::new(window_width * 0.9, window_height * 0.3);
+    let box_pos = Vec2::new(0.0, (window_height as f32) * -0.3);
+    commands
+        .spawn(SpriteBundle {
+            sprite: Sprite {
+                color: Color::rgba(0.1, 0.1, 0.1, 0.8),
+                custom_size: Some(box_size),
+                ..default()
             },
-            text_2d_bounds: Text2dBounds {
-                size: box_size,
-            },
-            transform: Transform::from_translation(Vec3::Z),
+            transform: Transform::from_translation(box_pos.extend(0.0)),
             ..default()
+        })
+        .with_children(|builder| {
+            builder.spawn(Text2dBundle {
+                text: Text {
+                    sections: vec![TextSection::new(text, style.clone())],
+                    alignment: TextAlignment::Left,
+                    linebreak_behaviour: BreakLineOn::WordBoundary,
+                },
+                text_2d_bounds: Text2dBounds { size: box_size },
+                transform: Transform::from_translation(Vec3::Z),
+                ..default()
+            });
         });
-    });
 }
-
 
 #[derive(Component)]
 pub struct Animation {
