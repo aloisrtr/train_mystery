@@ -38,6 +38,8 @@ impl CharacterBundle {
             behavior: BehaviorAutomaton::from(character_json.behavior),
             sprite: SpriteBundle {
                 texture: asset_server.load(character_json.sprite),
+                transform: Transform::from_scale(Vec3::new(0.1, 0.1, 0.0))
+                    .with_translation(Vec3::new(-200.0, 0.0, 10.0)),
                 ..default()
             },
         })
