@@ -161,7 +161,7 @@ fn handle_input(
     mut game_state: ResMut<GameState>,
     train: Query<&Train>,
     rooms: Query<&RoomCharacterStorage>,
-    mut camera: Query<&mut CameraPosition, With<Camera2d>>,
+    mut camera: Query<&mut CameraPosition, With<WagonCamera>>,
 ) {
     let train = train.get_single().unwrap();
     if keys.just_pressed(KeyCode::Left) {
