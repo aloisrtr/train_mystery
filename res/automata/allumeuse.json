@@ -11,7 +11,7 @@
             "...",
             "Si t'es fauché dis le tocard!"
         ],
-        "adultère": [
+        "adultere": [
             "...",
             "Adultère de quoi?",
             "Et qu'est-ce que t'en sais hein? T'as aucune preuve de ce que t'avances!",
@@ -69,19 +69,19 @@
                     },
                     "edges": {
                             "allumeuse_default_3": "default_3",
-                            "racaille_parlé_TODO": "adultère"
+                            "racaille_parlé_TODO": "adultere"
                     }
                 },
-                "adultère": {
-                    "dialogue": "adultère",
+                "adultere": {
+                    "dialogue": "adultere",
                     "location": "wagon1",
                     "events": {
-                        "on_talk": "allumeuse_adultère_1",
+                        "on_talk": "allumeuse_adultere_1",
                         "on_hit": ""
                     },
                     "edges": {
-                            "allumeuse_adultère_1": "adultère",
-                            "barista_parlé_TODO": "aveux_1"
+                            "allumeuse_adultere_1": "adultere",
+                            "averagewoman_allumeuse_adultere": "aveux_1"
                     }       
                 },
                 "aveux_1": {

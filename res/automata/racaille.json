@@ -1,0 +1,68 @@
+{
+    "name": "Racaille",
+    "dialogues": {
+        "default_1": [
+			"Qu'est-ce tu veux frère?"
+		],
+		"default_2":[
+			"*Te pète la gueule*"
+		],
+		"TODO_besoin_info":[
+			"Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
+		],
+		"average_man_woman":[
+			"Ouais c'est pas mal ça! Info adultère."
+		]
+    },
+    "automata": [
+        {
+            "initstate": "default_1",
+            "states": {
+                "default_1": {
+                    "dialogue": "default_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_default_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_default_1": "default_2"
+                    }
+                },
+				"default_2": {
+                    "dialogue": "default_2",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_default_2",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_default_1": "default_1"
+                    }
+                },
+				"TODO_finir_logique": {
+                    "dialogue": "default_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_default_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_default_1": "default_2"
+                    }
+                },
+				"average_man_woman": {
+                    "dialogue": "average_man_woman",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_average_man_woman",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_average_man_woman": "default_1"
+                    }
+                }
+            }
+        }
+    ]
+}

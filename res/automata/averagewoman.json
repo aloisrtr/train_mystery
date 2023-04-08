@@ -1,0 +1,58 @@
+{
+    "name": "Mme TODO",
+    "dialogues": {
+        "default_1": [
+            "Bonjour... Je peux vous aider?"
+        ],
+		"pote_controlleur":[
+			"C'est terrible ce qui s'est passé avec l'assassinat du président X...",
+			"Comment ça ça s'est passé quand? En 1965 enfin!",
+			"Ces abrutis soupçonnaient un complot avec notre cher président, c'est n'importe quoi!"
+		],
+		"pote_controlleur_2":[
+			"Le président X était vraiment admirable! Il était bienveillant et aimé de tous.",
+			"Comment ça qui étaient ses assassins? Vous habitez dans une grotte?",
+			"On soupçonnait une organisation derrière tout ça... Ils auraient cru à des manigances de notre cher président, c'est totalement absurde!"
+		]
+    },
+    "automata": [
+        {
+            "initstate": "default_1",
+            "states": {
+                "default_1": {
+                    "dialogue": "default_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "averagewoman_default_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "averagewoman_default_1": "default_1"
+                    }
+                },
+				"pote_controlleur": {
+					"dialogue": "pote_controlleur",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "averagewoman_pote_controlleur",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "averagewoman_pote_controlleur": "pote_controlleur_2"
+                    }
+				},
+				"pote_controlleur_2": {
+                    "dialogue": "pote_controlleur_2",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "averagewoman_pote_controlleur_2",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "averagewoman_pote_controlleur_2": "pote_controlleur"
+                    }
+                }
+            }
+        }
+    ]
+}
