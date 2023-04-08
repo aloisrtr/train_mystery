@@ -88,6 +88,22 @@ fn setup(
     commands.spawn((
         Camera2dBundle {
             camera: Camera {
+                order: 0,
+                ..default()
+            },
+            ..default()
+        },
+        BackgroundCamera,
+        CameraPosition(Camera2dBundle::default().transform.translation),
+        RenderLayers::layer(3),
+    ));
+    commands.spawn((
+        Camera2dBundle {
+            camera_2d: Camera2d {
+                clear_color: ClearColorConfig::None,
+                ..default()
+            },
+            camera: Camera {
                 order: 1,
                 is_active: false,
                 ..default()
@@ -100,6 +116,10 @@ fn setup(
     ));
     commands.spawn((
         Camera2dBundle {
+            camera_2d: Camera2d {
+                clear_color: ClearColorConfig::None,
+                ..default()
+            },
             camera: Camera {
                 order: 1,
                 is_active: true,
@@ -150,6 +170,7 @@ fn setup(
             speed: 2.0,
             size: 16382.0,
         },
+        RenderLayers::layer(3)
     ));
 
     let desert_texture = asset_server.load("background/desert2.png");
@@ -174,6 +195,7 @@ fn setup(
             speed: 10.0,
             size: 16384.0,
         },
+        RenderLayers::layer(3)
     ));
 
     let grass_texture = asset_server.load("background/grass2.png");
@@ -198,6 +220,7 @@ fn setup(
             speed: 20.0,
             size: 16384.0,
         },
+        RenderLayers::layer(3)
     ));
 
     let rails_texture = asset_server.load("background/rails2.png");
@@ -613,6 +636,9 @@ struct FixedCamera;
 
 #[derive(Component)]
 struct InsideCamera;
+
+#[derive(Component)]
+struct BackgroundCamera;
 
 #[derive(Component)]
 pub struct BackgroundAnimation {
