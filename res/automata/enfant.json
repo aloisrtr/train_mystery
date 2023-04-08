@@ -1,0 +1,114 @@
+{
+    "name": "Enfants",
+    "dialogues": {
+        "default_1": [
+			"Tema la taille du rat!",
+			"Quoi?",
+			"Quoicoubeh!"
+		],
+		"bonbon_1":[
+			"Oh des bonbons!! Merci monsieur!"
+		],
+		"bonbon_2":[
+			"Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
+		],
+		"bonbon_3":[
+			"Nos parents? Ils étaient méchants et se fichaient de nous. M. le controlleur et M. le conducteur s'occupent de nous maintenant et c'est bien mieux!!",
+			"On voyage maintenant dans le train avec eux."
+		],
+		"bonbon_4":[
+			"On s'amuse bien ici mais les gens partent aussi vite qu'ils arrivent."
+		],
+		"bonbon_5":[
+			"Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
+		],
+		"bonbon_6":[
+			"Merci encore sur les bonbons!!"
+		]
+    },
+    "automata": [
+        {
+            "initstate": "default_1",
+            "states": {
+                "default_1": {
+                    "dialogue": "default_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "enfant_default_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "enfant_default_1": "default_1",
+						"vieux1_bonbon":"bonbon_1"
+                    }
+                },
+				"bonbon_1": {
+                    "dialogue": "bonbon_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_bonbon_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_bonbon_1": "bonbon_2"
+                    }
+                },
+				"bonbon_2": {
+                    "dialogue": "bonbon_2",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_bonbon_2",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_bonbon_2": "bonbon_3"
+                    }
+                },
+				"bonbon_3": {
+                    "dialogue": "bonbon_3",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_bonbon_3",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_bonbon_3": "bonbon_4"
+                    }
+                },
+				"bonbon_4": {
+                    "dialogue": "bonbon_4",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_bonbon_4",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_bonbon_4": "bonbon_5"
+                    }
+                },
+				"bonbon_5": {
+                    "dialogue": "bonbon_5",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_bonbon_5",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_bonbon_5": "bonbon_6"
+                    }
+                },
+				"bonbon_6": {
+                    "dialogue": "bonbon_6",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "racaille_bonbon_6",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                        "racaille_bonbon_6": "bonbon_1"
+                    }
+                }
+            }
+        }
+    ]
+}

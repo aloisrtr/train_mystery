@@ -1,0 +1,88 @@
+{
+    "name": "Mr Dawson",
+    "dialogues": {
+        "default_1": [
+            "Bonjour jeune homme!"
+        ],
+		"default_2":[
+			"Nous passons un très bon voyage, nous allons voir nos petits enfants.",
+			"Passez-vous un bon voyage?"
+		],
+		"loop_1":[
+			"L'assassinat du président X est vraiment terrible. Si ces satanés complotistes n'avaient pas pris cette vie, nous aurons été tous bien plus heureux!"
+		],
+		"loop_2":[
+			"Le conducteur a sûrement plein d'histoires à raconter!"
+		],
+		"enfant":[
+			"Vous n'avez pas bonne mine jeune homme!",
+			"...",
+			"Tenez prenez ces friandises.",
+			"Avec cela vous serez de bonne humeur à coup sûr!"
+		]
+    },
+    "automata": [
+        {
+            "initstate": "default_1",
+            "states": {
+                "default_1": {
+                    "dialogue": "default_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "vieux1_default_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "vieux1_default_1": "default_2"
+                    }
+                },
+				"default_2": {
+					"dialogue": "default_2",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "vieux1_default_2",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "vieux1_default_2": "loop_1"
+                    }
+				},
+				"loop_1": {
+                    "dialogue": "loop_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "vieux1_loop_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "vieux1_loop_1": "loop_2",
+							"enfant_default_1": "enfant"
+                    }
+                },
+				"loop_2": {
+                    "dialogue": "loop_2",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "vieux1_loop_2",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "vieux1_loop_2": "loop_1",
+							"enfant_default_1": "enfant"
+                    }
+                },
+				"enfant": {
+                    "dialogue": "enfant",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "vieux1_bonbon",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "vieux1_bonbon": "loop_1"
+                    }
+                }
+            }
+        }
+    ]
+}
