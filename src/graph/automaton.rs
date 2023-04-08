@@ -27,4 +27,8 @@ impl Automaton {
             statemap: statemap,
         };
     }
+
+    pub fn get_state(&self) -> &AutomatonState {
+        return &self.statemap[&self.state];
+    }
 }

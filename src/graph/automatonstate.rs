@@ -15,7 +15,7 @@ impl AutomatonState {
         
         assert!(dialogues.contains_key(&automatonjson.dialogue), "Le dialogue {} n'est pas défini !", automatonjson.dialogue);
         
-        for (event, statename) in &automatonjson.edges {
+        for (_event, statename) in &automatonjson.edges {
             assert!(statesmap.contains_key(statename), "L'état {} n'est pas défini dans les transitions !", statename);
         }
 

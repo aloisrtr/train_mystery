@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashSet, HashMap};
 
 use crate::graph::automaton::Automaton;
 
@@ -26,4 +26,20 @@ impl Character {
             automata: automata,
         };
     }
+
+    pub fn get_text(&self) -> Vec<String> {
+        let mut dialogueSet = HashSet::new();
+        for automaton in &self.automata {
+            dialogueSet.insert(automaton.get_state().dialogue.clone());
+        }
+
+        let mut dialogueVec = Vec::new();
+        for dialogue in dialogueSet {
+            dialogueVec.extend(self.dialogues[&dialogue].clone());
+        }
+
+        return dialogueVec;
+    }
+
+
 }
