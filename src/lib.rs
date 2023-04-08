@@ -82,12 +82,38 @@ fn setup(
                 )),
                 ..default()
             },
+            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / (1714.0 * 1.5), 1.0))
+                .with_translation(Vec3::new(0.0, 1080.0 / 2.5, 0.1)),
             ..default()
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(0.1, TimerMode::Repeating),
-            speed: 15.0,
+            speed: 2.0,
             size: 16382.0,
+        },
+    ));
+
+	let desert_texture = asset_server.load("background/desert2.png");
+	commands.spawn((
+        SpriteBundle {
+            texture: desert_texture,
+            sprite: Sprite {
+                rect: Some(Rect::new(
+                    0f32,
+                    0f32,
+                    (ROOMS_COUNT as f32) * 1920f32,
+                    1080f32,
+                )),
+                ..default()
+            },
+            transform: Transform::from_scale(Vec3::new(1.0, (1080.0 * 1.5) / 1714.0, 1.0))
+				.with_translation(Vec3::new(0.0,-1080.0 / 4.0,0.0)),
+            ..default()
+        },
+        BackgroundAnimation {
+            timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+            speed: 10.0,
+            size: 16384.0,
         },
     ));
 
@@ -441,7 +467,7 @@ struct WagonCamera;
 pub struct BackgroundAnimation {
     pub timer: Timer,
     pub speed: f32,
-    pub size: f32,
+    pub size: f32, // Longueur de l'image (pour savoir quand wrap)
 }
 
 #[derive(Resource)]
