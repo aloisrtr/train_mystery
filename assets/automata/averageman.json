@@ -1,6 +1,6 @@
 {
     "name": "Average Man",
-    "sprite": "characters/average_man.png",
+    "sprite": "characters/averageman.png",
     "behavior": {
             "init_state": "average_man_default_1",
             "states": {
@@ -30,7 +30,9 @@
                         "Il faudrait peut être aider ces enfants."
                     ],
                     "location": 1,
-                    "edges": {}
+                    "edges": {
+						"average_man_default_3": "average_man_default_3"
+					}
                 }
             }
         }

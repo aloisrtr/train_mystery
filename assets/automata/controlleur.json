@@ -1,0 +1,56 @@
+{
+    "name": "Controlleur",
+    "sprite": "characters/controleur.png",
+    "behavior":
+        {
+            "init_state": "controlleur_default_1",
+            "states": {
+                "controlleur_default_1": {
+                    "dialogue": [
+                      "...",
+                      "Bonjour monsieur.",
+                      "Vous semblez un peu malheureux.",
+                      "Si jamais vous l'êtes vraiment, vous pouvez peut-être tenter d'être heureux en profitant de ceux qui le sont."
+                    ],
+                    "location": 4,
+                    "edges": {
+                        "controlleur_default_1": "controlleur_default_1"
+                    }
+                },
+				"controlleur_vieux_1": {
+                    "dialogue": [
+                      "...",
+                      "N'écoutez pas trop ce que peuvent dire les autres, les ragots sont toujours présents de nos jours et croyez-moi qu'ils ne vous rendront pas votre vie toute rose."
+                    ],
+                    "location": 4,
+                    "edges": {
+                        "controlleur_vieux_1": "controlleur_vieux_1"
+                    }
+                },
+                "controlleur_allumeuse_1": {
+                    "dialogue": [
+                        "Vous...",
+                        "Où allez-vous?",
+                        "...",
+                        "Monsieur. Allez-vous bien? Vous me paraissez un peu pâle.",
+                        "Oui tout à fait vous ne semblez pas avoir bonne mine.",
+                        "...",
+                        "Monsieur, j'insiste. Je crois que vos problèmes de santé vous reprennent et j'ai peur que cela n'empire immédiatement. Par chance il y a un médecin à bord, je vous y emmène directement.",
+                        "Allez-y."
+                    ],
+                      "location": 2,
+                      "edges": {
+                          "controlleur_allumeuse_1": "controlleur_allumeuse_2"
+                      }
+                },
+				"controlleur_allumeuse_2": {
+                    "dialogue": [
+                        "..."
+                    ],
+                    "location": 2,
+                    "edges": {}
+                }
+            }
+        }
+
+}

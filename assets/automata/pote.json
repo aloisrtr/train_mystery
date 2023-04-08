@@ -1,0 +1,59 @@
+{
+    "name": "Pote",
+    "sprite": "characters/pote.png",
+    "behavior":
+        {
+            "init_state": "pote_default_1",
+            "states": {
+                "pote_default_1": {
+                    "dialogue": [
+                      "...",
+                      "Mon pote.",
+                      "Arrête d'avoir cette mine!",
+                      "...",
+                      "Écoute, je sais que ton licenciement t'a grandement bouleversé mais resaisis-toi!",
+                      "Il y a un psy' à bord du train, cherche le et profites-en pour prendre l'air."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_default_1": "pote_default_1"
+                    }
+                },
+				"conducteur_psy_1": {
+                    "dialogue": [
+                      "Alors comment ça s'est passé?",
+                      "Ré-réhabilitation? Enquête..? Il t'a carrément remis le boulot en tête celui-là!",
+                      "...",
+                      "Bon...",
+                      "J'ai compris! Si tu insistes autant je peux te donner une chance.",
+                      "Quelque chose se trame dans ce train, il a été objet de quelques enquêtes, en effet des personnes ont été portées disparues.",
+                      "... Ah non c'est rien. Je me dis juste que tu n'avais pas à avoir cette enquête... Je suis désolé.",
+                      "Moi? Pourquoi je ne mène pas l'enquête? Mais voyons tu ne vois pas que je suis justement dans le train avec toi!",
+                      "Je- je... Je suis juste en standby! Oui c'est ça! En standby!",
+                      "J'étudie la scène, tu sais en analysant les objets et en interrogeant les passagers. Tu devrais faire de même.",
+                      "En tout cas, reviens me voir si tu as une soumission à me faire par rapport à l'enquête. Je t'épaulerai comme il faut, mais ne te surmène pas, après tout tu es...",
+                      "Enfin, bon courage."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "conducteur_psy_1": "conducteur_pote_1"
+                    }
+                },
+                "conducteur_enfants_1": {
+                    "dialogue": [
+                        "Ils ont en effet perdu leurs parents dans un tragique accident.",
+                        "Que ce soit pour le meilleur ou le pire ces enfants semblent maintenant libérés!",
+                        "Leur éducation était à revoir, les parents les avaient délaissés. Les pauvres.",
+                        "Ces enfants sont comme nos enfants maintenant!",
+                        "Nos? Haha! Je veux dire ce sont les enfants du train maintenant!"
+                    ],
+                      "location": 6,
+                      "edges": {
+                          "conducteur_enfants_1": "conducteur_enfants_1"
+                      }
+                }
+				
+            }
+        }
+
+}

@@ -35,7 +35,7 @@ pub fn run() {
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 resolution: WindowResolution::new(1920., 1080.),
-                resizable: false,
+                resizable: true,
                 title: "Train Schizophrenia".into(),
                 ..default()
             }),
@@ -88,12 +88,14 @@ fn setup(
     };
     commands.spawn(Train { rooms });
 
+    /*
     for file in fs::read_dir("assets/automata").unwrap() {
         commands.spawn((
             CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap(),
             RenderLayers::layer(2)
         ));
     }
+    */
 
     commands.spawn((
         Camera2dBundle {

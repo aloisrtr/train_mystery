@@ -1,0 +1,45 @@
+{
+    "name": "Conducteur",
+    "sprite": "characters/conducteur.png",
+    "behavior":
+        {
+            "init_state": "conducteur_default_1",
+            "states": {
+                "conducteur_default_1": {
+                    "dialogue": [
+                      "Bien le bonjour et bienvenue à bord monsieur!",
+                      "Notre train est réputé pour toujours arriver à bonne destination. Donc n'ayez crainte pour votre voyage."
+                    ],
+                    "location": 6,
+                    "edges": {
+                        "conducteur_default_1": "conducteur_default_1"
+                    }
+                },
+				"conducteur_pote_1": {
+                    "dialogue": [
+                      "Ce policier... Il m'a semblé un peu crispé par la situation actuelle. Je pense qu'il doit être bloqué par quelque chose.",
+                      "En parlant de bloquer, la porte du wagon de cargaisons était bloqué toute la veille!"
+                    ],
+                    "location": 6,
+                    "edges": {
+                        "conducteur_pote_1": "conducteur_pote_1"
+                    }
+                },
+                "conducteur_enfants_1": {
+                    "dialogue": [
+                        "Ils ont en effet perdu leurs parents dans un tragique accident.",
+                        "Que ce soit pour le meilleur ou le pire ces enfants semblent maintenant libérés!",
+                        "Leur éducation était à revoir, les parents les avaient délaissés. Les pauvres.",
+                        "Ces enfants sont comme nos enfants maintenant!",
+                        "Nos? Haha! Je veux dire ce sont les enfants du train maintenant!"
+                    ],
+                      "location": 6,
+                      "edges": {
+                          "conducteur_enfants_1": "conducteur_enfants_1"
+                      }
+                }
+				
+            }
+        }
+
+}
