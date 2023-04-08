@@ -25,7 +25,6 @@ pub fn run() {
             gameplay_state: GameplayState::Uninit,
             opened_menu: MenuState::None,
         })
-        .add_plugins(DefaultPlugins)
         .add_startup_system(setup)
         .add_system(handle_input)
         .add_system(animate_sprites)
