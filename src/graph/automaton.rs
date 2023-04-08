@@ -3,13 +3,13 @@ use std::collections::HashMap;
 
 use crate::graph::graphparser::characterjson::AutomatonJSON;
 
-use crate::graph::automatonstate::AutomatonState;
+use crate::graph::state::State;
 
 
 #[derive(Debug)]
 pub struct Automaton {
     state: String,
-    statemap: HashMap<String, AutomatonState>,
+    statemap: HashMap<String, State>,
 }
 
 impl Automaton {
@@ -19,7 +19,7 @@ impl Automaton {
 
         let mut statemap = HashMap::with_capacity(automatonjson.states.len());
         for (statename, statejson) in automatonjson.states.clone().into_iter() {
-            statemap.insert(statename.to_owned(), AutomatonState::create_state(statejson, dialogues, &automatonjson.states));
+            statemap.insert(statename.to_owned(), State::create_state(statejson, dialogues, &automatonjson.states));
         }
 
         return Automaton {
@@ -28,7 +28,7 @@ impl Automaton {
         };
     }
 
-    pub fn get_state(&self) -> &AutomatonState {
+    pub fn get_state(&self) -> &State {
         return &self.statemap[&self.state];
     }
 
