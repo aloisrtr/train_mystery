@@ -34,7 +34,7 @@ pub fn run() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
-                resolution: WindowResolution::new(1920., 1080.),
+                resolution: WindowResolution::new(1280., 720.),
                 resizable: true,
                 title: "Train Schizophrenia".into(),
                 ..default()
@@ -608,11 +608,8 @@ fn display_dialogue(
     *text_box_visibility.get_single_mut().unwrap() = Visibility::Visible;
     let mut text_box = text_box.get_single_mut().unwrap();
     let dialogue = dialogue
-        .text
-        .iter()
-        .take(dialogue.lines_read + 1)
-        .fold(String::new(), |acc, l| acc + l + "\n");
-    text_box.sections[0].value = dialogue;
+        .text[dialogue.lines_read].clone();    
+        text_box.sections[0].value = dialogue;
 }
 
 fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) {
