@@ -35,13 +35,15 @@ mod automata {
     fn create_gamegraph_test() {
         let mut gamegraph = GameGraph::create_gamegraph("res/automata/characterlist.json");
         println!("{gamegraph:?}");
-        let mut text = gamegraph.characters["Allumeuse"].get_text();
+        let mut text = gamegraph.characters.get_mut("Allumeuse").expect("REASON").get_text();
         println!("{text:?}");
         gamegraph.launch_event("allumeuse_default_1");
-        text = gamegraph.characters["Allumeuse"].get_text();
+        text = gamegraph.characters.get_mut("Allumeuse").expect("REASON").get_text();
         println!("{text:?}");
+        let diary = gamegraph.characters.get_mut("Allumeuse").expect("REASON").get_diary();
+        println!("{diary:?}");
         gamegraph.launch_event("allumeuse_default_2");
-        text = gamegraph.characters["Allumeuse"].get_text();
+        text = gamegraph.characters.get_mut("Allumeuse").expect("REASON").get_text();
         println!("{text:?}");
     }
 }
