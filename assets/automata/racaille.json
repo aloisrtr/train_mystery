@@ -9,7 +9,7 @@
                     "dialogue": [
                       "Qu'est-ce tu veux frère?"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
                         "racaille_default_1": "default_2"
                     }

@@ -3,7 +3,7 @@ mod game_state;
 pub mod room;
 mod train;
 
-use crate::character::CharacterBundle;
+use crate::character::{BehaviorAutomaton, CharacterBundle};
 use crate::game_state::{GameState, GameplayState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
@@ -21,6 +21,15 @@ use std::fs;
 #[derive(Component, Deref, DerefMut, Default)]
 pub struct CameraPosition(pub Vec3);
 
+#[derive(Resource, Default)]
+pub struct Event(Option<String>);
+
+#[derive(Resource, Default)]
+pub struct Dialogue {
+    pub text: Vec<String>,
+    pub lines_read: usize,
+}
+
 pub fn run() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
@@ -36,8 +45,12 @@ pub fn run() {
             gameplay_state: GameplayState::Uninit,
             opened_menu: MenuState::None,
         })
+        .insert_resource(Event::default())
+        .insert_resource(Dialogue::default())
         .add_startup_system(setup)
         .add_system(handle_input)
+        .add_system(dispatch_event)
+        .add_system(move_characters)
         .add_system(animate_sprites)
         .add_system(animate_background)
         .add_system(interpolate_transforms)
@@ -53,16 +66,24 @@ fn setup(
     audio: Res<Audio>,
 ) {
     // Spawn rooms, characters and train
-    let rooms = [(); 7].map(|_| commands.spawn(Room::default()).id());
+    let mut rooms = [(); 7].map(|_| Room::default());
+
+    let mut character_rooms = vec!();
+    for file in fs::read_dir("assets/automata").unwrap() {
+        let chara = CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap();
+        let room = chara.behavior.fetch_location();
+        character_rooms.push((commands.spawn(chara).id(), room));
+    }
+    for (id, room) in character_rooms {
+        rooms[room].add_character(id)
+    }
+
+    let rooms = rooms.map(|r| commands.spawn(r).id());
     game_state.gameplay_state = GameplayState::Room {
         room_id: rooms[0],
         selected_character: 0,
     };
     commands.spawn(Train { rooms });
-
-    for file in fs::read_dir("assets/automata").unwrap() {
-        commands.spawn(CharacterBundle::from_json(file.unwrap().path(), &asset_server).unwrap());
-    }
 
     commands.spawn((
         Camera2dBundle {
@@ -328,8 +349,11 @@ fn setup(
 fn handle_input(
     keys: Res<Input<KeyCode>>,
     mut game_state: ResMut<GameState>,
+    mut event: ResMut<Event>,
+    mut dialogue: ResMut<Dialogue>,
     train: Query<&Train>,
     rooms: Query<&RoomCharacterStorage>,
+    behavior_automaton: Query<&BehaviorAutomaton>,
     mut outcamerapos: Query<&mut CameraPosition, With<OutsideCamera>>,
     mut outcamera: Query<&mut Camera, With<OutsideCamera>>,
     mut incamera: Query<&mut Camera, (With<InsideCamera>, Without<OutsideCamera>)>,
@@ -338,7 +362,7 @@ fn handle_input(
     asset_server: Res<AssetServer>,
 ) {
     let train = train.get_single().unwrap();
-    if keys.just_pressed(KeyCode::Left) {
+    if keys.just_pressed(KeyCode::Left) && dialogue.text.is_empty() {
         match game_state.as_mut() {
             GameState {
                 opened_menu: MenuState::None,
@@ -367,7 +391,7 @@ fn handle_input(
             _ => (),
         }
     }
-    if keys.just_pressed(KeyCode::Right) {
+    if keys.just_pressed(KeyCode::Right) && dialogue.text.is_empty() {
         match game_state.as_mut() {
             GameState {
                 opened_menu: MenuState::None,
@@ -398,29 +422,45 @@ fn handle_input(
     }
 
     if keys.just_pressed(KeyCode::Space) {
-        // Interacts with the closest intractable entity, advances the dialogue or selects a dialogue option
-        match game_state.as_mut() {
-            GameState {
-                gameplay_state: GameplayState::Hub { selected_room },
-                opened_menu: MenuState::None,
-            } => {
-                game_state.gameplay_state = GameplayState::Room {
-                    room_id: train.rooms[*selected_room],
-                    selected_character: 0,
-                };
-                outcamera.single_mut().is_active = false;
-                incamera.single_mut().is_active = true;
+        if !dialogue.text.is_empty() {
+            if dialogue.lines_read == dialogue.text.len() {
+                dialogue.text = vec!();
+                dialogue.lines_read = 0;
+            } else {
+                dialogue.lines_read += 1;
             }
-            GameState {
-                gameplay_state: GameplayState::Room { .. },
-                opened_menu: MenuState::None,
-            } => {
-                // Interact with the selected character
+        } else {
+            // Interacts with the closest intractable entity, advances the dialogue or selects a dialogue option
+            match game_state.as_mut() {
+                GameState {
+                    gameplay_state: GameplayState::Hub { selected_room },
+                    opened_menu: MenuState::None,
+                } => {
+                    game_state.gameplay_state = GameplayState::Room {
+                        room_id: train.rooms[*selected_room],
+                        selected_character: 0,
+                    };
+                    outcamera.single_mut().is_active = false;
+                    incamera.single_mut().is_active = true;
+                }
+                GameState {
+                    gameplay_state: GameplayState::Room { selected_character, room_id },
+                    opened_menu: MenuState::None,
+                } => {
+                    // Interact with the selected character
+                    let character = rooms.get(*room_id).unwrap().0[*selected_character];
+                    if let Some(character) = character {
+                        let behavior = behavior_automaton.get(character).unwrap();
+                        event.0 = Some(behavior.current_state_name().to_string());
+                        dialogue.text = behavior.fetch_dialogue();
+                        dialogue.lines_read = 0;
+                    }
+                }
+                _ => (),
             }
-            _ => (),
         }
     }
-    if keys.just_pressed(KeyCode::Tab) {
+    if keys.just_pressed(KeyCode::Tab) && dialogue.text.is_empty() {
         // Opens or closes journal no matter the game state
         match game_state.opened_menu {
             MenuState::None => game_state.opened_menu = MenuState::Journal,
@@ -428,7 +468,7 @@ fn handle_input(
             _ => (),
         }
     }
-    if keys.just_pressed(KeyCode::Escape) {
+    if keys.just_pressed(KeyCode::Escape) && dialogue.text.is_empty() {
         // Pauses the game
         match game_state.opened_menu {
             MenuState::None => game_state.opened_menu = MenuState::Pause,
@@ -436,8 +476,7 @@ fn handle_input(
             _ => (),
         }
     }
-    if keys.just_pressed(KeyCode::Back) {
-        // Pauses the game
+    if keys.just_pressed(KeyCode::Back) && dialogue.text.is_empty() {
         match game_state.as_mut() {
             GameState {
                 gameplay_state: GameplayState::Room { room_id, .. },
@@ -469,13 +508,13 @@ fn handle_input(
     }
 
     // Deal with camera
+    let mut camera_position = outcamerapos.get_single_mut().unwrap();
     match game_state.as_mut() {
         GameState {
             gameplay_state: GameplayState::Hub { selected_room },
             ..
         } => {
-            let mut camera_transform = outcamerapos.get_single_mut().unwrap();
-            camera_transform.x = 925f32 * *selected_room as f32;
+            camera_position.x = 925f32 * *selected_room as f32;
         }
         GameState {
             gameplay_state: GameplayState::Room { .. },
@@ -485,7 +524,7 @@ fn handle_input(
     }
 }
 
-fn interpolate_transforms(time: Res<Time>, mut query: Query<(&CameraPosition, &mut Transform)>) {
+fn interpolate_transforms(mut query: Query<(&CameraPosition, &mut Transform)>) {
     for (position, mut transform) in &mut query {
         transform.translation = transform.translation * 0.95 + position.0 * 0.05
     }
@@ -499,6 +538,14 @@ fn animate_sprites(time: Res<Time>, mut query: Query<(&mut Animation, &mut Textu
             if sprite.index == animation.frames {
                 sprite.index = 0;
             }
+        }
+    }
+}
+
+fn dispatch_event(mut event: ResMut<Event>, mut behavior_automata: Query<&mut BehaviorAutomaton>) {
+    if let Some(event) = event.0.take() {
+        for mut behavior_automaton in &mut behavior_automata {
+            behavior_automaton.change_state(&event);
         }
     }
 }
@@ -523,6 +570,8 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
         }
     }
 }
+
+fn move_characters() {}
 
 fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) {
     rect.max.x += translation_x;

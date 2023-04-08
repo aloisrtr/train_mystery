@@ -3,15 +3,15 @@
     "sprite": "characters/vieux1.png",
     "behavior":
         {
-            "init_state": "default_1",
+            "init_state": "vieux_default_1",
             "states": {
-                "default_1": {
+                "vieux_default_1": {
                     "dialogue": [
                       "Bonjour jeune homme!"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
-                      "vieux1_default_1": "default_2"
+                      "vieux_default_1": "default_2"
                     }
                 },
 				"default_2": {
