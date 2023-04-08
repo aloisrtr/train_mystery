@@ -31,4 +31,12 @@ impl Automaton {
     pub fn get_state(&self) -> &AutomatonState {
         return &self.statemap[&self.state];
     }
+
+    pub fn launch_event(&mut self, eventname: &str) {
+        let state = &self.get_state();
+        if let Some(newstate) = state.edges.get(eventname) {
+            self.state = newstate.to_string();
+        } 
+    }
+
 }

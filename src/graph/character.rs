@@ -28,18 +28,22 @@ impl Character {
     }
 
     pub fn get_text(&self) -> Vec<String> {
-        let mut dialogueSet = HashSet::new();
+        let mut dialogue_set = HashSet::new();
         for automaton in &self.automata {
-            dialogueSet.insert(automaton.get_state().dialogue.clone());
+            dialogue_set.insert(automaton.get_state().dialogue.clone());
         }
 
-        let mut dialogueVec = Vec::new();
-        for dialogue in dialogueSet {
-            dialogueVec.extend(self.dialogues[&dialogue].clone());
+        let mut dialogue_vec = Vec::new();
+        for dialogue in dialogue_set {
+            dialogue_vec.extend(self.dialogues[&dialogue].clone());
         }
 
-        return dialogueVec;
+        return dialogue_vec;
     }
 
-
+    pub fn launch_event(&mut self, eventname: &str) {
+        for automaton in &mut self.automata {
+            automaton.launch_event(eventname);
+        }
+    }
 }

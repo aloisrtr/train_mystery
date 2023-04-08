@@ -19,7 +19,6 @@ impl AutomatonState {
             assert!(statesmap.contains_key(statename), "L'état {} n'est pas défini dans les transitions !", statename);
         }
 
-
         return AutomatonState {
             dialogue: automatonjson.dialogue,
             location: automatonjson.location,

@@ -6,7 +6,7 @@ use crate::graph::character::Character;
 
 #[derive(Debug)]
 pub struct GameGraph {
-    characters: HashMap<String, Character>,
+    pub characters: HashMap<String, Character>,
 }
 
 impl GameGraph {
@@ -18,6 +18,12 @@ impl GameGraph {
         }
 
         return GameGraph {characters: characters};
+    }    
+
+    pub fn launch_event(&mut self, eventname: &str) {
+        for (_name, character) in &mut self.characters {
+            character.launch_event(eventname);
+        }
     }
 }
 
@@ -27,7 +33,15 @@ mod automata {
 
     #[test]
     fn create_gamegraph_test() {
-        let gamegraph = GameGraph::create_gamegraph("res/automata/characterlist.json");
+        let mut gamegraph = GameGraph::create_gamegraph("res/automata/characterlist.json");
         println!("{gamegraph:?}");
+        let mut text = gamegraph.characters["Character1"].get_text();
+        println!("{text:?}");
+        gamegraph.launch_event("parle");
+        text = gamegraph.characters["Character1"].get_text();
+        println!("{text:?}");
+        gamegraph.launch_event("parle");
+        text = gamegraph.characters["Character1"].get_text();
+        println!("{text:?}");
     }
 }

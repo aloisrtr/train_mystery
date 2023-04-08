@@ -21,6 +21,17 @@
                         "on_hit": ""
                     },
                     "edges": {
+                            "parle": "init2"
+                    }
+                },
+                "init2": {
+                    "dialogue": "te_deteste",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "",
+                        "on_hit": ""
+                    },
+                    "edges": {
                             "parle": "init"
                     }
                 }
