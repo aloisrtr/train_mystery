@@ -46,25 +46,28 @@ impl CharacterBundle {
         // vieux1       => 400. 300. 0. 
 
         let mut translation = Vec3::new(0.0, 0.0, 0.0);
+        println!("character name: {}", character_json.name);
         if character_json.name == "Allumeuse" {
-            translation = Vec3::new(-400.0, 400.0, 0.0);
+            translation = Vec3::new(-300.0, 300.0, 0.0);
         } else if character_json.name == "Average Man" {
-            translation = Vec3::new(0.0, 400.0, 0.0);
+            translation = Vec3::new(-100.0, 300.0, 0.0);
         } else if character_json.name == "Average Woman" {
-            translation = Vec3::new(400.0, 400.0, 0.0);
+            translation = Vec3::new(100.0, 300.0, 0.0);
         } else if character_json.name == "Barista" {
-            translation = Vec3::new(-400.0, 300.0, 0.0);
+            translation = Vec3::new(300.0, 300.0, 0.0);
         } else if character_json.name == "Conducteur" {
-            translation = Vec3::new(0.0, 300.0, 0.0);
-        } else if character_json.name == "Enfants" {
-            translation = Vec3::new(400.0, 300.0, 0.0);
+            translation = Vec3::new(-300.0, -50.0, 0.0);
         } else if character_json.name == "Pote" {
-            translation = Vec3::new(-400.0, 0.0, 0.0);
+            translation = Vec3::new(-100.0, -50.0, 0.0);
+        } else if character_json.name == "Controlleur" {
+            translation = Vec3::new(100.0, -50.0, 0.0);
         } else if character_json.name == "Racaille" {
-            translation = Vec3::new(0.0, 0.0, 0.0);
+            translation = Vec3::new(300.0, -50.0, 0.0);
         } else if character_json.name == "Mr Dawson" {
-            translation = Vec3::new(400.0, 0.0, 0.0);
-        }
+            translation = Vec3::new(300.0, -230.0, 0.0);
+        } else if character_json.name == "Enfants" {
+            translation = Vec3::new(-50.0, -230.0, 0.0);
+        } 
         translation += Vec3::new(0.0, 0.0, 10.0);
 
         Ok(CharacterBundle {
@@ -72,7 +75,7 @@ impl CharacterBundle {
             behavior: BehaviorAutomaton::from(character_json.behavior),
             sprite: SpriteBundle {
                 texture: asset_server.load(character_json.sprite),
-                transform: Transform::from_scale(Vec3::new(0.3, 0.3, 0.0))
+                transform: Transform::from_scale(Vec3::new(0.18, 0.18, 0.0))
                     .with_translation(translation),
                 ..default()
             },

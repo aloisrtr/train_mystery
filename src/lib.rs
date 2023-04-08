@@ -35,7 +35,7 @@ pub fn run() {
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 resolution: WindowResolution::new(1920., 1080.),
-                resizable: false,
+                resizable: true,
                 title: "Train Schizophrenia".into(),
                 ..default()
             }),
