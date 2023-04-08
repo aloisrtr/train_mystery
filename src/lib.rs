@@ -7,7 +7,10 @@ use crate::character::CharacterBundle;
 use crate::game_state::{GameState, GameplayState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
-use bevy::prelude::*;
+use bevy::{
+    prelude::*,
+    text::{BreakLineOn, Text2dBounds},
+};
 use bevy::window::WindowResolution;
 use std::cmp::min;
 use std::fs;
@@ -179,6 +182,9 @@ fn setup(
 
     let audio_wind = asset_server.load("audio/Night-on-the-Docks-Sax.ogg");
     audio.play_with_settings(audio_wind, PlaybackSettings::LOOP);
+
+    let ui_font_handle = asset_server.load("fonts/DejaVuSerif.ttf");
+    commands.insert_resource(UiFont(ui_font_handle));
 }
 
 /// Deals with player input
@@ -362,6 +368,51 @@ fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) 
     rect.min.x += translation_x;
     rect.min.y += translation_y;
 }
+fn show_text(
+    mut commands : Commands,
+    window : Window,
+    asset_server: Res<AssetServer>,
+    text : &str
+) {
+    let window_width = window.resolution.width();
+    let window_height = window.resolution.height();
+
+    let font_size = 42.;
+    let style = TextStyle {
+        font: asset_server.load("fonts/DejaVuSerif.ttf"),
+        font_size: font_size,
+        color: Color::WHITE,
+    };
+
+    let box_size = Vec2::new(window_width*0.9, window_height*0.3);
+    let box_pos = Vec2::new(window_width*0.05, window_height*0.6);
+    commands.spawn(SpriteBundle {
+        sprite: Sprite {
+            color: Color::rgba(0.1, 0.1, 0.1, 0.8),
+            custom_size: Some(box_size),
+            ..default()
+        },
+        transform: Transform::from_translation(box_pos.extend(0.0)),
+        ..default()
+    }).with_children(|builder| {
+        builder.spawn(Text2dBundle {
+            text: Text {
+                sections: vec![TextSection::new(
+                    text,
+                    style.clone(),
+                )],
+                alignment: TextAlignment::Left,
+                linebreak_behaviour: BreakLineOn::WordBoundary,
+            },
+            text_2d_bounds: Text2dBounds {
+                size: box_size,
+            },
+            transform: Transform::from_translation(Vec3::Z),
+            ..default()
+        });
+    });
+}
+
 
 #[derive(Component)]
 pub struct Animation {
@@ -378,3 +429,6 @@ pub struct BackgroundAnimation {
     pub speed: f32,
     pub size: f32,
 }
+
+#[derive(Resource)]
+struct UiFont(Handle<Font>);
