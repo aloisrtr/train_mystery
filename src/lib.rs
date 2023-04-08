@@ -323,7 +323,7 @@ fn animate_sprites(time: Res<Time>, mut query: Query<(&mut Animation, &mut Textu
 
 fn show_text(
     mut commands : Commands,
-    window : Window,
+    window : &Window,
     asset_server: Res<AssetServer>,
     text : &str
 ) {
