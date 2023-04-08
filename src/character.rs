@@ -32,13 +32,49 @@ impl CharacterBundle {
         let character_json =
             serde_json::from_str::<CharacterJSON>(&std::fs::read_to_string(file)?)?;
 
+        // every character has a bit different position
+        // allumeuse    => -400. -300. 0. 
+        // averageman   => 0. -300. 0.
+        // averagewomen => 400. -300. 0.
+
+        // barista      => -400. 0. 0.
+        // conducteur   => 0. 0. 0.
+        // enfant       => 400. 0. 0.
+
+        // pote         => -400. 300. 0.
+        // racaille     => 0. 300. 0.
+        // vieux1       => 400. 300. 0. 
+
+        let mut translation = Vec3::new(0.0, 0.0, 0.0);
+        println!("character name: {}", character_json.name);
+        if character_json.name == "Allumeuse" {
+            translation = Vec3::new(-400.0, -300.0, 0.0);
+        } else if character_json.name == "Averageman" {
+            translation = Vec3::new(0.0, -300.0, 0.0);
+        } else if character_json.name == "Averagewomen" {
+            translation = Vec3::new(400.0, -300.0, 0.0);
+        } else if character_json.name == "Barista" {
+            translation = Vec3::new(-400.0, 0.0, 0.0);
+        } else if character_json.name == "Conducteur" {
+            translation = Vec3::new(0.0, 0.0, 0.0);
+        } else if character_json.name == "Enfant" {
+            translation = Vec3::new(400.0, 0.0, 0.0);
+        } else if character_json.name == "Pote" {
+            translation = Vec3::new(-400.0, 300.0, 0.0);
+        } else if character_json.name == "Racaille" {
+            translation = Vec3::new(0.0, 300.0, 0.0);
+        } else if character_json.name == "Vieux1" {
+            translation = Vec3::new(400.0, 300.0, 0.0);
+        }
+        translation += Vec3::new(0.0, 0.0, 10.0);
+
         Ok(CharacterBundle {
             name: Name(character_json.name.clone()),
             behavior: BehaviorAutomaton::from(character_json.behavior),
             sprite: SpriteBundle {
                 texture: asset_server.load(character_json.sprite),
-                transform: Transform::from_scale(Vec3::new(0.1, 0.1, 0.0))
-                    .with_translation(Vec3::new(-200.0, 0.0, 10.0)),
+                transform: Transform::from_scale(Vec3::new(0.3, 0.3, 0.0))
+                    .with_translation(translation),
                 ..default()
             },
         })
