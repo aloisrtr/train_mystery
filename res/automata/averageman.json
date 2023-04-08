@@ -1,0 +1,57 @@
+{
+    "name": "Average Man",
+    "dialogues": {
+        "default_1": [
+            "Bonjour monsieur."        
+        ],
+        "default_2": [
+            "Avez-vous vu ces enfants? C'est terrible... Ils ont perdu leurs parents.",
+            "Comment? Apparemment ils ont été pris dans un accident. Cependant...",
+            "Cependant les enfants ne semblent bizarrement pas si tristes. Leurs parents étaient-ils des monstres?"
+        ], 
+        "default_3": [
+            "Je n'ai jamais compris ce genre de parents tyranniques.",
+            "Il faudrait peut être aider ces enfants."
+        ]
+    },
+    "automata": [
+        {
+            "initstate": "default_1",
+            "states": {
+                "default_1": {
+                    "dialogue": "default_1",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "averageman_default_1",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "averageman_default_1": "default_2"
+                    }
+                },
+                "default_2": {
+                    "dialogue": "default_2",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "averageman_default_2",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "averageman_default_2": "default_3"
+                    }
+                },
+                "default_3": {
+                    "dialogue": "default_3",
+                    "location": "wagon1",
+                    "events": {
+                        "on_talk": "averageman_default_3",
+                        "on_hit": ""
+                    },
+                    "edges": {
+                            "averageman_default_3": "default_3"
+                    }
+                }
+            }
+        }
+    ]
+}

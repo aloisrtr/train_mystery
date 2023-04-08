@@ -1,5 +1,6 @@
 {
     "characters": {
-        "Allumeuse" : "res/automata/allumeuse.json"
+        "Allumeuse" : "res/automata/allumeuse.json",
+        "Average Man" : "res/automata/averageman.json"
     }
 }
