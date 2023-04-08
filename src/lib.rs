@@ -39,12 +39,20 @@ fn setup(
     commands.spawn(Camera2dBundle::default());
     // Load up assets
     let wagon_texture = asset_server.load("wagon/wagon_ext.png");
+    let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(wagon_texture, Vec2::new(945f32, 626f32), 3, 1, None, None));
     for i in 0..ROOMS_COUNT {
-        commands.spawn(SpriteBundle {
-            texture: wagon_texture.clone(),
-            transform: Transform::from_translation(Vec3::new(925f32 * i as f32, 0f32, 1f32)),
+        commands.spawn((
+                           SpriteSheetBundle {
+            texture_atlas: texture_atlas.clone(),
+            sprite: TextureAtlasSprite::new(i % 3),
+            transform: Transform::from_translation(Vec3::new(925f32 * i as f32, 0f32, (i % 2) as f32 + 1f32)),
             .. default()
-        });
+        },
+            Animation {
+                timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+                frames: 3
+            }
+        ));
     }
 
     let locomotive_texture = asset_server.load("locomotive/locomotive.png");
