@@ -18,6 +18,10 @@ use bevy::{
 use std::cmp::min;
 use std::fs;
 
+// define global constants
+const WIDTH: f32 = 1280.;
+const HEIGHT: f32 = 720.;
+
 #[derive(Component, Deref, DerefMut, Default)]
 pub struct CameraPosition(pub Vec3);
 
@@ -35,10 +39,10 @@ pub fn run() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
-                resolution: WindowResolution::new(1280., 720.),
+                resolution: WindowResolution::new(WIDTH, HEIGHT),
                 resizable: false,
                 title: "Train Schizophrenia".into(),
-                .. default()
+                ..default()
             }),
             ..default()
         }))
@@ -166,7 +170,7 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, (1080.0)  / (1714.0 * 1.5), 1.0))
+            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / (1714.0 * 1.5), 1.0))
                 .with_translation(Vec3::new(0.0, 1080.0 / 4.0, 0.0)),
             ..default()
         },
@@ -191,7 +195,7 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, (1080.0)  / 2.0 / 1714.0, 1.0))
+            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / 2.0 / 1714.0, 1.0))
                 .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.1)),
             ..default()
         },
@@ -233,12 +237,7 @@ fn setup(
         SpriteBundle {
             texture: rails_texture,
             sprite: Sprite {
-                rect: Some(Rect::new(
-                    0f32,
-                    0f32,
-                    16250f32,
-                    1714.0,
-                )),
+                rect: Some(Rect::new(0f32, 0f32, 16250f32, 1714.0)),
                 ..default()
             },
             transform: Transform::from_scale(Vec3::new(1.0, 1080.0 / 1714.0 * 0.5, 1.0))
@@ -363,7 +362,7 @@ fn handle_input(
     mut outcamerapos: Query<&mut CameraPosition, With<OutsideCamera>>,
     mut outcamera: Query<&mut Camera, With<OutsideCamera>>,
     mut incamera: Query<&mut Camera, (With<InsideCamera>, Without<OutsideCamera>)>,
-    mut visibility: Query<&mut Visibility, With<BehaviorAutomaton>>
+    mut visibility: Query<&mut Visibility, With<BehaviorAutomaton>>,
 ) {
     let train = train.get_single().unwrap();
     if keys.just_pressed(KeyCode::Left) && dialogue.text.is_empty() {
@@ -441,7 +440,6 @@ fn handle_input(
                 } => {
                     let room_id = train.rooms[*selected_room];
 
-
                     game_state.gameplay_state = GameplayState::Room {
                         room_id,
                         selected_character: 0,
@@ -467,10 +465,15 @@ fn handle_input(
                         dialogue.text = behavior.fetch_dialogue();
                         dialogue.lines_read = 0;
                     }
-                    let next_character = rooms.get(*room_id).unwrap().0[((*selected_character + 1) % 3)];
+                    let next_character =
+                        rooms.get(*room_id).unwrap().0[((*selected_character + 1) % 3)];
                     game_state.gameplay_state = GameplayState::Room {
                         room_id: *room_id,
-                        selected_character: if let Some(_) = next_character {(*selected_character + 1) % 3} else {0},
+                        selected_character: if let Some(_) = next_character {
+                            (*selected_character + 1) % 3
+                        } else {
+                            0
+                        },
                     };
                 }
                 _ => (),
@@ -607,7 +610,11 @@ fn display_dialogue(
 
     *text_box_visibility.get_single_mut().unwrap() = Visibility::Visible;
     for (i, mut text_box) in text_box.iter_mut().enumerate() {
-        text_box.sections[0].value = if i == 0 {dialogue.text[dialogue.lines_read].clone()} else {dialogue.character_name.clone()};
+        text_box.sections[0].value = if i == 0 {
+            dialogue.text[dialogue.lines_read].clone()
+        } else {
+            dialogue.character_name.clone()
+        };
     }
 }
 
@@ -668,8 +675,12 @@ fn spawn_text_box(commands: &mut Commands, window: &Window, asset_server: &Res<A
                     },
                     text_2d_bounds: Text2dBounds { size: box_size },
                     transform: Transform::from_translation(
-                        Vec3::Z 
-                        + Vec3::new(-box_size[0] / 2f32 + 100f32, box_size[1] / 2f32 - style.font_size, 0f32)
+                        Vec3::Z
+                            + Vec3::new(
+                                -box_size[0] / 2f32 + 100f32,
+                                box_size[1] / 2f32 - style.font_size,
+                                0f32,
+                            ),
                     ),
                     visibility: Visibility::Inherited,
                     ..default()

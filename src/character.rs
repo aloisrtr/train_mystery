@@ -33,7 +33,7 @@ impl CharacterBundle {
             serde_json::from_str::<CharacterJSON>(&std::fs::read_to_string(file)?)?;
 
         // every character has a bit different position
-        // allumeuse    => -400. -300. 0. 
+        // allumeuse    => -400. -300. 0.
         // averageman   => 0. -300. 0.
         // averagewomen => 400. -300. 0.
 
@@ -43,7 +43,7 @@ impl CharacterBundle {
 
         // pote         => -400. 300. 0.
         // racaille     => 0. 300. 0.
-        // vieux1       => 400. 300. 0. 
+        // vieux1       => 400. 300. 0.
 
         let mut translation = Vec3::new(0.0, 0.0, 0.0);
         println!("character name: {}", character_json.name);
