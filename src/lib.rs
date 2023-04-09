@@ -26,6 +26,8 @@ use std::fs;
 const WIDTH: f32 = 1280.;
 const HEIGHT: f32 = 720.;
 
+const FPS: f32 = 60.;
+
 #[derive(Component, Deref, DerefMut, Default)]
 pub struct CameraPosition(pub Vec3);
 
@@ -180,7 +182,7 @@ fn setup(
             ..default()
         },
         BackgroundAnimation {
-            timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+            timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
             speed: 10.0,
             size: 16382.0,
         },
@@ -205,7 +207,7 @@ fn setup(
             ..default()
         },
         BackgroundAnimation {
-            timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+            timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
             speed: 60.0,
             size: 16384.0,
         },
@@ -230,7 +232,7 @@ fn setup(
             ..default()
         },
         BackgroundAnimation {
-            timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+            timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
             speed: 90.0,
             size: 16384.0,
         },
@@ -250,7 +252,7 @@ fn setup(
             ..default()
         },
         BackgroundAnimation {
-            timer: Timer::from_seconds(0.1, TimerMode::Repeating),
+            timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
             speed: 40.0,
             size: 16250.0,
         },
