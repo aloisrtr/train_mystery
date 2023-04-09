@@ -32,29 +32,16 @@ impl CharacterBundle {
         let character_json =
             serde_json::from_str::<CharacterJSON>(&std::fs::read_to_string(file)?)?;
 
-        // every character has a bit different position
-        // allumeuse    => -400. -300. 0.
-        // averageman   => 0. -300. 0.
-        // averagewomen => 400. -300. 0.
-
-        // barista      => -400. 0. 0.
-        // conducteur   => 0. 0. 0.
-        // enfant       => 400. 0. 0.
-
-        // pote         => -400. 300. 0.
-        // racaille     => 0. 300. 0.
-        // vieux1       => 400. 300. 0.
-
         let mut translation = Vec3::new(0.0, 0.0, 0.0);
-        println!("character name: {}", character_json.name);
+        // println!("character name: {}", character_json.name);
         if character_json.name == "Enfants" {
-            translation = Vec3::new(-400.0, -180.0, 0.0);
+            translation = Vec3::new(-400.0, -70.0, 0.0);
         } else if character_json.name == "Average Man" {
             translation = Vec3::new(0.0, -180.0, 0.0);
         } else if character_json.name == "Pote" {
             translation = Vec3::new(-200.0, -180.0, 0.0);
         } else if character_json.name == "Mr Dawson" {
-            translation = Vec3::new(-100.0, -180.0, 0.0);
+            translation = Vec3::new(-100.0, -70.0, 0.0);
         } else if character_json.name == "Conducteur" {
             translation = Vec3::new(0.0, -180.0, 0.0);
         } else if character_json.name == "Average Woman" {
