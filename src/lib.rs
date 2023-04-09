@@ -165,18 +165,19 @@ fn setup(
                 rect: Some(Rect::new(
                     0f32,
                     0f32,
-                    (ROOMS_COUNT as f32) * 1920f32,
+                    (ROOMS_COUNT as f32) * WIDTH,
+                    // HEIGHT,
                     1714.0,
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / (1714.0 * 1.5), 1.0))
-                .with_translation(Vec3::new(0.0, 1080.0 / 4.0, 0.0)),
+            transform: Transform::from_scale(Vec3::new(0.16, 0.16, 0.0))
+            .with_translation(Vec3::new(0.0, HEIGHT / 3.2, 0.0)),
             ..default()
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(0.1, TimerMode::Repeating),
-            speed: 2.0,
+            speed: 10.0,
             size: 16382.0,
         },
         RenderLayers::layer(3),
@@ -195,13 +196,13 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, (1080.0) / 2.0 / 1714.0, 1.0))
-                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 0.1)),
+            transform: Transform::from_scale(Vec3::new(0.3,0.3, 0.))
+                .with_translation(Vec3::new(0.0, -HEIGHT / 7.2, 0.1)),
             ..default()
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(0.1, TimerMode::Repeating),
-            speed: 10.0,
+            speed: 60.0,
             size: 16384.0,
         },
         RenderLayers::layer(3),
@@ -220,13 +221,13 @@ fn setup(
                 )),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, 1080.0 / 1714.0 * 0.5, 1.0))
-                .with_translation(Vec3::new(0.0, -1080.0 / 4.0, 1.2)),
+        transform: Transform::from_scale(Vec3::new(0.2, 0.2, 0.0))
+                .with_translation(Vec3::new(0.0, -HEIGHT / 7.0, 1.2)),
             ..default()
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(0.05, TimerMode::Repeating),
-            speed: 20.0,
+            speed: 90.0,
             size: 16384.0,
         },
         RenderLayers::layer(3),
@@ -246,7 +247,7 @@ fn setup(
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(0.05, TimerMode::Repeating),
-            speed: 15.0,
+            speed: 90.0,
             size: 16250.0,
         },
     ));
