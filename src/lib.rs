@@ -18,7 +18,11 @@ use bevy::{
 use std::cmp::min;
 use std::fs;
 
-// define global constants
+// 1080p Does not work
+// const WIDTH: f32 = 1920.;
+// const HEIGHT: f32 = 1080.;
+
+// 720p
 const WIDTH: f32 = 1280.;
 const HEIGHT: f32 = 720.;
 
