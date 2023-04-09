@@ -463,6 +463,11 @@ fn handle_input(
                         dialogue.text = behavior.fetch_dialogue();
                         dialogue.lines_read = 0;
                     }
+                    let next_character = rooms.get(*room_id).unwrap().0[((*selected_character + 1) % 3)];
+                    game_state.gameplay_state = GameplayState::Room {
+                        room_id: *room_id,
+                        selected_character: if let Some(next_character) = next_character {((*selected_character + 1) % 3)} else {0},
+                    };
                 }
                 _ => (),
             }
