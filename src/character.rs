@@ -37,25 +37,25 @@ impl CharacterBundle {
         if character_json.name == "Enfants" {
             translation = Vec3::new(-400.0, -70.0, 0.0);
         } else if character_json.name == "Average Man" {
-            translation = Vec3::new(0.0, -100.0, 0.0);
+            translation = Vec3::new(0.0, -180.0, 0.0);
         } else if character_json.name == "Pote" {
-            translation = Vec3::new(-200.0, -100.0, 0.0);
+            translation = Vec3::new(-200.0, -180.0, 0.0);
         } else if character_json.name == "Mr Dawson" {
             translation = Vec3::new(-100.0, -70.0, 0.0);
         } else if character_json.name == "Conducteur" {
-            translation = Vec3::new(0.0, -100.0, 0.0);
+            translation = Vec3::new(0.0, -180.0, 0.0);
         } else if character_json.name == "Average Woman" {
-            translation = Vec3::new(100.0, -100.0, 0.0);
+            translation = Vec3::new(100.0, -180.0, 0.0);
         } else if character_json.name == "Controlleur" {
-            translation = Vec3::new(200.0, -100.0, 0.0);
+            translation = Vec3::new(200.0, -180.0, 0.0);
         } else if character_json.name == "Racaille" {
-            translation = Vec3::new(300.0, -100.0, 0.0);
+            translation = Vec3::new(300.0, -180.0, 0.0);
         } else if character_json.name == "Barista" {
-            translation = Vec3::new(400.0, -100.0, 0.0);
+            translation = Vec3::new(400.0, -180.0, 0.0);
         } else if character_json.name == "Allumeuse" {
-            translation = Vec3::new(500.0, -100.0, 0.0);
+            translation = Vec3::new(500.0, -180.0, 0.0);
         } else if character_json.name == "Psy" {
-            translation = Vec3::new(-500.0, -100.0, 0.0)
+            translation = Vec3::new(-500.0, -180.0, 0.0)
         }
         translation += Vec3::new(0.0, 0.0, 10.0);
 
