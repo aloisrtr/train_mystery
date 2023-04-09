@@ -195,7 +195,7 @@ fn setup(
                 rect: Some(Rect::new(
                     0f32,
                     0f32,
-                    (ROOMS_COUNT as f32) * 1920f32,
+                    (ROOMS_COUNT as f32) * WIDTH,
                     1714.0,
                 )),
                 ..default()
@@ -220,7 +220,7 @@ fn setup(
                 rect: Some(Rect::new(
                     0f32,
                     0f32,
-                    (ROOMS_COUNT as f32) * 1920f32,
+                    (ROOMS_COUNT as f32) * WIDTH,
                     1714.0,
                 )),
                 ..default()
@@ -593,7 +593,7 @@ fn animate_background(time: Res<Time>, mut query: Query<(&mut BackgroundAnimatio
                 sprite.rect = Some(Rect::new(
                     0.0,
                     0.0,
-                    (ROOMS_COUNT as f32) * 1920.0,
+                    (ROOMS_COUNT as f32) * WIDTH,
                     rect.max.y,
                 ))
             }
