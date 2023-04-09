@@ -11,7 +11,8 @@
                     ],
                     "location": 1,
                     "edges": {
-                            "allumeuse_default_1": "allumeuse_default_2"
+                            "allumeuse_default_1": "allumeuse_default_2",
+                            "racaille_average_man_woman": "allumeuse_adultere_1"
                     }
                 },
                 "allumeuse_default_2": {
@@ -20,7 +21,8 @@
                     ],
                     "location": 1,
                     "edges": {
-                            "allumeuse_default_2": "allumeuse_default_3"
+                            "allumeuse_default_2": "allumeuse_default_3",
+                            "racaille_average_man_woman": "allumeuse_adultere_1"
                     }
                 },
                 "allumeuse_default_3": {
@@ -31,10 +33,11 @@
                     "location": 1,
                     "edges": {
                             "allumeuse_default_3": "allumeuse_default_3",
-                            "racaille_default_1": "allumeuse_adultere"
+                            "racaille_average_man_woman": "allumeuse_adultere_1",
+                            "enfant_bonbon_2": "allumeuse_adultere_1"
                     }
                 },
-                "allumeuse_adultere": {
+                "allumeuse_adultere_1": {
                     "dialogue": [
                         "...",
                         "Adultère de quoi?",
@@ -43,7 +46,7 @@
                     ],
                     "location": 1,
                     "edges": {
-                            "allumeuse_adultere": "allumeuse_adultere",
+                            "allumeuse_adultere_1": "allumeuse_adultere_1",
 							"barista_allumeuse_adultere": "allumeuse_aveux_1"
                     }       
                 },
@@ -51,8 +54,8 @@
                     "dialogue": [
                         "...",
                         "...",
-                        "Elle a lâché l'affaire..?",
-                        "Cette barista m'a enfin lâchée...",
+                        "Elle a lâché l'affaire tu dis..?",
+                        "Cette barista m'a enfin lâchée...!!",
                         "Laisser ton ami policier tranquille? ...",
                         "C'est toujours pratique d'avoir un policier à sa botte.",
                         "... Ne crois pas que je vais le lâcher pour si peu, celui-là n'avait qu'à pas tromper sa compagne!"
@@ -72,7 +75,7 @@
                     ],
                     "location": 1,
                     "edges": {
-                        "allumeuse_aveux_2": "controlleur_allumeuse_1"
+                        "allumeuse_aveux_2": "allumeuse_aveux_2"
                     }
                 }
             }

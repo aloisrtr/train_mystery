@@ -17,12 +17,12 @@
                 },
 				"barista_default_2": {
                     "dialogue": [
-                      "Vous êtes bien monsieur Y...?",
+                      "Vous êtes bien monsieur...?",
                       "Votre réputation semble vous précéder. J'espère que votre voyage se passe bien...",
                       "Quelle réputation? Mais... Vous êtes le meilleur inspecteur du pays!",
                       "Enfin... vous étiez."
                     ],
-                    "location": 1,
+                    "location": 2,
                     "edges": {
                             "barista_default_2": "barista_default_3",
 							"allumeuse_adultere_1": "barista_allumeuse_adultere"
@@ -32,10 +32,20 @@
                     "dialogue": [
                       "Que puis-je vous servir?"
                     ],
-                    "location": 1,
+                    "location": 2,
                     "edges": {
-                            "barista_default_3": "barista_default_1",
+                            "barista_default_3": "barista_default_3",
 							"allumeuse_adultere_1": "barista_allumeuse_adultere"
+                    }
+                },
+                "barista_allumeuse_adultere_0": {
+                    "dialogue": [
+                      "Que puis-je vous servir?"
+                    ],
+                    "location": 2,
+                    "edges": {
+                            "barista_allumeuse_adultere_0": "barista_allumeuse_adultere_0",
+							"enfant_bonbon_2": "barista_allumeuse_adultere"
                     }
                 },
 				"barista_allumeuse_adultere": {
@@ -62,9 +72,34 @@
                       "Et maintenant, elle le tient en laisse.",
                       "Que se passe-t-il ensuite? C'est à vous de me dire! Je- je vous ai dit tout ce que je savais, aidez-moi maintenant!"
                     ],
-                    "location": 1,
-                    "edges": {}
-				}
+                    "location": 2,
+                    "edges": {
+                        "allumeuse_aveux_2": "barista_disappear_1"
+                    }
+				},
+                "barista_disappear_1": {
+                    "dialogue": [
+                      "Bonjour monsieur que puis-je faire pour vous?",
+                      "... Une jeune femme et une histoire d'adultère?",
+                      "Je ne vois pas de quoi vous parlez désolée.",
+                      "...",
+                      "...",
+                      "*Vous trouvez des traces de griffures et une photo d'adultère par hasard.*"
+                    ],
+                    "location": 2,
+                    "edges": {
+                            "barista_disappear_1": "barista_disappear_2"
+                    }
+                },
+                "barista_disappear_2": {
+                    "dialogue": [
+                      "Que souhaitez-vous boire cher client?"
+                    ],
+                    "location": 2,
+                    "edges": {
+                            "barista_disappear_2": "barista_disappear_2"
+                    }
+                }
             }
         }
 

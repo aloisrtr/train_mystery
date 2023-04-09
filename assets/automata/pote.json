@@ -16,10 +16,11 @@
                     ],
                     "location": 0,
                     "edges": {
-                        "pote_default_1": "pote_default_1"
+                        "pote_default_1": "pote_default_1",
+                        "psy_default_2": "pote_default_2"
                     }
                 },
-				"conducteur_psy_1": {
+				"pote_default_2": {
                     "dialogue": [
                       "Alors comment ça s'est passé?",
                       "Ré-réhabilitation? Enquête..? Il t'a carrément remis le boulot en tête celui-là!",
@@ -36,23 +37,100 @@
                     ],
                     "location": 0,
                     "edges": {
-                        "conducteur_psy_1": "conducteur_pote_1"
+                        "pote_default_2": "pote_default_3"
                     }
                 },
-                "conducteur_enfants_1": {
+				"pote_default_3": {
                     "dialogue": [
-                        "Ils ont en effet perdu leurs parents dans un tragique accident.",
-                        "Que ce soit pour le meilleur ou le pire ces enfants semblent maintenant libérés!",
-                        "Leur éducation était à revoir, les parents les avaient délaissés. Les pauvres.",
-                        "Ces enfants sont comme nos enfants maintenant!",
-                        "Nos? Haha! Je veux dire ce sont les enfants du train maintenant!"
+                        "En tout cas, reviens me voir si tu as une soumission à me faire par rapport à l'enquête."
                     ],
-                      "location": 6,
-                      "edges": {
-                          "conducteur_enfants_1": "conducteur_enfants_1"
-                      }
+                    "location": 0,
+                    "edges": {
+                        "enfant_bonbon_2": "pote_adultere_1",
+                        "allumeuse_adultere_1": "pote_adultere_2",
+                        "allumeuse_aveux_2": "pote_adultere_3"
+                    }
+                },
+                "pote_adultere_1": {
+                    "dialogue": [
+                        "Des bretelles? ... Sûrement pas les miennes!",
+                        "Je n'en sais strictement rien sinon."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_adultere_1": "pote_default_3"
+                    }
+                },
+                "pote_adultere_2": {
+                    "dialogue": [
+                        "Une adultère?",
+                        "Je te rappelle que j'ai une femme!",
+                        "Je serais vraiment indigné qu'une telle chose s'est produite, une injustice doit sûrement y résider..."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_adultere_2": "pote_default_3"
+                    }
+                },
+                "pote_adultere_3": {
+                    "dialogue": [
+                        "...",
+                        "...",
+                        "...",
+                        "Je ne connais pas cette personne.",
+                        "Désolé pour cela je ne peux rien faire pour toi.",
+                        "Je ne vois strictement pas de quoi elle parle."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_adultere_3": "pote_adultere_3",
+                        "barista_disappear_1": "pote_fin_1",
+                        "barista_disappear_2": "pote_fin_1"
+                    }
+                },
+                "pote_fin_1": {
+                    "dialogue": [
+                        "Comment? La barista a ...?",
+                        "Je ne peux rien faire pour ça désolé.",
+                        "*Vous montrez la photo d'adultère*",
+                        "...",
+                        "Je n'ai jamais trompé ma femme! Cela doit être un montage, c'est ça tu me fais marcher hein?!",
+                        "...",
+                        "Ok... Tu as raison. Mais ne le dis surtout à personne! Sinon je pourrais tout perdre.",
+                        "Comment?",
+                        "Tu souhaites passer à l'action? Il faudrait arrêter ce fameux controlleur alors... Mais on manque de preuves et à nous deux je ne crois pas qu'on fasse l'affaire..."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_fin_1": "pote_fin_2",
+                        "racaille_aide_2": "pote_fin_3",
+                        "racaille_aide_3": "pote_fin_3"
+                    }
+                },
+                "pote_fin_2": {
+                    "dialogue": [
+                        "Tu souhaites passer à l'action? Il faudrait arrêter ce fameux controlleur alors... Mais on manque de preuves et à nous deux je ne crois pas qu'on fasse l'affaire..."
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_fin_2": "pote_fin_2",
+                        "racaille_aide_2": "pote_fin_3",
+                        "racaille_aide_3": "pote_fin_3"
+                    }
+                },
+                "pote_fin_3": {
+                    "dialogue": [
+                        "Hein?!",
+                        "...",
+                        "Je n'aurais jamais cru devoir être redevable à une ordure.",
+                        "Enfin...",
+                        "Bon! Allons-y!"
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "pote_fin_3": "pote_fin_3"
+                    }
                 }
-				
             }
         }
 

@@ -1,0 +1,56 @@
+{
+    "name": "Psy",
+    "sprite": "characters/psy.png",
+    "behavior":
+        {
+            "init_state": "psy_default_1",
+            "states": {
+                "psy_default_1": {
+                    "dialogue": [
+                      "Bonjour monsieur?",
+                      "Vous me semblez un peu perdu.",
+                      "...",
+                      "Ah! Mais vous êtes ce fameux inspecteur!",
+                      "Ou du moins ce qu'il en reste...",
+                      "Hum. Excusez-moi, je suis psychologue de profession.",
+                      "Votre situation actuelle me semble quelque peu emmêlée, laissez-moi vous éclairer.",
+                      "Hmm... Votre réhabilitation est en elle-même une enquête...",
+                      "Vous êtes dans un sacré cas!",
+                      "Étant donné votre situation actuelle vous pouvez noter dans votre carnet toute information qui vous semble bon à prendre.",
+                      "N'hésitez pas à redemander aux personnes plusieurs fois.",
+                      "Prenez toutefois garde, vos phases peuvent vous jouer des tours quant à la véracité de vos notes.",
+                      "Pensez donc à consulter régulièrement votre entourage pour vous rappeler d'une certaine cohérence.",
+                      "...",
+                      "Cette enquête semble être potentiellement la plus dure de celle de toute votre carrière!",
+                      "Mais bon... Je crois en vous. Vous étiez tout de même le meilleur inspecteur du pays!"
+                    ],
+                    "location": 5,
+                    "edges": {
+                        "psy_default_1": "psy_default_2"
+                    }
+                },
+                "psy_default_2": {
+                    "dialogue": [
+                      "Bon courage et que le chemin de la réhabilitation vous sourit."
+                    ],
+                    "location": 5,
+                    "edges": {
+                        "psy_default_2": "psy_default_2",
+                        "controlleur_allumeuse_1": "psy_controlleur_1"
+                    }
+                },
+				"psy_controlleur_1": {
+                    "dialogue": [
+                        "Ah monsieur!",
+                        "Vous semblez mal au point, ou me trompe-je?",
+                        "Voici quelques médicaments..."
+                    ],
+                    "location": 5,
+                    "edges": {
+                        "psy_controlleur_1": "psy_controlleur_1"
+                    }
+                }
+            }
+        }
+
+}

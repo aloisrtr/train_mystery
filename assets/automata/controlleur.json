@@ -14,7 +14,22 @@
                     ],
                     "location": 4,
                     "edges": {
-                        "controlleur_default_1": "controlleur_default_1"
+                        "controlleur_default_1": "controlleur_default_1",
+                        "racaille_information_1": "controlleur_information_1",
+                        "allumeuse_aveux_2": "controlleur_allumeuse_1",
+                        "pote_fin_3": "controlleur_allumeuse_2"
+                    }
+                },
+                "controlleur_information_1": {
+                    "dialogue": [
+                      "Les passagers semblent parfois oublier qu'ils ont des objets de valeur.",
+                      "Ils n'y prêtent aucune attention, c'est à se demander si ces imbéciles heureux le resteront."
+                    ],
+                    "location": 4,
+                    "edges": {
+                        "controlleur_information_1": "controlleur_information_1",
+                        "allumeuse_aveux_2": "controlleur_allumeuse_1",
+                        "pote_fin_3": "controlleur_allumeuse_2"
                     }
                 },
 				"controlleur_vieux_1": {
@@ -24,7 +39,9 @@
                     ],
                     "location": 4,
                     "edges": {
-                        "controlleur_vieux_1": "controlleur_vieux_1"
+                        "controlleur_vieux_1": "controlleur_vieux_1",
+                        "allumeuse_aveux_2": "controlleur_allumeuse_1",
+                        "pote_fin_3": "controlleur_fin_1"
                     }
                 },
                 "controlleur_allumeuse_1": {
@@ -47,8 +64,27 @@
                     "dialogue": [
                         "..."
                     ],
-                    "location": 2,
-                    "edges": {}
+                    "location": 4,
+                    "edges": {
+                        "pote_fin_3": "controlleur_fin_1"
+                    }
+                },
+                "controlleur_fin_1": {
+                    "dialogue": [
+                        "...",
+                        "Haha.",
+                        "Hahaha.",
+                        "Hahahahahahahahahahaha.",
+                        "...",
+                        "Vous croyez m'avoir eu?",
+                        "Vous croyez NOUS avoir eu?",
+                        "Je ne suis qu'un maillon dans cette histoire, bien plus profond se cache une haine insatiable de personnes comme vous.",
+                        "Ce n'est pas terminé."
+                    ],
+                    "location": 4,
+                    "edges": {
+                        "controlleur_fin_1": "controlleur_fin_1"
+                    }
                 }
             }
         }

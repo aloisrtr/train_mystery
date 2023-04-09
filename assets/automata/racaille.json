@@ -9,36 +9,79 @@
                     "dialogue": [
                       "Qu'est-ce tu veux frère?"
                     ],
-                    "location": 3,
+                    "location": 0,
                     "edges": {
-                        "racaille_default_1": "racaille_default_2"
+                        "racaille_default_1": "racaille_default_2",
+                        "conducteur_pote_1": "racaille_information_1"
                     }
                 },
 				"racaille_default_2": {
                     "dialogue": [
                       "*Te pète la gueule*"
                     ],
-                    "location": 1,
+                    "location": 0,
                     "edges": {
-                        "racaille_default_2": "racaille_default_1"
+                        "racaille_default_2": "racaille_default_1",
+                        "conducteur_pote_1": "racaille_information_1"
                     }
                 },
-				"TODO_finir_logique": {
+				"racaille_information_1": {
                     "dialogue": [
+                      "Des bretelles? Tu veux enquêter sur ton pote l'policier?",
+                      "Haha c'est la meilleure celle-là !",
                       "Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
                     ],
-                    "location": 1,
+                    "location": 0,
                     "edges": {
-                        "racaille_default_1": "racaille_default_2"
+                        "racaille_information_1": "racaille_information_1",
+                        "average_woman_information_1": "racaille_average_man_woman"
                     }
                 },
-				"average_man_woman": {
+				"racaille_average_man_woman": {
                     "dialogue": [
-                      "Ouais c'est pas mal ça! Info adultère."
+                      "Ouais c'est pas mal ça! Ces pouilleux n'avaient qu'à bien ranger leurs affaires!",
+                      "...",
+                      "Ah ouais. Tiens tu sais quoi? J'ai pris en flagrant délit ton pote l'policier avec l'allumeuse du coin, ils faisaient quelque chose de pas très catho' s'tu vois c'que je veux dire haha!",
+                      "Ce que je sais de plus? Hmm... J'crois que l'allumeuse le garde sous le coude mais on dirait qu'elle souhaite pas en dire plus que ça.",
+                      "Pfff... C'est une allumeuse non? Elle doit avoir l'habitude de faire ça avec tout le monde donc pourquoi faire la cachottière?"
                     ],
-                    "location": 1,
+                    "location": 0,
                     "edges": {
-                        "racaille_average_man_woman": "racaille_default_1"
+                        "racaille_average_man_woman": "racaille_average_man_woman",
+                        "barista_disappear_1": "racaille_aide_1",
+                        "barista_disappear_2": "racaille_aide_1"
+                    }
+                },
+                "racaille_aide_1": {
+                    "dialogue": [
+                      "Hein? La barista a perdu la mémoire?",
+                      "Brother, je comprends pas un brin de ce que tu m'déblatères!"
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "racaille_aide_1": "racaille_aide_2"
+                    }
+                },
+                "racaille_aide_2": {
+                    "dialogue": [
+                        "...",
+                        "Et qu'est-ce que tu veux que j'y fasse dans ton histoire?",
+                        "...Hein?! Un trésor? Sérieux? Où ça?",
+                        "...",
+                        "Ok tout ce dont t'as besoin c'est d'un gros dur comme moi? Je suis avec toi!"
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "racaille_aide_2": "racaille_aide_3"
+                    }
+                },
+                "racaille_aide_3": {
+                    "dialogue": [
+                        "Emmène-moi vers cet âne, on lui fait sa fête et je prends le trésor!"
+                    ],
+                    "location": 0,
+                    "edges": {
+                        "racaille_aide_3": "racaille_aide_3"
                     }
                 }
             }

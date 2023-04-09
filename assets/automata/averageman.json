@@ -8,7 +8,7 @@
                     "dialogue": [
                         "Bonjour monsieur."
                     ],
-                    "location": 1,
+                    "location": 4,
                     "edges": {
                             "average_man_default_1": "average_man_default_2"
                     }
@@ -19,7 +19,7 @@
                         "Comment? Apparemment ils ont été pris dans un accident. Cependant...",
                         "Cependant les enfants ne semblent bizarrement pas si tristes. Leurs parents étaient-ils des monstres?"
                     ],
-                    "location": 1,
+                    "location": 4,
                     "edges": {
                             "average_man_default_2": "average_man_default_3"
                     }
@@ -29,7 +29,7 @@
                         "Je n'ai jamais compris ce genre de parents tyranniques.",
                         "Il faudrait peut être aider ces enfants."
                     ],
-                    "location": 1,
+                    "location": 4,
                     "edges": {
 						"average_man_default_3": "average_man_default_3"
 					}

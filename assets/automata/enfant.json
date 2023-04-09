@@ -13,63 +13,76 @@
                     ],
                     "location": 3,
                     "edges": {
-						"vieux1_bonbon":"enfant_bonbon_1"
+                        "enfant_default_1": "enfant_default_1",
+                        "racaille_information_1": "enfant_bonbon_0"
+                    }
+                },
+                "enfant_bonbon_0": {
+                    "dialogue": [
+                        "Avant mes parents me donnaient pas beaucoup de bonbons",
+                        "et maintenant j'en ai un peu plus mais toujours pas assez!!!"
+                    ],
+                    "location": 3,
+                    "edges": {
+						"vieux1_bonbon_1": "enfant_bonbon_1"
                     }
                 },
 				"enfant_bonbon_1": {
                     "dialogue": [
                       "Oh des bonbons!! Merci monsieur!"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
                         "enfant_bonbon_1": "enfant_bonbon_2"
                     }
                 },
-				"bonbon_2": {
+				"enfant_bonbon_2": {
                     "dialogue": [
-                      "Ouais je peux te donner des infos mais donne moi un truc qui vaut le coup en échange."
+                      "Ah oui! Eh bah quand on mangeait des bonbons hier soir d'ailleurs, on a vu des bretelles enlevées à côté d'une porte d'un wagon fermée.",
+                      "On s'est dit que y'avait des gens qui faisaient des choses hihi!",
+                      "Mais on a pas réussi à regarder la porte était bien fermée!!"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
                         "enfant_bonbon_2": "enfant_bonbon_3"
                     }
                 },
-				"enfant_bonbon_3": {
+				"enfant_parents_1": {
                     "dialogue": [
                       "Nos parents? Ils étaient méchants et se fichaient de nous. M. le controlleur et M. le conducteur s'occupent de nous maintenant et c'est bien mieux!!",
                       "On voyage maintenant dans le train avec eux."
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
-                        "enfant_bonbon_3": "enfant_bonbon_4"
+                        "enfant_parents_1": "enfant_parents_2"
                     }
                 },
-				"enfant_bonbon_4": {
+				"enfant_parents_2": {
                     "dialogue": [
                       "On s'amuse bien ici mais les gens partent aussi vite qu'ils arrivent."
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
-                        "enfant_bonbon_4": "enfant_bonbon_5"
+                        "enfant_parents_2": "enfant_parents_3"
                     }
                 },
-				"enfant_bonbon_5": {
+				"enfant_parents_3": {
                     "dialogue": [
                       "Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
-                        "enfant_bonbon_5": "enfant_bonbon_6"
+                        "enfant_parents_3": "enfant_parents_3"
                     }
                 },
-				"enfant_bonbon_6": {
+				"enfant_bonbon_3": {
                     "dialogue": [
                       "Merci encore sur les bonbons!!"
                     ],
-                    "location": 1,
+                    "location": 3,
                     "edges": {
-                        "enfant_bonbon_6": "enfant_bonbon_6",
-						"TODO_conducteur": "enfant_conducteur"
+                        "enfant_bonbon_3": "enfant_bonbon_3",
+						"conducteur_enfants_1": "enfant_conducteur"
                     }
                 },
 				"enfant_conducteur": {
@@ -77,9 +90,9 @@
 						"M. le conducteur est très gentil avec nous!!",
 						"Il dit des choses un peu bizarres parfois mais il est sympa."
 					  ],
-					  "location": 1,
+					  "location": 3,
 					  "edges": {
-						  "enfant_bonbon_6": "enfant_bonbon_6"
+						  "enfant_conducteur": "enfant_conducteur"
 					  }
 				}
             }

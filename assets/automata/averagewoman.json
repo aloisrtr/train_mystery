@@ -11,7 +11,7 @@
                     ],
                     "location": 2,
                     "edges": {
-						"TODO_policier_pote": "average_woman_pote_controlleur"
+						"pote_default_2": "average_woman_pote_controlleur"
 					}
                 },
 				"average_woman_pote_controlleur": {
@@ -20,7 +20,7 @@
                       "Comment ça ça s'est passé quand? En 1965 enfin!",
                       "Ces abrutis soupçonnaient un complot avec notre cher président, c'est n'importe quoi!"
                     ],
-                    "location": 1,
+                    "location": 2,
                     "edges": {
                             "average_woman_pote_controlleur": "average_woman_pote_controlleur_2"
                     }
@@ -31,19 +31,33 @@
                       "Comment ça qui étaient ses assassins? Vous habitez dans une grotte?",
                       "On soupçonnait une organisation derrière tout ça... Ils auraient cru à des manigances de notre cher président, c'est totalement absurde!"
                     ],
-                    "location": 1,
+                    "location": 2,
                     "edges": {
                             "average_woman_pote_controlleur_2": "average_woman_pote_controlleur_2",
-							"racaille_default_1": "average_woman_racaille"
+							"racaille_average_man_woman": "average_woman_racaille",
+                            "racaille_information_1": "average_woman_information_1"
+                    }
+                },
+                "average_woman_information_1": {
+                    "dialogue": [
+                        "À l'époque du président les temps étaient bien plus faciles qu'aujourd'hui, si vous savez!",
+                        "Je ne peux que m'offrir qu'une dizaine de colliers d'or à 18 carats seulement!",
+                        "Terrible misère!!!"
+                    ],
+                    "location": 2,
+                    "edges": {
+                            "average_woman_information_1": "average_woman_information_1",
+							"racaille_average_man_woman": "average_woman_racaille",
+                            "racaille_information_1": "average_woman_information_1"
                     }
                 },
 				"average_woman_racaille": {
                     "dialogue": [
-						"Cette saleté de racaille me lance des regards lugubres parfois."
+						"Cette vermine de racaille me lance des regards lugubres parfois."
 					],
-                    "location": 1,
+                    "location": 2,
                     "edges": {
-                            "average_woman_racaille": "average_woman_pote_controlleur_2"
+                            "average_woman_racaille": "average_woman_racaille"
                     }
                 }
             }

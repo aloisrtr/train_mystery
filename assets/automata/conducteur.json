@@ -12,17 +12,21 @@
                     ],
                     "location": 6,
                     "edges": {
-                        "conducteur_default_1": "conducteur_default_1"
+                        "conducteur_default_1": "conducteur_default_1",
+                        "pote_default_2": "conducteur_pote_1",
+                        "enfant_parents_3": "conducteur_enfants_1"
                     }
                 },
 				"conducteur_pote_1": {
                     "dialogue": [
                       "Ce policier... Il m'a semblé un peu crispé par la situation actuelle. Je pense qu'il doit être bloqué par quelque chose.",
-                      "En parlant de bloquer, la porte du wagon de cargaisons était bloqué toute la veille!"
+                      "En parlant de bloquer, la porte du wagon de cargaisons était bloqué toute la veille!",
+                      "Les enfants jouent partout, j'espérais que ce soir là ils n'aient pas été bloqué quelque part."
                     ],
                     "location": 6,
                     "edges": {
-                        "conducteur_pote_1": "conducteur_pote_1"
+                        "conducteur_pote_1": "conducteur_pote_1",
+                        "enfant_parents_3": "conducteur_enfants_1"
                     }
                 },
                 "conducteur_enfants_1": {

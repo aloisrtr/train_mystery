@@ -51,7 +51,7 @@ impl CharacterBundle {
         if character_json.name == "Enfants" {
             translation = Vec3::new(-400.0, -180.0, 0.0);
         } else if character_json.name == "Average Man" {
-            translation = Vec3::new(-300.0, -180.0, 0.0);
+            translation = Vec3::new(0.0, -180.0, 0.0);
         } else if character_json.name == "Pote" {
             translation = Vec3::new(-200.0, -180.0, 0.0);
         } else if character_json.name == "Mr Dawson" {
@@ -68,7 +68,9 @@ impl CharacterBundle {
             translation = Vec3::new(400.0, -180.0, 0.0);
         } else if character_json.name == "Allumeuse" {
             translation = Vec3::new(500.0, -180.0, 0.0);
-        } 
+        } else if character_json.name == "Psy" {
+            translation = Vec3::new(-500.0, -180.0, 0.0)
+        }
         translation += Vec3::new(0.0, 0.0, 10.0);
 
         Ok(CharacterBundle {
