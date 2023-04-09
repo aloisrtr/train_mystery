@@ -606,10 +606,9 @@ fn display_dialogue(
     }
 
     *text_box_visibility.get_single_mut().unwrap() = Visibility::Visible;
-    let mut text_box = text_box.get_single_mut().unwrap();
-    let dialogue = dialogue
-        .text[dialogue.lines_read].clone();    
-        text_box.sections[0].value = dialogue;
+    for (i, mut text_box) in text_box.iter_mut().enumerate() {
+        text_box.sections[0].value = if i == 0 {dialogue.text[dialogue.lines_read].clone()} else {dialogue.character_name.clone()};
+    }
 }
 
 fn translate_rectangle(rect: &mut Rect, translation_x: f32, translation_y: f32) {
@@ -655,6 +654,23 @@ fn spawn_text_box(commands: &mut Commands, window: &Window, asset_server: &Res<A
                     },
                     text_2d_bounds: Text2dBounds { size: box_size },
                     transform: Transform::from_translation(Vec3::Z),
+                    visibility: Visibility::Inherited,
+                    ..default()
+                },
+                RenderLayers::layer(1),
+            ));
+            builder.spawn((
+                Text2dBundle {
+                    text: Text {
+                        sections: vec![TextSection::new("", style.clone())],
+                        alignment: TextAlignment::Center,
+                        linebreak_behaviour: BreakLineOn::WordBoundary,
+                    },
+                    text_2d_bounds: Text2dBounds { size: box_size },
+                    transform: Transform::from_translation(
+                        Vec3::Z 
+                        + Vec3::new(-box_size[0] / 2f32 + 100f32, box_size[1] / 2f32 - style.font_size, 0f32)
+                    ),
                     visibility: Visibility::Inherited,
                     ..default()
                 },
