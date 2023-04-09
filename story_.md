@@ -1,5 +1,5 @@
 Story
-
+  
 Idée générale :
 - schyzo policier
 - train / wagon recherche
@@ -9,14 +9,14 @@ Le policier cherche ses médicaments car il a mal à la tête, il demande aux au
 Les dialogues se débloquent en fonction de son avancée (dans l'arbre)
 - Les NPC ont des routines (déplacements, (changements))
 - Indices sur des objets et interactions par rapport aux salles
-
+  
 Personnages:
 A chaque discussion avec un personnage le carnet de notes s'enrichit plus ou moins pertinemment en fonctionde l'avancée déjà présente dans le carnet. (La meta veut qu'il ne faut pas aller discuter tout le temps et à tout le monde directement sinon les informations peuvent être contradictoires qui ne pourront être fixées que par une information qui éclaire la situation et sera donc apportée plus tard).
 Quand le déplacement d'un personnage est aléatoire (sauf conducteur) cela concerne tous les wagons sauf celui du conducteur.
-
+  
 - Policier (main):
 ex policier, vient de se faire virer à cause de problèmes mentaux, son collègue l'accompagne pour le "destituer" et genre le surveiller vite fait.
-
+  
 - L'allumeuse:
     Caractère :
     - Elle est complètement folle, elle donne pour la plupart du temps des informations fausses. Elle ne cherche qu'à te faire perdre ton temps dans de longs dialogues.
@@ -38,7 +38,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "..."/
     "Mon mignon tu sais parler aux femmes."
     -> (loop) (event : barista disparaît et le controlleur est au bar)
-
+  
 - Les vieux:
     Caractère :
     - Se font chier et ils sont seuls (ils sont vieux) du coup ils sont trop heureux si tu viens leur parler 
@@ -49,13 +49,13 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     Dialogues :
     - (default) -> "Bonjour jeune homme!" -> (continue) "Nous passons un très bon voyage, nous allons voir nos petits enfants."/
     "Passez-vous un bon voyage?" -> (loop)
-        (loop) -> "L'assassinat du président est vraiment terrible. Si ces satanés complotistes n'avaient pas pris cette vie, nous aurons été tous bien plus heureux!"
+        (loop) -> "L'assassinat du président X est vraiment terrible. Si ces satanés complotistes n'avaient pas pris cette vie, nous aurons été tous bien plus heureux!"
         (loop) -> "Le conducteur a sûrement plein d'histoires à raconter!"
     (parlé aux gosses) -> "Vous n'avez pas bonne mine jeune homme!"/
     "..."/
     "Tenez prenez ces friandises."/
     "Avec cela vous serez de bonne humeur à coup sûr!" -> (loop)
-
+  
 - Average man (duplicable):
     Caractère :
     - Il est présent physiquement. Il ne semble pas très enjoué et peut donner quelques informations selon une probabilité ou l'avancée du policier.
@@ -71,7 +71,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     (continue) -> "Je n'ai jamais compris ce genre de parents tyranniques."/
     "Il faudrait peut être aider ces enfants."
     (continue) -> (loop)
-
+  
 - Average woman(duplicable):
     Caractère :
     - Elle est présente physiquement. Elle ne semble pas très enjouée et peut donner quelques informations selon une probabilité ou l'avancée du policier.
@@ -82,14 +82,14 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     - Fixe.
     Dialogues :
     - (default) -> "Bonjour... Je peux vous aider?"
-      (parlé à ton pote policier et controlleur) -> "C'est terrible ce qui s'est passé avec l'assassinat du président..."/
+      (parlé à ton pote policier et controlleur) -> "C'est terrible ce qui s'est passé avec l'assassinat du président X..."/
       "Comment ça ça s'est passé quand? En 1965 enfin!
       Ces abrutis soupçonnaient un complot avec notre cher président, c'est n'importe quoi!"
-      (continue) -> "Le président était vraiment admirable! Il était bienveillant et aimé de tous."/
+      (continue) -> "Le président X était vraiment admirable! Il était bienveillant et aimé de tous."/
       "Comment ça qui étaient ses assassins? Vous habitez dans une grotte?"/
       "On soupçonnait une organisation derrière tout ça... Ils auraient cru à des manigances de notre cher président, c'est totalement absurde!" (continue) -> (loop)
       (parlé racaille) -> "Cette saleté de racaille me lance des regards lugubres parfois."
-
+  
 - L'autre policier (rationnel):
     Caractère :
     - Plutôt raisonné, semble faire attention à son ami policier et lui rappelle constamment qu'il est en délire qu'il divague mais au bout d'un moment peut confirmer ou non des informations qui sont potentiellement erronées.
@@ -132,8 +132,8 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "..."/
     "Désolé je suis un peu ému, allons-y maintenant!"
     -> (win)
-
-
+  
+  
 - Le psy/médecin (conseiller/tuto):
     Caractère :
     - Il te conseille sur le gameplay (sans briser le quatrième mur) (ex: note des informations dans ton carnet comme ça tu t'en souviens) et peut te donner du temps supplémentaire (des médocs).
@@ -158,7 +158,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "Bon courage et que le chemin de la réhabilitation vous sourit."
     -> (loop)
     (parlé controlleur) -> "Ah monsieur!"/"Vous semblez mal au point, ou me trompe-je?"/"Voici quelques médicaments..." -> (loop)
-
+  
 - Les gosses:
     Caractère :
     - Sont cons donc si t'as pas les bonbons ils te mentent, sinon ils te disent la vérité sur des informations potentiellement pertinentes (des ragots).
@@ -175,7 +175,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
       -> "Que sont devenus nos parents exactement? On a pas trop compris mais ils sont descendus du train sans nous non?"
       (continue) -> "Merci encore sur les bonbons!!" -> (loop)
     (parlé conducteur) -> "M. le conducteur est très gentil avec nous!!"/"Il dit des choses un peu bizarres parfois mais il est sympa."
-
+  
 - La barista:
     Caractère :
     - Elle connaît les habitudes des gens mais il faut réussir à la faire parler, elle est plutôt froide et distante.
@@ -217,7 +217,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "Il ne lui a fallu que quelques verres."/
     "Et maintenant, elle le tient en laisse."/
     "Que se passe-t-il ensuite? C'est à vous de me dire! Je- je vous ai dit tout ce que je savais, aidez-moi maintenant!" -> (loop)
-
+  
 - Le conducteur:
     Caractère :
     - Il connaît la structure du train (comment sont agencés les wagons) et donc à des horaires précis connaît l'état des salles.
@@ -245,7 +245,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     "Leur éducation était à revoir, les parents les avaient délaissés. Les pauvres." (continue) -> "Ces enfants sont comme nos enfants maintenant!"/"Nos? Haha! Je veux dire ce sont les enfants du train maintenant!" -> (loop)
     (parlé average man) -> "Cet homme lambda ne semble pas au plus haut point dans sa vie."/
     "Peut-être aurait-il besoin d'un peu d'aide." -> (loop)
-
+  
 - Le controlleur:
     Caractère :
     - Il faut lui parler plusieurs fois à plusieurs moments pour qu'il donne des informations cruciales sur les personnes qu'il a récoltées à travers des contrôles. Il est un peu lourd parfois donc il force les gens à divulger leurs informations pour qu'ils soient en règle.
@@ -264,7 +264,7 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
       "Monsieur, j'insiste. Je crois que vos problèmes de santé vous reprennent et j'ai peur que cela n'empire immédiatement. Par chance il y a un médecin à bord, je vous y emmène directement."/
       "Allons-y."
       -> (TP wagon)
-
+  
 - La racaille:
     Caractère :
     - Il cherche les problèmes et si le policier l'aborde trop il le frappe et il tombe dans le coma. Si le controlleur est présent dans le wagon alors il ne fera rien et donnera potentiellement des informations contre des informations (il souhaite voler d'autres personnes => dépend de notre avancée).
@@ -282,15 +282,15 @@ ex policier, vient de se faire virer à cause de problèmes mentaux, son collèg
     (parlé à l'autre policier et photo adultère) -> "..."/"Et qu'est-ce que tu veux que j'y fasse dans ton histoire?"/"Hein?! Un trésor? Sérieux?"/
     "..."/
     "Ok tout ce dont t'as besoin c'est d'un gros dur comme moi? Je suis avec toi!" -> (loop)
-
+  
 Objectif : 
 Arriver à 100% de découverte du mystère, pourcentage défini par ta progression dans le graphe des connaissances.
 Le policier progresse en parlant aux NPC et aux interactions qui complètent son carnet de notes (qui contient aussi l'arbre avec les relations),
 sa progression est conservée tout le long des time reset (coma).
-
+  
 Le mystère en question :
 Le conducteur et le controlleur sont en fait membres d'une secte, ils essaient de recruter des gens. Le controlleur a l'air froid et désagréable parce que personne lui convient, et c'est pour ça qu'il a l'air plus gentil avec nous => il sent qu'on est potentiellement recrutable. Ceux qui sont pas recrutables euuuuh force à eux (spoiler ils meurent).
-
+  
 Indices vers le mystère : 
 - La salle de la chaudière est fermée, et askip ça sent mauvais dans le coin (TODO : qui donne cette info ?)
 - Le controlleur demande si on a de la famille / des connaissances qui nous attendent à l'arrivée (pour savoir si on est isolé, donc plus facilement recrutable) 
@@ -301,8 +301,9 @@ Le chef de la secte originale était bienveillant et ami du président du pays, 
 L'autre policier est au courant de telles affaires et souhaitait mener son enquête, il est dans le train car il a mené son enquête qui l'a mené dans ce train. Cependant, il a été pris en pleine adultère avec l'allumeuse par la racaille, la barista blackmail l'allumeuse par la secte pour qu'elle bloque l'autre policier.
 La tâche de la barista est également de retenir le plus possible le main car il était connu pour être le meilleur enquêteur (il a été viré en raison de son accident traumatique qui a été causé par la secte).
 Le main poursuit une quête de bonheur qui est en fait sa véritable quête d'origine, retrouver son bonheur perdu à cause de son accident traumatique. C'est pour cela qu'il essaie inconsciemment d'élucider le mystère du train qui s'avère être lié à son accident traumatique, son propre mystère, son bonheur, son enquête...
-
+  
 Déroulé:
     Le fil de la véritable histoire consiste en aller parler à tous les passagers pour récolter assez d'informations et débloquer mutuellement les dialogues et compléter le carnet. Le vecteur directeur est la barista qui tient en laisse l'allumeuse qui tient elle-même en laisse l'autre policier. Débloquer cela permet de convaincre partiellement l'ami policier d'aller aider le main,
     cependant il faut lui donner la photo de l'adultère lâchée dans le bar après que la barista ait disparu.
     L'autre policier hésitera toujours et il faudra aller parler et faire une fausse promesse à la racaille qui jouera de gros bras supplémentaire et finir par une soumission à l'autre policier pour débusquer la secte.
+  

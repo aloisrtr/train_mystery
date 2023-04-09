@@ -635,7 +635,7 @@ fn spawn_text_box(commands: &mut Commands, window: &Window, asset_server: &Res<A
 
     let style = TextStyle {
         font: asset_server.load("fonts/DejaVuSerif.ttf"),
-        font_size: 42f32,
+        font_size: 35f32,
         color: Color::WHITE,
     };
 

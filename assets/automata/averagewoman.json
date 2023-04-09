@@ -16,7 +16,7 @@
                 },
 				"average_woman_pote_controlleur": {
 					"dialogue": [
-                      "C'est terrible ce qui s'est passé avec l'assassinat du président X...",
+                      "C'est terrible ce qui s'est passé avec l'assassinat du président...",
                       "Comment ça ça s'est passé quand? En 1965 enfin!",
                       "Ces abrutis soupçonnaient un complot avec notre cher président, c'est n'importe quoi!"
                     ],
@@ -27,7 +27,7 @@
 				},
 				"average_woman_pote_controlleur_2": {
                     "dialogue": [
-                      "Le président X était vraiment admirable! Il était bienveillant et aimé de tous.",
+                      "Le président était vraiment admirable! Il était bienveillant et aimé de tous.",
                       "Comment ça qui étaient ses assassins? Vous habitez dans une grotte?",
                       "On soupçonnait une organisation derrière tout ça... Ils auraient cru à des manigances de notre cher président, c'est totalement absurde!"
                     ],
