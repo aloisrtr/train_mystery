@@ -3,7 +3,7 @@ mod game_state;
 pub mod room;
 mod train;
 
-use crate::character::{BehaviorAutomaton, CharacterBundle};
+use crate::character::{BehaviorAutomaton, CharacterBundle, Name};
 use crate::game_state::{GameState, GameplayState, MenuState};
 use crate::room::{Room, RoomCharacterStorage};
 use crate::train::{Train, ROOMS_COUNT};
@@ -26,6 +26,7 @@ pub struct Event(Option<String>);
 
 #[derive(Resource, Default)]
 pub struct Dialogue {
+    pub character_name: String,
     pub text: Vec<String>,
     pub lines_read: usize,
 }
@@ -358,6 +359,7 @@ fn handle_input(
     train: Query<&Train>,
     rooms: Query<&RoomCharacterStorage>,
     behavior_automaton: Query<&BehaviorAutomaton>,
+    name_query: Query<&Name>,
     mut outcamerapos: Query<&mut CameraPosition, With<OutsideCamera>>,
     mut outcamera: Query<&mut Camera, With<OutsideCamera>>,
     mut incamera: Query<&mut Camera, (With<InsideCamera>, Without<OutsideCamera>)>,
@@ -456,17 +458,19 @@ fn handle_input(
                     opened_menu: MenuState::None,
                 } => {
                     // Interact with the selected character
-                    let character = rooms.get(*room_id).unwrap().0[*selected_character];
-                    if let Some(character) = character {
-                        let behavior = behavior_automaton.get(character).unwrap();
+                    let character_id_wrapper = rooms.get(*room_id).unwrap().0[*selected_character];
+                    if let Some(character_id) = character_id_wrapper {
+                        let behavior = behavior_automaton.get(character_id).unwrap();
+                        let name = name_query.get(character_id).unwrap();
                         event.0 = Some(behavior.current_state_name().to_string());
+                        dialogue.character_name = name.to_string();
                         dialogue.text = behavior.fetch_dialogue();
                         dialogue.lines_read = 0;
                     }
                     let next_character = rooms.get(*room_id).unwrap().0[((*selected_character + 1) % 3)];
                     game_state.gameplay_state = GameplayState::Room {
                         room_id: *room_id,
-                        selected_character: if let Some(next_character) = next_character {((*selected_character + 1) % 3)} else {0},
+                        selected_character: if let Some(_) = next_character {(*selected_character + 1) % 3} else {0},
                     };
                 }
                 _ => (),

@@ -3,11 +3,10 @@ use std::io;
 use std::path::Path;
 
 use bevy::prelude::*;
-use bevy::ui::Overflow::Visible;
 use serde_derive::Deserialize;
 
 /// GENERAL CHARACTER BUNDLE
-#[derive(Component, Deref, DerefMut, Debug)]
+#[derive(Component, Deref, DerefMut, Debug, Default)]
 pub struct Name(String);
 
 #[derive(Deserialize, Debug)]
