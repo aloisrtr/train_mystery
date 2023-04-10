@@ -244,7 +244,7 @@ fn setup(
         SpriteBundle {
             texture: rails_texture,
             sprite: Sprite {
-                rect: Some(Rect::new(0f32, 0f32, 16250f32, 1714.0)),
+                rect: Some(Rect::new(0f32, 0f32, (ROOMS_COUNT as f32) * WIDTH, 1714.0)),
                 ..default()
             },
             transform: Transform::from_scale(Vec3::new(1.0, 1080.0 / 1714.0 * 0.5, 1.0))
