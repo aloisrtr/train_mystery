@@ -183,7 +183,7 @@ fn setup(
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
-            speed: 10.0,
+            speed: 1f32,
             size: 16382.0,
         },
         RenderLayers::layer(3),
