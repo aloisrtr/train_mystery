@@ -14,6 +14,7 @@ use bevy::{
     // window::WindowResolution,
     render::view::visibility::RenderLayers,
     text::{BreakLineOn, Text2dBounds},
+    sprite::Anchor,
 };
 use std::cmp::min;
 use std::fs;
@@ -661,12 +662,13 @@ fn spawn_text_box(commands: &mut Commands, window: &Window, asset_server: &Res<A
                     transform: Transform::from_translation(
                         Vec3::Z
                             + Vec3::new(
-                                -box_size[0] / 2f32 + 100f32,
+                                -box_size[0] / 2f32,
                                 box_size[1] / 2f32 - style.font_size,
                                 0f32,
                             ),
                     ),
                     visibility: Visibility::Inherited,
+                    text_anchor: Anchor::BottomLeft,
                     ..default()
                 },
                 RenderLayers::layer(1),
