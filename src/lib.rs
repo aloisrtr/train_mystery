@@ -25,6 +25,7 @@ use std::fs;
 // 720p
 const WIDTH: f32 = 1280.;
 const HEIGHT: f32 = 720.;
+const OFFSET_WAGON: f32 = 1020.;
 
 const FPS: f32 = 60.;
 
@@ -178,12 +179,12 @@ fn setup(
                 ..default()
             },
             transform: Transform::from_scale(Vec3::new(0.16, 0.16, 0.0))
-            .with_translation(Vec3::new(0.0, HEIGHT / 3.2, 0.0)),
+                .with_translation(Vec3::new(0.0, HEIGHT / 3.2, 0.0)),
             ..default()
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
-            speed: 1f32,
+            speed: 2.,
             size: 16382.0,
         },
         RenderLayers::layer(3),
@@ -194,21 +195,19 @@ fn setup(
         SpriteBundle {
             texture: desert_texture,
             sprite: Sprite {
-                rect: Some(Rect::new(
-                    0f32,
-                    0f32,
-                    (ROOMS_COUNT as f32) * WIDTH,
-                    1714.0,
-                )),
+                rect: Some(Rect::new(0f32, 0f32, (ROOMS_COUNT as f32) * WIDTH, 1714.0)),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(0.3,0.3, 0.))
-                .with_translation(Vec3::new(0.0, -HEIGHT / 7.2, 0.1)),
+            transform: Transform::from_scale(Vec3::new(0.3, 0.3, 0.)).with_translation(Vec3::new(
+                0.0,
+                -HEIGHT / 7.2,
+                0.1,
+            )),
             ..default()
         },
         BackgroundAnimation {
             timer: Timer::from_seconds(1. / FPS, TimerMode::Repeating),
-            speed: 60.0,
+            speed: 50.0,
             size: 16384.0,
         },
         RenderLayers::layer(3),
@@ -219,16 +218,14 @@ fn setup(
         SpriteBundle {
             texture: grass_texture,
             sprite: Sprite {
-                rect: Some(Rect::new(
-                    0f32,
-                    0f32,
-                    (ROOMS_COUNT as f32) * WIDTH,
-                    1714.0,
-                )),
+                rect: Some(Rect::new(0., 0., (ROOMS_COUNT as f32) * WIDTH, 1714.)),
                 ..default()
             },
-        transform: Transform::from_scale(Vec3::new(0.2, 0.2, 0.0))
-                .with_translation(Vec3::new(0.0, -HEIGHT / 7.0, 1.2)),
+            transform: Transform::from_scale(Vec3::new(0.21, 0.21, 0.)).with_translation(Vec3::new(
+                0.0,
+                -HEIGHT * 0.14,
+                1.,
+            )),
             ..default()
         },
         BackgroundAnimation {
@@ -247,8 +244,8 @@ fn setup(
                 rect: Some(Rect::new(0f32, 0f32, (ROOMS_COUNT as f32) * WIDTH, 1714.0)),
                 ..default()
             },
-            transform: Transform::from_scale(Vec3::new(1.0, 1080.0 / 1714.0 * 0.5, 1.0))
-                .with_translation(Vec3::new(0.0, -1080.0 * 0.05, 0.9)),
+            transform: Transform::from_scale(Vec3::new(0.7, 0.7, 0.))
+                .with_translation(Vec3::new(0.0, -HEIGHT * 1.13, 2.)),
             ..default()
         },
         BackgroundAnimation {
@@ -256,13 +253,15 @@ fn setup(
             speed: 40.0,
             size: 16250.0,
         },
+        RenderLayers::layer(3),
     ));
 
     // TRAINS
-    let wagon_texture = asset_server.load("wagon/wagon_ext.png");
+    let wagon_texture = asset_server.load("wagon/wagon3.png");
     let texture_atlas = texture_atlases.add(TextureAtlas::from_grid(
         wagon_texture,
-        Vec2::new(945f32, 626f32),
+        // Vec2::new(945f32, 626f32),
+        Vec2::new(1878f32, 713f32),
         3,
         1,
         None,
@@ -274,11 +273,9 @@ fn setup(
             SpriteSheetBundle {
                 texture_atlas: texture_atlas.clone(),
                 sprite: TextureAtlasSprite::new(i % 3),
-                transform: Transform::from_translation(Vec3::new(
-                    925f32 * i as f32,
-                    0f32,
-                    (i % 2) as f32 + 1f32,
-                )),
+                transform: Transform::from_scale(Vec3::new(0.55, 0.55, 0.)).with_translation(
+                    Vec3::new(OFFSET_WAGON * i as f32, -150f32, (i % 2) as f32 + 1f32),
+                ),
                 ..default()
             },
             Animation {
@@ -301,7 +298,7 @@ fn setup(
         SpriteSheetBundle {
             texture_atlas,
             sprite: TextureAtlasSprite::new(0),
-            transform: Transform::from_translation(Vec3::new(915f32 * 6f32, 0f32, 1f32)),
+            transform: Transform::from_translation(Vec3::new(OFFSET_WAGON * 6. - 110., 0., 1.)),
             ..default()
         },
         Animation {
@@ -314,6 +311,8 @@ fn setup(
     commands.spawn((
         SpriteBundle {
             texture: wagon_background_image,
+            transform: Transform::from_scale(Vec3::new(0.7, 0.7, 0.0))
+                .with_translation(Vec3::new(0.0, 0.0, 0.0)),
             ..default()
         },
         RenderLayers::layer(2),
@@ -388,7 +387,9 @@ fn handle_input(
                         room_id,
                     },
             } => {
-                *selected_character = (*selected_character).checked_sub(1).unwrap_or(rooms.get(*room_id).unwrap().last_character().unwrap_or(0));
+                *selected_character = (*selected_character)
+                    .checked_sub(1)
+                    .unwrap_or(rooms.get(*room_id).unwrap().last_character().unwrap_or(0));
             }
             _ => (),
         }
@@ -409,7 +410,8 @@ fn handle_input(
                         room_id,
                     },
             } => {
-                *selected_character = (*selected_character + 1) % (rooms.get(*room_id).unwrap().size);
+                *selected_character =
+                    (*selected_character + 1) % (rooms.get(*room_id).unwrap().size);
             }
             _ => (),
         }
@@ -447,7 +449,8 @@ fn handle_input(
                     opened_menu: MenuState::None,
                 } => {
                     // Interact with the selected character
-                    let character_id_wrapper = rooms.get(*room_id).unwrap().vec[*selected_character];
+                    let character_id_wrapper =
+                        rooms.get(*room_id).unwrap().vec[*selected_character];
                     if let Some(character_id) = character_id_wrapper {
                         let behavior = behavior_automaton.get(character_id).unwrap();
                         let name = name_query.get(character_id).unwrap();
@@ -512,7 +515,7 @@ fn handle_input(
             gameplay_state: GameplayState::Hub { selected_room },
             ..
         } => {
-            camera_position.x = 925f32 * *selected_room as f32;
+            camera_position.x = OFFSET_WAGON * *selected_room as f32;
         }
         GameState {
             gameplay_state: GameplayState::Room { room_id, .. },

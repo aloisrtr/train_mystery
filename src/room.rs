@@ -1,16 +1,16 @@
 use bevy::prelude::*;
 
 #[derive(Component, Default)]
-pub struct RoomCharacterStorage{
+pub struct RoomCharacterStorage {
     pub vec: [Option<Entity>; 3],
-    pub size: usize
+    pub size: usize,
 }
 impl RoomCharacterStorage {
     pub fn last_character(&self) -> Option<usize> {
         if self.size > 0 {
             return Some(self.size - 1);
         } else {
-            return None
+            return None;
         }
     }
 }
