@@ -388,15 +388,7 @@ fn handle_input(
                         room_id,
                     },
             } => {
-                let characters = rooms.get(*room_id).unwrap();
-                let characters_count =
-                    characters
-                        .0
-                        .iter()
-                        .fold(0, |acc, c| if c.is_some() { acc + 1 } else { acc });
-                if characters_count != 0 {
-                    *selected_character = selected_character.checked_sub(1).unwrap_or(0)
-                }
+                *selected_character = (*selected_character).checked_sub(1).unwrap_or(rooms.get(*room_id).unwrap().last_character().unwrap_or(0));
             }
             _ => (),
         }
@@ -417,15 +409,7 @@ fn handle_input(
                         room_id,
                     },
             } => {
-                let characters = rooms.get(*room_id).unwrap();
-                let characters_count =
-                    characters
-                        .0
-                        .iter()
-                        .fold(0, |acc, c| if c.is_some() { acc + 1 } else { acc });
-                if characters_count != 0 {
-                    *selected_character = (*selected_character + 1) % characters_count;
-                }
+                *selected_character = (*selected_character + 1) % (rooms.get(*room_id).unwrap().size);
             }
             _ => (),
         }
@@ -463,7 +447,7 @@ fn handle_input(
                     opened_menu: MenuState::None,
                 } => {
                     // Interact with the selected character
-                    let character_id_wrapper = rooms.get(*room_id).unwrap().0[*selected_character];
+                    let character_id_wrapper = rooms.get(*room_id).unwrap().vec[*selected_character];
                     if let Some(character_id) = character_id_wrapper {
                         let behavior = behavior_automaton.get(character_id).unwrap();
                         let name = name_query.get(character_id).unwrap();
@@ -501,7 +485,7 @@ fn handle_input(
             } => {
                 // Room entities are made visible
                 let room = rooms.get(*room_id).unwrap();
-                for entity in room.0.iter().filter_map(|x| *x) {
+                for entity in room.vec.iter().filter_map(|x| *x) {
                     if let Ok(mut vis) = visibility.get_mut(entity) {
                         *vis = Visibility::Hidden
                     }
@@ -536,7 +520,7 @@ fn handle_input(
         } => {
             // Room entities are made visible
             let room = rooms.get(*room_id).unwrap();
-            for entity in room.0.iter().filter_map(|x| *x) {
+            for entity in room.vec.iter().filter_map(|x| *x) {
                 if let Ok(mut vis) = visibility.get_mut(entity) {
                     *vis = Visibility::Visible
                 }
